@@ -5,6 +5,7 @@ export default {
     extend: {},
     colors: {
       'transparent': 'transparent',
+      'white': '#ffffff',
       'primary': '#f78222',
       'background': '#f6f6f6',
       'border': '#dddddd',
