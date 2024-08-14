@@ -1,0 +1,76 @@
+import image from '../../assets/images/starfield.png';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
+export default function Banner() {
+  return (
+    <>
+      <Swiper
+        spaceBetween={0}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        speed={500}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className='m-0 h-[200px] w-full'
+      >
+        <SwiperSlide>
+          <img src={image} alt='' className='h-full w-full object-cover' />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={image} alt='' className='h-full w-full object-cover' />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={image} alt='' className='h-full w-full object-cover' />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={image} alt='' className='h-full w-full object-cover' />
+        </SwiperSlide>
+      </Swiper>
+      <style>{`
+        .swiper-pagination-bullet {
+          background: gray;
+          width: 8px;
+          height: 8px;
+          border-radius: 1rem;
+          opacity: 1;
+          transition-duration: 500ms;
+          transition-timing-function: ease-out;
+        }
+        .swiper-pagination-bullet-active {
+          background: white;
+          border-radius: 1rem;
+          width: 40px;
+          opacity: 1;
+          transition-duration: 500ms;
+          transition-timing-function: ease-out;
+        }
+        .swiper-button-prev,
+        .swiper-button-next {
+          color: white;
+          width: 20px; /* 버튼의 너비를 20px로 설정 */
+          height: 35px; /* 버튼의 높이를 20px로 설정 */
+        //   background-color: #11111150;
+        }
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+          font-size: 30px; /* 화살표 아이콘의 크기를 줄이기 위해 폰트 사이즈 설정 */
+        }`}</style>
+    </>
+  );
+}
