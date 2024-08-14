@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import BookmarkLine from '../assets/Icon/BookMark/Bookmark_Line.svg';
-import BookmarkFill from '../assets/Icon/BookMark/Bookmark_Fill.svg';
-import Location from '../assets/Location.svg';
-import Star from '../assets/star.svg';
+import BookmarkLine from '../../assets/Icon/BookMark/BookMark_Line.svg';
+import BookmarkFill from '../../assets/Icon/BookMark/Bookmark_Fill.svg';
+import Location from '../../assets/Location.svg';
+import Star from '../../assets/star.svg';
 
 const PlaceItem = () => {
   const [BookMark, setBookMark] = useState(false);

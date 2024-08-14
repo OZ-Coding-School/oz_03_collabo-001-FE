@@ -1,20 +1,36 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom';
 import Header from './components/layout/Header';
 import FooterGnb from './components/layout/FooterGnb';
-import Home from './pages/Home/Home';
+import Home from './page/Home/Home';
+import PlaceFilter from './page/PlaceFilter/PlaceFilter';
 
 function App() {
+  const location = useLocation();
+  const noHeaderPaths: string[] = ['/placefilter']; // Header를 숨길 경로들
+
   return (
     <>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />} />
-        </Routes>
-        <FooterGnb />
-      </Router>
+      {!noHeaderPaths.includes(location.pathname) && <Header />}
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/placefilter' element={<PlaceFilter />} />
+      </Routes>
+      <FooterGnb />
     </>
   );
 }
 
-export default App;
+const Root = () => {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+};
+
+export default Root;
