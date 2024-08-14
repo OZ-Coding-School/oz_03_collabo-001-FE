@@ -1,5 +1,5 @@
 function App() {
-  return <div className='bg-primary'>home</div>;
+  return <div className='h-screen bg-[#ffffff]'></div>;
 }
 
 export default App;
