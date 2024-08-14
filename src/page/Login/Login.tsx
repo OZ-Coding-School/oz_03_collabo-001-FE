@@ -6,10 +6,13 @@ import GoogleLogin from './Google/GoogleLogin';
 import GoogleRedirect from './Google/GoogleRedirect';
 import { useEffect } from 'react';
 import KakaoLogin from './Kakao/KakaoLogin';
+import NaverLogin from './Naver/NaverLogin';
+// import NaverRedirect from './Naver/NaverRedirect';
 
 const Login = () => {
   useEffect(() => {
     GoogleRedirect();
+    // NaverRedirect();
   });
 
   return (
@@ -26,7 +29,7 @@ const Login = () => {
       <button onClick={KakaoLogin}>
         <img src={Kakao} alt='카카오 로그인' />
       </button>
-      <button>
+      <button onClick={NaverLogin}>
         <img src={Naver} alt='네이버 로그인' />
       </button>
       <button onClick={GoogleLogin} aria-label='구글 로그인'>
