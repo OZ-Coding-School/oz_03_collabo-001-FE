@@ -2,22 +2,13 @@ import BgImage from '../../assets/images/starfield.png';
 
 const BDStory = () => {
   return (
-    <div
-      className='flex h-[180px] w-[180px] flex-col-reverse overflow-clip rounded-lg border-2 border-border'
-      style={{
-        backgroundImage: `url(${BgImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* <img src={BgImage} alt='' className='h-full w-full object-cover' /> */}
-      <div className='flex flex-col justify-between truncate text-nowrap bg-[#00000050] p-2 text-[white]'>
+    <div className='h-[180px] w-[180px] overflow-clip rounded-lg border-2 border-border bg-[white]'>
+      <img src={BgImage} alt='' className='h-2/3 w-full object-cover' />
+      <div className='flex flex-col justify-between p-2'>
         <p className='truncate text-[0.9rem] font-bold'>
-          {'가보니 너무 좋아 추천해요!'}
+          {'찬바람 불 때 가기 좋은 카페'}
         </p>
-        <p className='truncate text-nowrap text-[0.8rem] text-tag'>
-          {'오늘 저희 아가들이랑 댕댕이랑 가보니 너무 좋았어요'}
-        </p>
+        <p className='text-[0.8rem] text-caption'>{'장소추천'}</p>
       </div>
     </div>
   );
