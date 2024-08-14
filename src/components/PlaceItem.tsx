@@ -12,7 +12,7 @@ const PlaceItem = () => {
 
       <div className='ml-[12px] grow p-[8px]'>
         <ul>
-          <li className='relative mb-[4px] text-[10px] font-semibold'>
+          <li className='relative mb-[4px] text-[14px] font-semibold'>
             <p>&#91;경기&#93; 스타필드 일산</p>
             <button
               type='button'
@@ -31,18 +31,18 @@ const PlaceItem = () => {
           </li>
           <li className='mb-[4px] flex'>
             <img src={Location} alt='' aria-hidden />
-            <span className='ml-[4px] text-[8px] font-medium text-caption'>
+            <span className='ml-[4px] text-[12px] font-medium text-caption'>
               경기 고양시 덕양구 고양대로 1955
             </span>
           </li>
           <li className='flex'>
             <img src={Star} alt='별점' aria-hidden />
-            <span aria-label='별점' className='ml-[4px] text-[8px]'>
+            <span aria-label='별점' className='ml-[4px] text-[12px]'>
               4.8
             </span>
             <span
               aria-label='후기 갯수'
-              className='ml-[4px] text-[8px] text-caption'
+              className='ml-[4px] text-[12px] text-caption'
             >
               &#40;3&#41;
             </span>
