@@ -15,7 +15,10 @@ export default {
       'main': '#000000',
       'caption': '#666666',
       'nav': '#b1b1b1',
-    }
+    },
+    borderRadius: {
+      '10px': '10px',
+    },
   },
   plugins: [],
 }
