@@ -1,29 +1,17 @@
-import { useState } from 'react';
-import { FaStar } from 'react-icons/fa';
-import review from '../../data/reviews';
+import DetailRating from './DetailRating';
+import placeview from '../../assets/Icon/Detail_Icon/placeview.svg';
 
-const ShopSimpleData = () => {
-  const [score, setScore] = useState([false, false, false, false, false]);
-
-  const ARRAY = [0, 1, 2, 3, 4];
-
-  const starScore = (index: number) => {
-    let star = [...score];
-    for (let i = 0; i < 5; i++) {
-      star[i] = i <= index ? true : false;
-    }
-    console.log(setScore(star));
-  };
-
+const ShopSimpleData: React.FC = () => {
   return (
-    <div className='h-[102px] bg-[white] py-[3.5px]'>
-      <div className='h-[88px] bg-[white] px-[12px] py-[10px]'>
-        {/* <div>{review.name}</div>
-        <div>{review.address}</div> */}
-        <div className='flex text-[#B9B7B7]'>
-          {ARRAY.map((el, index) => (
-            <FaStar key={index} size='14'></FaStar>
-          ))}
+    <div className='flex h-[102px] items-center bg-[white] py-[3.5px]'>
+      <div className='flex h-[88px] w-[400px] items-center'>
+        <img className='ml-[12px] h-[40px] w-[40px]' src={placeview} />
+        <div className='ml-[12px] h-[88px] w-[324px] flex-col items-center space-y-[5px] bg-[white] py-[10px] pr-[12px]'>
+          <div className='text-[1rem] font-bold'>마포오션플레이스</div>
+          <div className='text-[0.75rem]'>
+            경기도 고양시 일산동구 정발산동 145-4번지
+          </div>
+          <DetailRating initialRating={4} />
         </div>
       </div>
     </div>
