@@ -6,7 +6,7 @@ import story from '../../assets/Icon/Nav_Middle/Story.svg';
 
 const MiddleNav = () => {
   return (
-    <div className='bg-[#ffffff]'>
+    <div className='card'>
       <div className='flex h-[60px] w-[400px] items-center justify-between bg-[#ffffff] py-[10px]'>
         <div className='flex w-[100px] flex-col items-center border-r-[0.5px] border-border'>
           <img src={baby} alt='육아정보 아이콘' />
