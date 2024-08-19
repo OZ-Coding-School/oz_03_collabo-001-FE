@@ -1,26 +1,35 @@
 import { useState } from 'react';
 
-const RegionTab = () => {
-  const [isDown, setIsDown] = useState<boolean>(false);
-  const handleRegionRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsDown(e.target.checked);
+interface TabProps {
+  tabs: string[];
+}
+
+const RegionTab: React.FC<TabProps> = ({ tabs }) => {
+  const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
+
+  const handleTabRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedTab(e.target.value);
   };
 
   return (
-    // 가져온 지역정보 배열을 현재 컴포넌트 안에서 map으로 돌릴 계획
-    <label>
-      <input
-        type='radio'
-        onChange={handleRegionRadio}
-        checked={isDown}
-        className=''
-      />
-      <div
-        className={`flex h-[4vh] w-[13vh] items-center justify-center rounded-full ${isDown ? 'bg-primary text-[white]' : 'border-2 border-border bg-[white] text-caption'}`}
-      >
-        {'전체'}
-      </div>
-    </label>
+    <div className='flex flex-wrap gap-[6px]'>
+      {tabs.map((tab) => (
+        <label key={tab}>
+          <input
+            type='radio'
+            value={tab}
+            onChange={handleTabRadio}
+            checked={selectedTab === tab}
+            className='hidden'
+          />
+          <div
+            className={`flex h-[20px] w-[65px] items-center justify-center rounded-full text-[10px] ${selectedTab === tab ? 'bg-primary text-[white]' : 'border-[1px] border-border bg-[white] text-caption'}`}
+          >
+            {tab}
+          </div>
+        </label>
+      ))}
+    </div>
   );
 };
 
