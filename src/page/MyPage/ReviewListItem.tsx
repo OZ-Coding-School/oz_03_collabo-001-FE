@@ -37,6 +37,10 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({ className }) => {
         아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께
         많아요
       </p>
+      {/* <div className='imgList flex flex-wrap gap-[12px] pb-[40px]'>
+        <div className='imgWrap h-[50px] w-[50px] rounded-[10px] border-2 border-border bg-background'></div>
+        <div className='imgWrap h-[50px] w-[50px] rounded-[10px] border-2 border-border bg-background'></div>
+      </div> */}
     </div>
   );
 };
