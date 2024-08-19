@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 import RecoPlaceItem from './RecoPlaceItem';
 
 export default function RecoPlace() {
@@ -21,17 +21,13 @@ export default function RecoPlace() {
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
         speed={500}
         loop={true}
         pagination={{
           clickable: true,
         }}
         navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Pagination, Navigation]}
         className='recoSwiper m-0 w-full'
       >
         <SwiperSlide>
