@@ -48,7 +48,11 @@ const PlaceTopNav: React.FC = () => {
         ))}
         <span
           ref={indicatorRef}
-          className='absolute bottom-0 h-[5px] rounded-t-lg bg-primary text-primary transition-all duration-300'
+          className='absolute bottom-0 h-[5px] bg-primary text-primary transition-all duration-300'
+          style={{
+            borderTopLeftRadius: '0.5rem',
+            borderTopRightRadius: '0.5rem',
+          }}
         />
       </div>
       {/* 여기에 선택된 메뉴를 표시하는 부분을 추가 */}
