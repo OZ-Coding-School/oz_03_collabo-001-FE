@@ -12,7 +12,7 @@ import PlaceFilter from './page/PlaceFilter/PlaceFilter';
 
 function App() {
   const location = useLocation();
-  const noHeaderPaths: string[] = ['/placefilter']; // Header를 숨길 경로들
+  const noHeaderPaths: string[] = ['/placefilter', '/mypage']; // Header를 숨길 경로들
 
   return (
     <>
