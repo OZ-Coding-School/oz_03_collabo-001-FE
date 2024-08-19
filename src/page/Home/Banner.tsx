@@ -27,7 +27,7 @@ export default function Banner() {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className='m-0 h-[200px] w-full'
+        className='bannerSwiper m-0 h-[200px] w-full'
       >
         <SwiperSlide>
           <img src={image} alt='' className='h-full w-full object-cover' />
@@ -43,7 +43,7 @@ export default function Banner() {
         </SwiperSlide>
       </Swiper>
       <style>{`
-        .swiper-pagination-bullet {
+        .bannerSwiper .swiper-pagination-bullet {
           background: gray;
           width: 8px;
           height: 8px;
@@ -52,7 +52,7 @@ export default function Banner() {
           transition-duration: 500ms;
           transition-timing-function: ease-out;
         }
-        .swiper-pagination-bullet-active {
+        .bannerSwiper .swiper-pagination-bullet-active {
           background: white;
           border-radius: 1rem;
           width: 40px;
@@ -60,15 +60,15 @@ export default function Banner() {
           transition-duration: 500ms;
           transition-timing-function: ease-out;
         }
-        .swiper-button-prev,
-        .swiper-button-next {
+        .bannerSwiper .swiper-button-prev,
+        .bannerSwiper .swiper-button-next {
           color: white;
           width: 20px; /* 버튼의 너비를 20px로 설정 */
           height: 35px; /* 버튼의 높이를 20px로 설정 */
         //   background-color: #11111150;
         }
-        .swiper-button-prev::after,
-        .swiper-button-next::after {
+        .bannerSwiper .swiper-button-prev::after,
+        .bannerSwiper .swiper-button-next::after {
           font-size: 30px; /* 화살표 아이콘의 크기를 줄이기 위해 폰트 사이즈 설정 */
         }`}</style>
     </>

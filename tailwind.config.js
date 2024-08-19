@@ -20,5 +20,24 @@ export default {
       '10px': '10px',
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      const components = {
+        '.card': {
+          backgroundColor: '#fff',
+        },
+        '.card:not(.last)': {
+          marginBottom: '15px',
+        },
+        '.card2': {
+          padding: '0 12px',
+        },
+        '.cardTitle': {
+          padding: '18px 0',
+        },
+      };
+
+      addComponents(components);
+    },
+  ]
 }
