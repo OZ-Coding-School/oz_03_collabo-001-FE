@@ -7,7 +7,7 @@ const Logout = () => {
   const handleLogout = () => {
     axios
       .post(
-        'http://localhost:8000/users/google/logout/',
+        'http://localhost:8000/users/logout/',
         {},
         { withCredentials: true }
       )
