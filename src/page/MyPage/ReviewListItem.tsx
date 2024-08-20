@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { GoStarFill } from 'react-icons/go';
 import useTruncatedText from '../../hooks/useTruncatedText';
 import DetailRating from '../Detail/DetailRating';
 

@@ -18,7 +18,12 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const location = useLocation();
 
-  const noHeaderPaths: string[] = ['/placefilter', '/mypage', '/login', '/auth/provider']; // Header를 숨길 경로들
+  const noHeaderPaths: string[] = [
+    '/placefilter',
+    '/mypage',
+    '/login',
+    '/auth/provider',
+  ]; // Header를 숨길 경로들
   const noFooterPaths: string[] = ['/login', '/auth/provider']; // Footer를 숨길 경로들
 
   return (

@@ -1,4 +1,3 @@
-import React from 'react';
 import baby from '../../assets/Icon/Nav_Middle/Baby.svg';
 import dog from '../../assets/Icon/Nav_Middle/Dog.svg';
 import bdplace from '../../assets/Icon/Nav_Middle/BdPlace.svg';
