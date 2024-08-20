@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
 import defaultProfile from '../../assets/DefaultProfile.svg';
 
-const UserInfo: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+interface UserInfoProps {
+  isLoggedIn: boolean;
+}
+
+const UserInfo: React.FC<UserInfoProps> = ({ isLoggedIn }) => {
   return (
-    <div className='bg-white flex justify-center'>
+    <div className='flex justify-center bg-white py-[20px]'>
       {isLoggedIn ? (
         //로그인상태
-        <div className='rounded-10px flex h-[119px] w-[360px] items-center border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
+        <div className='flex h-[119px] items-center rounded-[10px] border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
           <div className='mr-[18px] flex h-[78px] w-[79px] flex-col items-center justify-center'>
             <img
               className='mb-[5px] h-[66px] w-[66px]'
