@@ -31,7 +31,7 @@ const PlaceTopNav: React.FC = () => {
 
   return (
     <div>
-      <div className='relative flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
+      <div className='relative sticky top-0 z-10 flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
         {placeNavMenu.map((item, index) => (
           <button
             key={item.name}
