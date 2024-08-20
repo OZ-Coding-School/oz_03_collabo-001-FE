@@ -1,6 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import BKiconHome from '../../assets/Icon/Nav_Bottom/BK_Home.svg';
 import BKiconPlace from '../../assets/Icon/Nav_Bottom/BK_BDplace.svg';

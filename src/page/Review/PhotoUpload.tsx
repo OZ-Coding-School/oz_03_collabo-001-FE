@@ -76,20 +76,19 @@ const PhotoUpload: React.FC = () => {
           />
           <button
             onClick={() => handleDelete(index)}
-            className='rounded-full absolute right-2 top-2 flex h-[24px] w-[24px] items-center justify-center bg-[#e0e0e0] bg-opacity-50 text-xs font-semibold text-[#333]'
+            className='absolute right-2 top-2 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-[#e0e0e0] bg-opacity-50 text-xs font-semibold text-[#333]'
             title='삭제'
           >
             &times;
           </button>
         </>
       ) : (
-        <label
-          htmlFor='file-input'
+        <button
           className='flex h-[113px] w-[113px] cursor-pointer items-center justify-center text-[20px] text-[#afafaf]'
           onClick={() => setSelectedIndex(index)}
         >
           +
-        </label>
+        </button>
       )}
     </div>
   );

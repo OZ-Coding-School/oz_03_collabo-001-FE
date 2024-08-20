@@ -10,7 +10,7 @@ import handleNaverLogin from './Naver/NaverLogin';
 
 const Login = () => {
   return (
-    <div className='bg-white flex h-screen flex-col items-center justify-start gap-[18px]'>
+    <div className='flex h-screen flex-col items-center justify-start gap-[18px] bg-white'>
       <div className='mt-[18px] flex h-20 w-[100%] items-center px-3 text-left'>
         {'<'}
       </div>
