@@ -36,12 +36,13 @@ const PlaceTopNav: React.FC = () => {
           <button
             key={item.name}
             ref={(el) => (buttonRefs.current[index] = el)}
-            className={`relative flex h-[48px] w-[133.33px] items-center justify-center ${
-              placeTopNavBtn === index
-                ? 'font-bold !text-primary text-primary'
-                : 'text-gray-600'
-            }transition-colors duration-200`}
+            className='relative flex h-[48px] w-[133.33px] items-center justify-center'
             onClick={() => handleClick(index)}
+            style={{
+              fontWeight: placeTopNavBtn === index ? 'bold' : 'normal',
+              color: placeTopNavBtn === index ? '#f78222' : '#B1B1B1',
+              transition: 'color 0.2s ease-in-out',
+            }}
           >
             <span>{item.name}</span>
           </button>
