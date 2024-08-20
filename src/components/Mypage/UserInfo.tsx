@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom';
 import defaultProfile from '../../assets/DefaultProfile.svg';
+import Logout from '../../page/Login/Logout';
 
 interface UserInfoProps {
-  isLoggedIn: boolean;
+  isAuthenticated: boolean;
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ isLoggedIn }) => {
+const UserInfo: React.FC<UserInfoProps> = ({ isAuthenticated }) => {
   return (
     <div className='flex justify-center bg-white py-[20px]'>
-      {isLoggedIn ? (
+      {isAuthenticated ? (
         //로그인상태
         <div className='flex h-[119px] items-center rounded-[10px] border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
           <div className='mr-[18px] flex h-[78px] w-[79px] flex-col items-center justify-center'>
@@ -28,14 +30,17 @@ const UserInfo: React.FC<UserInfoProps> = ({ isLoggedIn }) => {
               </p>
             </div>
             <div className='mt-[5px] text-[12px] text-caption'>
-              12345@naver.com(계정정보)
+              <p>12345@naver.com(계정정보)</p>
+              <Logout />
             </div>
           </div>
         </div>
       ) : (
         //비로그인 상태
         <div className='rounded-10px flex h-[119px] w-[360px] items-center border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
-          <button className='text-[18px] font-bold'>로그인하기</button>
+          <Link to='/login'>
+            <button className='text-[18px] font-bold'>로그인하기</button>
+          </Link>
         </div>
       )}
     </div>

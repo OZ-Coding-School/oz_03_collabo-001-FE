@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import UserInfo from '../../components/Mypage/UserInfo';
 import MyBookmark from './MyBookmark';
 import RecentPlace from './RecentPlace';
@@ -6,14 +5,15 @@ import BackwardsHeader from '../../components/BackwardsHeader';
 import ReviewList from './ReviewList';
 import WritingList from './WritingList';
 import FeaturedBanner from './FeaturedBanner';
+import useAuthStore from '../../store/authStore';
 
 const MyPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { isAuthenticated } = useAuthStore();
   return (
     <div>
       <BackwardsHeader title='마이페이지' />
-      <UserInfo isLoggedIn={isLoggedIn} />
-      {isLoggedIn ? <UserDashboard /> : null}
+      <UserInfo isAuthenticated={isAuthenticated} />
+      {isAuthenticated ? <UserDashboard /> : null}
     </div>
   );
 };
