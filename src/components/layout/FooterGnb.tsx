@@ -47,7 +47,7 @@ const FooterLink: React.FC<LinkProps> = ({ link, BKimg, ORimg, text }) => {
 
 const FooterGnb = () => {
   return (
-    <footer className='fixed bottom-0 left-1/2 flex h-[46px] w-[400px] -translate-x-1/2 bg-white'>
+    <footer className='fixed bottom-0 left-1/2 z-50 flex h-[46px] w-[400px] -translate-x-1/2 bg-white'>
       <FooterLink link='/' BKimg={BKiconHome} ORimg={ORiconHome} text='홈' />
       <FooterLink
         link='/bdPlaceHome'
