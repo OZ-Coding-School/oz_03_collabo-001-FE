@@ -9,6 +9,7 @@ import FooterGnb from './components/layout/FooterGnb';
 import Home from './page/Home/Home';
 import MyPage from './page/MyPage/MyPage';
 import PlaceFilter from './page/PlaceFilter/PlaceFilter';
+import PlaceTopNav from './components/BDPlace/PlaceTopNav';
 
 function App() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/mypage' element={<MyPage />} />
         <Route path='/placefilter' element={<PlaceFilter />} />
+        <Route path='/placehome' element={<PlaceTopNav />} />
       </Routes>
       <FooterGnb />
     </>
