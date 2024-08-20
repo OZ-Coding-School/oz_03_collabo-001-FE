@@ -7,33 +7,36 @@ import Kakao from '../../assets/Icon/SocialLogin/Kakao.svg';
 import Naver from '../../assets/Icon/SocialLogin/Naver.svg';
 import Google from '../../assets/Icon/SocialLogin/Google.svg';
 import Main_Logo from '../../assets/Icon/Main/OR_Main_TextLogo.svg';
+import useAuthStore from '../../store/authStore';
 
 const AuthProvider = () => {
   const navigate = useNavigate();
+  const { login } = useAuthStore();
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-    const state = params.get('state');
+    const handleAuth = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      const state = params.get('state');
 
-    if (!code) {
-      navigate('/login', { replace: true });
-      return;
-    }
+      if (!code || !state) {
+        navigate('/login', { replace: true });
+        return;
+      }
 
-    axios
-      .post(
-        `http://localhost:8000/users/${state}/login/callback/`,
-        { code },
-        { withCredentials: true }
-      )
-      .then((response) => {
+      try {
+        const response = await axios.post(
+          `http://localhost:8000/users/${state}/login/callback/`,
+          { code },
+          { withCredentials: true }
+        );
+
         if (response.status === 200) {
           console.log(`${state} 로그인 성공`, response);
+          login();
           navigate('/');
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(`${state} 로그인 실패:`, error);
 
         toast.error(`${state} 로그인 실패`, {
@@ -47,8 +50,11 @@ const AuthProvider = () => {
           theme: 'light',
         });
         navigate('/login');
-      });
-  }, [navigate]);
+      }
+    };
+
+    handleAuth();
+  }, [navigate, login]);
 
   return (
     <div className='flex h-[calc(100vh-106px)] flex-col items-center justify-start gap-[18px] bg-white pt-[116px]'>
