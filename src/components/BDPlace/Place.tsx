@@ -1,7 +1,8 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import BgBookMarkLine from '../../assets/Icon/BookMark/Bg_BookMark_Line.svg';
 import BgBookMarkFill from '../../assets/Icon/BookMark/Bg_BookMark_Fill.svg';
 import BgImage from '../../assets/images/starfield.png';
-import { useState } from 'react';
 
 const Place = () => {
   const [isBookMarked, setIsBookMarked] = useState<boolean>(false);
@@ -12,7 +13,9 @@ const Place = () => {
 
   return (
     <div className='relative h-[120px] w-[120px] overflow-clip rounded-lg border-[1px] border-border bg-[white]'>
-      <img src={BgImage} alt='' className='h-3/5 w-full object-cover' />
+      <Link to='/detail/123'>
+        <img src={BgImage} alt='' className='h-3/5 w-full object-cover' />
+      </Link>
       <label className='absolute right-1 top-1'>
         <input type='checkbox' onClick={handleBoockMark} className='hidden' />
         <img
