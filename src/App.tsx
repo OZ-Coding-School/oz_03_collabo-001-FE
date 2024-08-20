@@ -35,7 +35,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/mypage' element={<MyPage />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/auth/provider' element={<AuthProvider />} />\
+        <Route path='/auth/provider' element={<AuthProvider />} />
         {/* <Route
           path='/placefilter'
           element={<PrivateRoute element={PlaceFilter} />}
