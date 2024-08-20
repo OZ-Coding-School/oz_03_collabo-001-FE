@@ -12,7 +12,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
     <>
       <Banner />
       <RecoPlace />
-      <div className='flex flex-col gap-[15px] pb-[46px]'>
+      <div className='flex flex-col gap-[15px]'>
         <div className='flex flex-col gap-[10px] bg-white p-[10px]'>
           <p>
             {current === 'BD'
@@ -54,6 +54,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
                 '경상',
                 '제주',
               ]}
+              current={current}
             />
           </div>
           <div className='grid grid-cols-3 grid-rows-2 gap-[8px]'>
@@ -77,7 +78,10 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             <button>〉</button>
           </div>
           <div>
-            <RegionTab tabs={['전체', '카페', '펜션', '음식점', '야외/공원']} />
+            <RegionTab
+              tabs={['전체', '카페', '펜션', '음식점', '야외/공원']}
+              current={current}
+            />
           </div>
           <div className='grid grid-cols-3 grid-rows-2 gap-[8px]'>
             <Place />
