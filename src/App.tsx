@@ -9,7 +9,7 @@ import FooterGnb from './components/layout/FooterGnb';
 import Home from './page/Home/Home';
 import PlaceFilter from './page/PlaceFilter/PlaceFilter';
 import Login from './page/Login/Login';
-import PrivateRoute from './components/PrivateRoute';
+// import PrivateRoute from './components/PrivateRoute';
 import AuthProvider from './page/Login/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,11 +29,11 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/auth/provider' element={<AuthProvider />} />\
-        <Route
+        {/* <Route
           path='/placefilter'
           element={<PrivateRoute element={PlaceFilter} />}
-        />
-        {/* <Route path='/placefilter' element={<PlaceFilter />} /> */}
+        /> */}
+        <Route path='/placefilter' element={<PlaceFilter />} />
       </Routes>
       {!noFooterPaths.includes(location.pathname) && <FooterGnb />}
     </>
