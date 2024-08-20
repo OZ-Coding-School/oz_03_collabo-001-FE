@@ -9,16 +9,16 @@ import FooterGnb from './components/layout/FooterGnb';
 import Home from './page/Home/Home';
 import PlaceFilter from './page/PlaceFilter/PlaceFilter';
 import Login from './page/Login/Login';
-import GoogleAuth from './page/Login/Google/GoogleAuth';
 import PrivateRoute from './components/PrivateRoute';
+import AuthProvider from './page/Login/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const location = useLocation();
 
-  const noHeaderPaths: string[] = ['/placefilter', '/login', '/google/auth']; // Header를 숨길 경로들
-  const noFooterPaths: string[] = ['/login', '/google/auth']; // Footer를 숨길 경로들
+  const noHeaderPaths: string[] = ['/placefilter', '/login', '/auth/provider']; // Header를 숨길 경로들
+  const noFooterPaths: string[] = ['/login', '/auth/provider']; // Footer를 숨길 경로들
 
   return (
     <>
@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/google/auth' element={<GoogleAuth />} />
+        <Route path='/auth/provider' element={<AuthProvider />} />\
         <Route
           path='/placefilter'
           element={<PrivateRoute element={PlaceFilter} />}
