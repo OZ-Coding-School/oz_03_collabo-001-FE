@@ -1,5 +1,4 @@
 const GoogleLogin = () => {
-  // 구글 로그인 화면으로 이동시키기
   window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
 		response_type=code
 		&scope=email
