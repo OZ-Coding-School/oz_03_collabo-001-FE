@@ -1,4 +1,5 @@
 import Place from '../../components/BDPlace/Place';
+import RecoPlace from '../../components/BDPlace/RecoPlace';
 import RegionTab from '../../components/BDPlace/RegionTab';
 import Banner from '../Home/Banner';
 
@@ -10,10 +11,8 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
   return (
     <>
       <Banner />
+      <RecoPlace />
       <div className='flex flex-col gap-[15px] pb-[46px]'>
-        <div className='bg-white p-[10px]'>
-          <p>추천장소</p>
-        </div>
         <div className='flex flex-col gap-[10px] bg-white p-[10px]'>
           <p>
             {current === 'BD'
