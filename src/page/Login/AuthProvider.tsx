@@ -16,8 +16,6 @@ const AuthProvider = () => {
     const code = params.get('code');
     const state = params.get('state');
 
-    console.log('code:', code);
-
     if (!code) {
       navigate('/login', { replace: true });
       return;
