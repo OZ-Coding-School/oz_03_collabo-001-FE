@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import PlaceHome from '../../page/PlaceHome/PlaceHome';
 
 const PlaceTopNav: React.FC = () => {
   const [placeTopNavBtn, setPlaceTopNavBtn] = useState(0);
@@ -6,9 +7,9 @@ const PlaceTopNav: React.FC = () => {
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
 
   const placeNavMenu = [
-    { name: '애개플레이스' },
-    { name: '펫존' },
-    { name: '키즈존' },
+    { name: '애개플레이스', component: <PlaceHome current={'BD'} /> },
+    { name: '펫존', component: <PlaceHome current={'pet'} /> },
+    { name: '키즈존', component: <PlaceHome current={'kid'} /> },
     // ex: 컴포넌트 연결시 이렇게 사용 { name: '애개플레이스', component: <MiddleNav /> },
   ];
 
@@ -51,7 +52,7 @@ const PlaceTopNav: React.FC = () => {
         />
       </div>
       {/* 여기에 선택된 메뉴를 표시하는 부분을 추가 */}
-      <div className='mt-4'>{placeNavMenu[placeTopNavBtn].component}</div>
+      <div>{placeNavMenu[placeTopNavBtn].component}</div>
     </div>
   );
 };

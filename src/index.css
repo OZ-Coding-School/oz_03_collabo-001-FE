@@ -15,6 +15,13 @@ body {
   padding: 0;
 }
 
+body:has(footer) {
+  padding-bottom: 46px;
+}
+body:has(.BackwardsHeader) {
+  padding-top: 46px;
+}
+
 html {
   font-size: 16px;
 }
