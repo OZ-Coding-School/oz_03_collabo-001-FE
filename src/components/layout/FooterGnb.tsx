@@ -31,7 +31,7 @@ const FooterLink: React.FC<LinkProps> = ({ link, BKimg, ORimg, text }) => {
         isActive ? '!font-semibold text-primary' : ''
       )}
     >
-      <div className='flex w-full flex-col gap-[2px] text-center'>
+      <div className='flex w-full flex-col items-center justify-center gap-[2px]'>
         <img
           src={isActive ? ORimg : BKimg}
           alt=''
