@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './page/Home/Home';
 import MyPage from './page/MyPage/MyPage';
 import PlaceFilter from './page/PlaceFilter/PlaceFilter';
+import PlaceTopNav from './components/BDPlace/PlaceTopNav';
 import Login from './page/Login/Login';
 import PrivateRoute from './components/PrivateRoute';
 import AuthProvider from './page/Login/AuthProvider';
