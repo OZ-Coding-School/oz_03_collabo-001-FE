@@ -3,7 +3,7 @@ import UserInfo from '../../components/Mypage/UserInfo';
 import MyBookmark from './MyBookmark';
 import RecentPlace from './RecentPlace';
 import BackwardsHeader from '../../components/BackwardsHeader';
-import ReviewList from './ReviewList';
+import MyReviewList from './MyReviewList';
 import WritingList from './WritingList';
 import FeaturedBanner from './FeaturedBanner';
 
@@ -26,7 +26,7 @@ const UserDashboard = () => {
       {/* 최근 본 장소 */}
       <RecentPlace />
       {/* 작성 후기 */}
-      <ReviewList />
+      <MyReviewList />
       {/* 내가 작성한 글 */}
       <WritingList />
       {/* 배너 */}
