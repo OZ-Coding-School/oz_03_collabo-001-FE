@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface TabProps {
   tabs: string[];
@@ -28,7 +29,10 @@ const RegionTab: React.FC<TabProps> = ({ tabs, current }) => {
             className='hidden'
           />
           <div
-            className={`flex h-[20px] w-[65px] items-center justify-center rounded-full text-[10px] ${selectedTab === tab ? 'bg-primary text-[white]' : 'border-[1px] border-border bg-[white] text-caption'}`}
+            className={twMerge(
+              'flex h-[20px] w-[65px] items-center justify-center rounded-full border-[1px] border-border bg-[white] text-[10px] text-caption',
+              selectedTab === tab && 'border-0 bg-primary text-[white]'
+            )}
           >
             {tab}
           </div>
