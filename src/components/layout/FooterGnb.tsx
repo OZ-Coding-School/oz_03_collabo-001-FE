@@ -1,16 +1,16 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
-import BKiconHome from '../../assets/Icon/Nav_Bottom/BK_Home.png';
-import BKiconPlace from '../../assets/Icon/Nav_Bottom/BK_BDplace.png';
-import BKiconMain from '../../assets/Icon/Nav_Bottom/BK_Main.png';
-import BKiconMag from '../../assets/Icon/Nav_Bottom/BK_Magazine.png';
-import BKiconMy from '../../assets/Icon/Nav_Bottom/BK_My.png';
-import ORiconHome from '../../assets/Icon/Nav_Bottom/OR_Home.png';
-import ORiconPlace from '../../assets/Icon/Nav_Bottom/OR_BDplace.png';
-import ORiconMain from '../../assets/Icon/Nav_Bottom/OR_Main.png';
-import ORiconMag from '../../assets/Icon/Nav_Bottom/OR_Magazine.png';
-import ORiconMy from '../../assets/Icon/Nav_Bottom/OR_My.png';
+import BKiconHome from '../../assets/Icon/Nav_Bottom/BK_Home.svg';
+import BKiconPlace from '../../assets/Icon/Nav_Bottom/BK_BDplace.svg';
+import BKiconMain from '../../assets/Icon/Nav_Bottom/BK_Main.svg';
+import BKiconMag from '../../assets/Icon/Nav_Bottom/BK_Magazine.svg';
+import BKiconMy from '../../assets/Icon/Nav_Bottom/BK_My.svg';
+import ORiconHome from '../../assets/Icon/Nav_Bottom/OR_Home.svg';
+import ORiconPlace from '../../assets/Icon/Nav_Bottom/OR_BDplace.svg';
+import ORiconMain from '../../assets/Icon/Nav_Bottom/OR_Main.svg';
+import ORiconMag from '../../assets/Icon/Nav_Bottom/OR_Magazine.svg';
+import ORiconMy from '../../assets/Icon/Nav_Bottom/OR_My.svg';
 
 interface LinkProps {
   link: string;
@@ -31,12 +31,12 @@ const FooterLink: React.FC<LinkProps> = ({ link, BKimg, ORimg, text }) => {
         isActive ? '!font-semibold text-primary' : ''
       )}
     >
-      <div className='w-full text-center'>
+      <div className='flex w-full flex-col gap-[2px] text-center'>
         <img
           src={isActive ? ORimg : BKimg}
           alt=''
           aria-hidden
-          className='mx-auto w-[18px] pt-[3px]'
+          className='h-[18px]'
         />
         <span className='text-[11px]'>{text}</span>
       </div>
@@ -70,7 +70,7 @@ const FooterGnb = () => {
         link='/mypage'
         BKimg={BKiconMy}
         ORimg={ORiconMy}
-        text='마이페이지'
+        text='마이'
       />
     </footer>
   );
