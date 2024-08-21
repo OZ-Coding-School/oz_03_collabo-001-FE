@@ -9,6 +9,7 @@ import FooterGnb from './components/layout/FooterGnb';
 import Home from './page/Home/Home';
 import MyPage from './page/MyPage/MyPage';
 import PlaceFilter from './page/PlaceFilter/PlaceFilter';
+import PlaceTopNav from './components/BDPlace/PlaceTopNav';
 import Login from './page/Login/Login';
 // import PrivateRoute from './components/PrivateRoute';
 import AuthProvider from './page/Login/AuthProvider';
@@ -41,6 +42,7 @@ function App() {
           element={<PrivateRoute element={PlaceFilter} />}
         /> */}
         <Route path='/placefilter' element={<PlaceFilter />} />
+        <Route path='/placehome' element={<PlaceTopNav />} />
       </Routes>
       {!noFooterPaths.includes(location.pathname) && <FooterGnb />}
     </>

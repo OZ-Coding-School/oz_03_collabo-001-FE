@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface TabProps {
   tabs: string[];
+  current: string;
 }
 
-const RegionTab: React.FC<TabProps> = ({ tabs }) => {
+const RegionTab: React.FC<TabProps> = ({ tabs, current }) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabs[0]);
 
   const handleTabRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTab(e.target.value);
   };
+
+  useEffect(() => {
+    setSelectedTab(tabs[0]);
+  }, [current, tabs]);
 
   return (
     <div className='flex flex-wrap gap-[6px]'>
