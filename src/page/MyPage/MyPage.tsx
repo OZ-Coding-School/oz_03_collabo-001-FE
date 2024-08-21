@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import UserInfo from '../../components/Mypage/UserInfo';
 import MyBookmark from './MyBookmark';
 import RecentPlace from './RecentPlace';
@@ -8,13 +7,12 @@ import WritingList from './WritingList';
 import FeaturedBanner from './FeaturedBanner';
 
 const MyPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
-    <div>
+    <>
       <BackwardsHeader title='마이페이지' />
-      <UserInfo isLoggedIn={isLoggedIn} />
-      {isLoggedIn ? <UserDashboard /> : null}
-    </div>
+      <UserInfo />
+      <UserDashboard />
+    </>
   );
 };
 
