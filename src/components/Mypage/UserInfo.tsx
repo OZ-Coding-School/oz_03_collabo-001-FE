@@ -37,7 +37,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ isAuthenticated }) => {
         </div>
       ) : (
         //비로그인 상태
-        <div className='rounded-10px flex h-[119px] w-[360px] items-center border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
+        <div className='flex h-[119px] w-[360px] items-center rounded-[10px] border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
           <Link to='/login'>
             <button className='text-[18px] font-bold'>로그인하기</button>
           </Link>
