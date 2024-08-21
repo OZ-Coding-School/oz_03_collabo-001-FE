@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/layout/Layout';
 import Info from './components/BDInfo/Info';
 import Magazine from './components/BDMag/Magazine';
-import PlaceTopNav from './components/BDPlace/PlaceTopNav';
 
 function App() {
   return (
