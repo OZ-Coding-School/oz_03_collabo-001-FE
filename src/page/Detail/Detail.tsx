@@ -3,6 +3,11 @@ import Banner from '../Home/Banner';
 import ShopSimpleData from './ShopSimpleData';
 import ShopDetailData from './ShopDetailData';
 import ShopInfoData from './ShopInfoData';
+import ReviewPictures from './ReviewPictures';
+import ReviewList from './ReviewList';
+import DetailTopNav from './DetailTopNav';
+import DetailContent from './DetailContent';
+import DetailGuide from './DetailGuide';
 
 const Detail = () => {
   return (
@@ -14,10 +19,16 @@ const Detail = () => {
         <ShopDetailData />
         <ShopInfoData />
       </div>
-      <div className='card'>상세내용</div>
       <div className='card'>
-        <div>사진 모아보기</div>
-        <div></div>
+        <DetailTopNav />
+        <DetailContent />
+      </div>
+      <div className='card card2'>
+        <ReviewPictures />
+        <ReviewList />
+      </div>
+      <div className='last card card2'>
+        <DetailGuide />
       </div>
     </>
   );
