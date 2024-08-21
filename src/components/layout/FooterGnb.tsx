@@ -1,16 +1,16 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
-import BKiconHome from '../../assets/Icon/Nav_Bottom/BK_Home.svg';
-import BKiconPlace from '../../assets/Icon/Nav_Bottom/BK_BDplace.svg';
-import BKiconMain from '../../assets/Icon/Nav_Bottom/BK_Main.svg';
-import BKiconMag from '../../assets/Icon/Nav_Bottom/BK_Magazine.svg';
-import BKiconMy from '../../assets/Icon/Nav_Bottom/BK_My.svg';
-import ORiconHome from '../../assets/Icon/Nav_Bottom/OR_Home.svg';
-import ORiconPlace from '../../assets/Icon/Nav_Bottom/OR_BDplace.svg';
-import ORiconMain from '../../assets/Icon/Nav_Bottom/OR_Main.svg';
-import ORiconMag from '../../assets/Icon/Nav_Bottom/OR_Magazine.svg';
-import ORiconMy from '../../assets/Icon/Nav_Bottom/OR_My.svg';
+import BKiconHome from '../../assets/Icon/Nav_Bottom/BK_Home.png';
+import BKiconPlace from '../../assets/Icon/Nav_Bottom/BK_BDplace.png';
+import BKiconMain from '../../assets/Icon/Nav_Bottom/BK_Main.png';
+import BKiconMag from '../../assets/Icon/Nav_Bottom/BK_Magazine.png';
+import BKiconMy from '../../assets/Icon/Nav_Bottom/BK_My.png';
+import ORiconHome from '../../assets/Icon/Nav_Bottom/OR_Home.png';
+import ORiconPlace from '../../assets/Icon/Nav_Bottom/OR_BDplace.png';
+import ORiconMain from '../../assets/Icon/Nav_Bottom/OR_Main.png';
+import ORiconMag from '../../assets/Icon/Nav_Bottom/OR_Magazine.png';
+import ORiconMy from '../../assets/Icon/Nav_Bottom/OR_My.png';
 
 interface LinkProps {
   link: string;

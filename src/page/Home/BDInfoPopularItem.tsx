@@ -13,10 +13,10 @@ const BDInfoPopularItem: React.FC<BDInfoPopularItemProps> = ({ className }) => {
 
   return (
     <div className={borderClass}>
-      <span className='rounded-10px h-[16px] w-[16px] bg-primary text-center text-[10px] leading-[16px] text-white'>
+      <span className='h-[16px] w-[16px] rounded-[10px] bg-primary text-center text-[10px] leading-[16px] text-white'>
         1
       </span>
-      <div className='imgWrap rounded-10px ml-[8px] h-[47px] w-[47px] bg-background'></div>
+      <div className='imgWrap ml-[8px] h-[47px] w-[47px] rounded-[10px] bg-background'></div>
       <div className='ml-[8px]'>
         <p className='text-[14px] font-semibold'>강아지털 이대로 괜찮을까요?</p>
         <p className='text-[12px]'>너무 고민하지마세요.</p>
