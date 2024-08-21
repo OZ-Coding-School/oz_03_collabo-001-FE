@@ -1,7 +1,7 @@
-import ReviewListItem from './ReviewListItem';
 import MoreTitle from '../../components/layout/MoreTitle';
+import MyReviewListItem from './MyReviewListItem';
 
-const ReviewList = () => {
+const MyReviewList = () => {
   const reviewItemCount = 3;
   const reviewItems = Array.from({ length: reviewItemCount });
 
@@ -13,7 +13,7 @@ const ReviewList = () => {
       <div className='card card2'>
         <MoreTitle title='작성 후기' />
         {reviewItems.map((_, index) => (
-          <ReviewListItem
+          <MyReviewListItem
             key={index}
             className={index === 0 ? 'first' : ''}
             reviewText={reviewText}
@@ -24,4 +24,4 @@ const ReviewList = () => {
   );
 };
 
-export default ReviewList;
+export default MyReviewList;
