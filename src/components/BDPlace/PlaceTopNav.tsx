@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import PlaceHome from '../../page/PlaceHome/PlaceHome';
+import { twMerge } from 'tailwind-merge';
 
 const PlaceTopNav: React.FC = () => {
   const [placeTopNavBtn, setPlaceTopNavBtn] = useState(0);
@@ -36,11 +37,12 @@ const PlaceTopNav: React.FC = () => {
           <button
             key={item.name}
             ref={(el) => (buttonRefs.current[index] = el)}
-            className={`relative flex h-[48px] w-[133.33px] items-center justify-center ${
+            className={twMerge(
+              'relative flex h-[48px] w-[133.33px] items-center justify-center transition-colors duration-200',
               placeTopNavBtn === index
-                ? 'font-bold !text-primary text-primary'
-                : 'text-gray-600'
-            }transition-colors duration-200`}
+                ? 'font-bold text-[#f78222]'
+                : 'font-normal text-[#B1B1B1]'
+            )}
             onClick={() => handleClick(index)}
           >
             <span>{item.name}</span>
