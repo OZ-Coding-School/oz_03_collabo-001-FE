@@ -16,9 +16,6 @@ export default {
       'caption': '#666666',
       'nav': '#b1b1b1',
     },
-    borderRadius: {
-      '10px': '10px',
-    },
   },
   plugins: [
     function ({ addComponents }) {

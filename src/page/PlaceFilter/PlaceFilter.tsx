@@ -1,4 +1,3 @@
-import React from 'react';
 import PlaceItem from '../../components/BDPlace/PlaceItem';
 
 const PlaceHomeFilter = () => {

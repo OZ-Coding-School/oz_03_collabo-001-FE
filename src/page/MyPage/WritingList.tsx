@@ -1,21 +1,23 @@
 import WritingListItem from './WritingListItem';
-import more from '../../assets/More.svg';
+import MoreTitle from '../../components/layout/MoreTitle';
 
 const WritingList = () => {
   const reviewItemCount = 2;
   const reviewItems = Array.from({ length: reviewItemCount });
 
+  const boardText =
+    '친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요 친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께많아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께많아요';
+
   return (
     <>
       <div className='last card card2'>
-        <div className='cardTitle flex items-center justify-between'>
-          <p className='font-semibold'>내가 작성한 글</p>
-          <button type='button' aria-label='내가 작성한 글 더보기'>
-            <img src={more} alt='더보기 아이콘' aria-hidden />
-          </button>
-        </div>
+        <MoreTitle title='내가 작성한 글' />
         {reviewItems.map((_, index) => (
-          <WritingListItem key={index} className={index === 0 ? 'first' : ''} />
+          <WritingListItem
+            key={index}
+            className={index === 0 ? 'first' : ''}
+            boardText={boardText}
+          />
         ))}
       </div>
     </>

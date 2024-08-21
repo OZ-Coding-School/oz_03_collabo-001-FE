@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import MoreTitle from '../../components/layout/MoreTitle';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -7,17 +8,15 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
-import RecoPlaceItem from './RecoPlaceItem';
+import BDInfoPopularItem from './BDInfoPopularItem';
 
-export default function RecoPlace() {
+export default function BDInfoPopular() {
+  const swiperSlides = Array(4).fill(null); // 4개의 SwiperSlide 생성
+  const items = Array(2).fill(null); // 2개의 BDInfoPopularItem 생성
+
   return (
     <div className='card card2'>
-      <div className='cardTitle flex items-center'>
-        <p className='font-semibold'>추천장소</p>
-        <span className='ml-[9px] text-[12px] text-caption'>
-          &#35;5세아이 &#35;중형견 &#35;실내
-        </span>
-      </div>
+      <MoreTitle title='애개육아정보 인기글' />
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -30,12 +29,20 @@ export default function RecoPlace() {
         modules={[Pagination, Navigation]}
         className='recoSwiper m-0 w-full'
       >
-        <SwiperSlide>
-          <RecoPlaceItem />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecoPlaceItem />
-        </SwiperSlide>
+        {/* <SwiperSlide>
+          <BDInfoPopularItem />
+          <BDInfoPopularItem />
+          <BDInfoPopularItem className='last' />
+        </SwiperSlide> */}
+
+        {swiperSlides.map((_, index) => (
+          <SwiperSlide key={index}>
+            {items.map((_, idx) => (
+              <BDInfoPopularItem key={idx} />
+            ))}
+            <BDInfoPopularItem className='last' />
+          </SwiperSlide>
+        ))}
       </Swiper>
 
       <style>{`

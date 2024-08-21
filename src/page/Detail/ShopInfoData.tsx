@@ -17,8 +17,8 @@ const ShopInfoData: React.FC = () => {
     { icon: withPet, name: '반려동물동반' },
   ];
   return (
-    <div className='bg-white h-[60px] py-[7px]'>
-      <div className='bg-white relative flex h-[46px] w-[400px] items-center justify-between text-center text-[14px] text-nav'>
+    <div className='h-[60px] bg-white py-[7px]'>
+      <div className='relative flex h-[46px] w-[400px] items-center justify-between bg-white text-center text-[14px] text-nav'>
         {PlaceInfoMenu.map((item, index) => (
           <div
             key={item.name}
