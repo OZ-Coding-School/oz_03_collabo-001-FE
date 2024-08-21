@@ -7,6 +7,7 @@ import EmptyLayout from './components/layout/EmptyLayout.tsx';
 import Home from './page/Home/Home';
 import MyPage from './page/MyPage/MyPage';
 import PlaceFilter from './page/PlaceFilter/PlaceFilter';
+import PlaceTopNav from './components/BDPlace/PlaceTopNav';
 import Login from './page/Login/Login';
 import Detail from './page/Detail/Detail.tsx';
 // import PrivateRoute from './components/PrivateRoute';
@@ -23,6 +24,7 @@ function App() {
         {/* 1. 메인 레이아웃 (헤더+푸터) */}
         <Route element={<MainLayout />}>
           <Route path='/' element={<Home />} />
+          <Route path='/placehome' element={<PlaceTopNav />} />
         </Route>
 
         {/* 2. 빈 레이아웃 */}
