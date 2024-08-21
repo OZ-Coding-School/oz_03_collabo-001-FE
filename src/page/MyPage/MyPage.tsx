@@ -5,16 +5,14 @@ import BackwardsHeader from '../../components/BackwardsHeader';
 import ReviewList from './ReviewList';
 import WritingList from './WritingList';
 import FeaturedBanner from './FeaturedBanner';
-import useAuthStore from '../../store/authStore';
 
 const MyPage = () => {
-  const { isAuthenticated } = useAuthStore();
   return (
-    <div>
+    <>
       <BackwardsHeader title='마이페이지' />
-      <UserInfo isAuthenticated={isAuthenticated} />
-      {isAuthenticated ? <UserDashboard /> : null}
-    </div>
+      <UserInfo />
+      <UserDashboard />
+    </>
   );
 };
 
