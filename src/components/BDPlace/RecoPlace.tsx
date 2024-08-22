@@ -22,7 +22,7 @@ export default function RecoPlace() {
         spaceBetween={0}
         centeredSlides={true}
         speed={500}
-        loop={true}
+        loop={false}
         pagination={{
           clickable: true,
         }}
@@ -30,6 +30,12 @@ export default function RecoPlace() {
         modules={[Pagination, Navigation]}
         className='recoSwiper m-0 w-full'
       >
+        <SwiperSlide>
+          <RecoPlaceItem />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecoPlaceItem />
+        </SwiperSlide>
         <SwiperSlide>
           <RecoPlaceItem />
         </SwiperSlide>
