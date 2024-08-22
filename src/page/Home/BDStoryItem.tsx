@@ -3,7 +3,7 @@ import BgImage from '../../assets/images/starfield.png';
 const BDStoryItem = () => {
   return (
     <div
-      className='mb-[8px] flex h-[180px] w-[180px] flex-col-reverse overflow-clip rounded-[5PX] border border-border'
+      className='mb-[8px] flex h-[180px] w-[48%] max-w-[180px] flex-col-reverse overflow-clip rounded-[5PX] border border-border'
       style={{
         backgroundImage: `url(${BgImage})`,
         backgroundSize: 'cover',

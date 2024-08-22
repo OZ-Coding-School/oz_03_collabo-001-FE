@@ -21,7 +21,7 @@ export default function BDInfoPopular() {
         spaceBetween={0}
         centeredSlides={true}
         speed={500}
-        loop={true}
+        loop={false}
         pagination={{
           clickable: true,
         }}
