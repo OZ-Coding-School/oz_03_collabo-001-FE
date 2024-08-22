@@ -7,13 +7,6 @@ interface RatingProps {
 
 const DetailRating: React.FC<RatingProps> = ({ initialRating }) => {
   const [score, setScore] = useState<number>(initialRating);
-  // const [score, setScore] = useState<boolean[]>([
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  // ]);
 
   const ARRAY = [0, 1, 2, 3, 4];
 
