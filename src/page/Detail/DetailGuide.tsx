@@ -1,7 +1,7 @@
 const DetailGuide = () => {
   return (
-    <div>
-      <div className='cardTitle flex items-center justify-between'>
+    <div className='col'>
+      <div className='colTitle flex items-center justify-between'>
         <p className='font-semibold'>이용안내</p>
       </div>
 

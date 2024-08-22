@@ -10,7 +10,7 @@ const MyReviewList = () => {
 
   return (
     <>
-      <div className='card card2'>
+      <div className='col'>
         <MoreTitle title='작성 후기' />
         {reviewItems.map((_, index) => (
           <MyReviewListItem

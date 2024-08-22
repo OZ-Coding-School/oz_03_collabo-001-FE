@@ -11,8 +11,8 @@ const ReviewList = () => {
   const reviewItems = Array.from({ length: reviewItemCount });
 
   return (
-    <div>
-      <div className='cardTitle flex items-center justify-between'>
+    <div className='col'>
+      <div className='colTitle flex items-center justify-between'>
         <p className='font-semibold'>
           후기 <span className='text-primary'>{reviewCount}</span>개
         </p>
