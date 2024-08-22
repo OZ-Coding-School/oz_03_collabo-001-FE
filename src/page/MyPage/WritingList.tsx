@@ -10,7 +10,7 @@ const WritingList = () => {
 
   return (
     <>
-      <div className='last card card2'>
+      <div className='col'>
         <MoreTitle title='내가 작성한 글' />
         {reviewItems.map((_, index) => (
           <WritingListItem

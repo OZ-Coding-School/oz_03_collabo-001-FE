@@ -8,16 +8,20 @@ import BDStory from './BDStory';
 const Home = () => {
   return (
     <div>
-      <Banner />
-      <MiddleNav />
-      {/* 추천장소 */}
-      <RecoPlace />
-      {/* 애개육아정보 인기글 */}
-      <BDInfoPopular />
-      {/* 애개매거진 */}
-      <BDMag />
-      {/* 애개스토리 */}
-      <BDStory />
+      <div className='flex flex-col gap-[15px]'>
+        <div>
+          <Banner />
+          <MiddleNav />
+        </div>
+        {/* 추천장소 */}
+        <RecoPlace />
+        {/* 애개육아정보 인기글 */}
+        <BDInfoPopular />
+        {/* 애개매거진 */}
+        <BDMag />
+        {/* 애개스토리 */}
+        <BDStory />
+      </div>
     </div>
   );
 };

@@ -10,9 +10,11 @@ interface CurrentProps {
 const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
   return (
     <>
-      <Banner />
-      <RecoPlace />
       <div className='flex flex-col gap-[15px]'>
+        <div>
+          <Banner />
+          <RecoPlace />
+        </div>
         <div className='flex flex-col gap-[10px] bg-white p-[10px]'>
           <p>
             {current === 'BD'

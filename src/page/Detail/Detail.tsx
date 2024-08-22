@@ -11,26 +11,26 @@ import DetailGuide from './DetailGuide';
 
 const Detail = () => {
   return (
-    <>
-      <div className='card'>
+    <div className='flex flex-col gap-[15px]'>
+      <div>
         <BackwardsHeader />
         <Banner />
         <ShopSimpleData />
         <ShopDetailData />
         <ShopInfoData />
       </div>
-      <div className='card'>
+      <div>
         <DetailTopNav />
         <DetailContent />
       </div>
-      <div className='card card2'>
+      <div>
         <ReviewPictures />
         <ReviewList />
       </div>
-      <div className='last card card2'>
+      <div>
         <DetailGuide />
       </div>
-    </>
+    </div>
   );
 };
 

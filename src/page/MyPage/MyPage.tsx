@@ -19,14 +19,16 @@ const MyPage = () => {
 const UserDashboard = () => {
   return (
     <>
-      {/* 나만의 북마크 */}
-      <MyBookmark />
-      {/* 최근 본 장소 */}
-      <RecentPlace />
-      {/* 작성 후기 */}
-      <MyReviewList />
-      {/* 내가 작성한 글 */}
-      <WritingList />
+      <div className='flex flex-col gap-[15px]'>
+        {/* 나만의 북마크 */}
+        <MyBookmark />
+        {/* 최근 본 장소 */}
+        <RecentPlace />
+        {/* 작성 후기 */}
+        <MyReviewList />
+        {/* 내가 작성한 글 */}
+        <WritingList />
+      </div>
       {/* 배너 */}
       <FeaturedBanner />
     </>
