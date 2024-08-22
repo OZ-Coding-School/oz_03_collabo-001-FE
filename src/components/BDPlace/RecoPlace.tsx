@@ -11,8 +11,8 @@ import RecoPlaceItem from './RecoPlaceItem';
 
 export default function RecoPlace() {
   return (
-    <div className='card card2'>
-      <div className='cardTitle flex items-center'>
+    <div className='col'>
+      <div className='colTitle flex items-center'>
         <p className='font-semibold'>추천장소</p>
         <span className='ml-[9px] text-[12px] text-caption'>
           &#35;5세아이 &#35;중형견 &#35;실내

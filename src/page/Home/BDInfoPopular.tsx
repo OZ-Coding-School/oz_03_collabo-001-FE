@@ -15,7 +15,7 @@ export default function BDInfoPopular() {
   const items = Array(2).fill(null); // 2개의 BDInfoPopularItem 생성
 
   return (
-    <div className='card card2'>
+    <div className='col'>
       <MoreTitle title='애개육아정보 인기글' />
       <Swiper
         spaceBetween={0}

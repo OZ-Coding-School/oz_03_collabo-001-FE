@@ -20,16 +20,11 @@ export default {
   plugins: [
     function ({ addComponents }) {
       const components = {
-        '.card': {
+        '.col': {
           backgroundColor: '#fff',
-        },
-        '.card:not(.last)': {
-          marginBottom: '15px',
-        },
-        '.card2': {
           padding: '0 12px',
         },
-        '.cardTitle': {
+        '.colTitle': {
           padding: '18px 0',
         },
       };
