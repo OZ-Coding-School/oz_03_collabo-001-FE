@@ -1,7 +1,7 @@
-import Place from '../../components/BDPlace/Place';
-import RecoPlace from '../../components/BDPlace/RecoPlace';
-import RegionTab from '../../components/BDPlace/RegionTab';
-import Banner from '../Home/Banner';
+import Place from './Place';
+import RecoPlace from './RecoPlace';
+import RegionTab from './RegionTab';
+import Banner from '../../page/Home/Banner';
 
 interface CurrentProps {
   current: string;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import PlaceHomeContents from '../../page/placeHome/PlaceHomeContents';
+import PlaceHomeContents from './PlaceHomeContents';
 import { twMerge } from 'tailwind-merge';
 
 const PlaceTopNav: React.FC = () => {
