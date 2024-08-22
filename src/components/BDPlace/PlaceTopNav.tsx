@@ -50,11 +50,10 @@ const PlaceTopNav: React.FC = () => {
         ))}
         <span
           ref={indicatorRef}
-          className='absolute bottom-0 h-[5px] bg-primary text-primary transition-all duration-300'
-          style={{
-            borderTopLeftRadius: '0.5rem',
-            borderTopRightRadius: '0.5rem',
-          }}
+          className={twMerge(
+            'absolute bottom-0 h-[5px] bg-primary text-primary transition-all duration-300',
+            'rounded-t-lg'
+          )}
         />
       </div>
       {/* 여기에 선택된 메뉴를 표시하는 부분을 추가 */}

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
-const MAX_IMAGES = 5; //최대 이미지 개수
+const MAX_IMAGES = 5;
 
 const PhotoUpload: React.FC = () => {
   const [images, setImages] = useState<(File | null)[]>(
@@ -11,6 +11,9 @@ const PhotoUpload: React.FC = () => {
     Array(MAX_IMAGES).fill('')
   );
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  // input 요소의 ref를 생성합니다.
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedIndex === null) {
@@ -76,7 +79,7 @@ const PhotoUpload: React.FC = () => {
           />
           <button
             onClick={() => handleDelete(index)}
-            className='absolute right-2 top-2 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-[#e0e0e0] bg-opacity-50 text-xs font-semibold text-[#333]'
+            className='rounded-full absolute right-2 top-2 flex h-[24px] w-[24px] items-center justify-center bg-[#e0e0e0] bg-opacity-50 text-xs font-semibold text-[#333]'
             title='삭제'
           >
             &times;
@@ -85,7 +88,11 @@ const PhotoUpload: React.FC = () => {
       ) : (
         <button
           className='flex h-[113px] w-[113px] cursor-pointer items-center justify-center text-[20px] text-[#afafaf]'
-          onClick={() => setSelectedIndex(index)}
+          onClick={() => {
+            setSelectedIndex(index);
+            // 파일 선택 창을 열어줍니다.
+            fileInputRef.current?.click();
+          }}
         >
           +
         </button>
@@ -103,6 +110,7 @@ const PhotoUpload: React.FC = () => {
           최대 5장까지 등록가능합니다.(*최소 1장 필수등록)
         </div>
 
+        {/* 파일 입력 필드에 ref 연결 */}
         <input
           id='file-input'
           type='file'
@@ -110,6 +118,7 @@ const PhotoUpload: React.FC = () => {
           accept='image/*'
           onChange={handleFileChange}
           style={{ display: 'none' }}
+          ref={fileInputRef}
         />
 
         {/* 사진 미리보기 */}
