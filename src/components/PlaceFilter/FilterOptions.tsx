@@ -96,7 +96,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   );
 };
 
-const FilterComponent: React.FC = () => {
+const FilterOptions: React.FC = () => {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [selectedPlace, setSelectedPlace] = useState('');
 
@@ -128,4 +128,4 @@ const FilterComponent: React.FC = () => {
   );
 };
 
-export default FilterComponent;
+export default FilterOptions;

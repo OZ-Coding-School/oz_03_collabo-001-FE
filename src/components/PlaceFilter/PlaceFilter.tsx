@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 // import PlaceItem from '../../components/BDPlace/PlaceItem';
 import { GoChevronLeft } from 'react-icons/go';
-import FilterComponent from './FilterComponent';
+import FilterOptions from './FilterOptions';
 import PlaceList from './PlaceList';
 
 interface PlaceHomeFilterProps {
@@ -28,7 +28,7 @@ const PlaceHomeFilter: React.FC<PlaceHomeFilterProps> = ({ closeModal }) => {
           <p className='py-[18px] font-semibold'>애개플레이스</p>
         </div>
         <div className='px-3 py-[15px]'>
-          <FilterComponent />
+          <FilterOptions />
         </div>
         <div>
           {/* <PlaceItem />
