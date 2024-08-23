@@ -18,7 +18,7 @@ const RegionTab: React.FC<TabProps> = ({ tabs, current }) => {
   }, [current, tabs]);
 
   return (
-    <div className='flex flex-wrap gap-[6px]'>
+    <div className='flex flex-wrap gap-[6px] py-2'>
       {tabs.map((tab) => (
         <label key={tab}>
           <input

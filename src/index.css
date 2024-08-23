@@ -4,6 +4,12 @@
 
 /*reset*/
 
+#root {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 :root,
 html,
 body {
@@ -35,6 +41,7 @@ html {
 
 body {
   color: #000000;
+  height: 100vh;
 }
 
 h1 {
