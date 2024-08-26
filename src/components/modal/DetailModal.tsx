@@ -19,7 +19,8 @@ interface DetailModalProps {
 }
 
 const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
-  const modalContentRef = useRef<HTMLDivElement>(null); // 스크롤할 컨테이너에 대한 ref
+  // 스크롤할 컨테이너에 대한 ref
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -73,9 +74,9 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <div className='detailModal fixed inset-0 z-50 flex items-start justify-center'>
+    <div className='detailModal h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
       <div
-        className='h-[100vh] w-[400px] overflow-y-auto overflow-x-hidden bg-background'
+        className='h-[100vh] w-[400px] overflow-y-auto overflow-x-hidden'
         ref={modalContentRef}
       >
         <div className='flex h-[48px] w-[400px] items-center bg-white px-2'>
