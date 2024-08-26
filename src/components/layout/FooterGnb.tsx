@@ -49,19 +49,19 @@ const FooterGnb = () => {
     <footer className='fixed bottom-0 left-1/2 z-50 flex h-[46px] w-[400px] -translate-x-1/2 bg-white'>
       <FooterLink link='/' BKimg={BKiconHome} ORimg={ORiconHome} text='홈' />
       <FooterLink
-        link='/bdPlaceHome'
+        link='/bdplacehome'
         BKimg={BKiconPlace}
         ORimg={ORiconPlace}
         text='애개플레이스'
       />
       <FooterLink
-        link='/bdInfo'
+        link='/bdinfo'
         BKimg={BKiconMain}
         ORimg={ORiconMain}
         text='애개육아정보'
       />
       <FooterLink
-        link='/bdMag'
+        link='/bdmag'
         BKimg={BKiconMag}
         ORimg={ORiconMag}
         text='애개매거진'
