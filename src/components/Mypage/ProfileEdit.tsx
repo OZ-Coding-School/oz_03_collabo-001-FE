@@ -85,22 +85,26 @@ const ProfilePhotoEdit: React.FC = () => {
   };
 
   return (
-    <div className='mr-[18px] flex h-[78px] w-[79px] flex-col items-center justify-center'>
-      <img
-        className='mb-[5px] h-[66px] w-[66px] rounded-full object-cover'
-        src={userImg}
-        alt='프로필 기본이미지'
-      ></img>
-      <input
-        type='file'
-        style={{ display: 'none' }}
-        accept='image/jpg,impge/png,image/jpeg'
-        name='profile_img'
-        onChange={onChange}
-        ref={fileInput}
-      />
+    <div className='flex flex-col items-center justify-center'>
+      <div className='mr-[18px] flex h-[66px] w-[79px] flex-col items-center justify-center'>
+        <div className='relative h-[66px] w-[66px]'>
+          <img
+            className='absolute inset-0 h-full w-full rounded-full object-cover'
+            src={userImg}
+            alt='프로필 이미지'
+          />
+          <input
+            type='file'
+            className='absolute inset-0 cursor-pointer opacity-0'
+            accept='image/jpg,image/png,image/jpeg'
+            name='profile_img'
+            onChange={onChange}
+            ref={fileInput}
+          />
+        </div>
+      </div>
       <button
-        className='text-[10px] text-caption underline'
+        className='mr-[18px] mt-[10px] w-[79px] text-[10px] text-caption underline'
         onClick={handleProfileChange}
       >
         프로필변경
