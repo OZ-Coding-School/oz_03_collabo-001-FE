@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useRef, useEffect } from 'react';
 import Filter from '../../assets/Icon/Detail_Icon/Filter.svg';
+import { twMerge } from 'tailwind-merge';
 
 type Option = {
   value: string;
@@ -78,18 +79,23 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       </div>
       {isOpen && (
         <div className='absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-caption bg-white text-sm font-medium text-[#333333] shadow-lg'>
-          {options.map((option) => (
-            <div
-              key={option.value}
-              className={`hover:bg-gray-100 cursor-pointer px-3 py-2 text-sm ${option.value === value ? 'bg-indigo-100' : ''}`}
-              onClick={() => {
-                onChange(option.value);
-                setIsOpen(false);
-              }}
-            >
-              {option.label}
-            </div>
-          ))}
+          {options
+            .filter((option) => option.value !== '')
+            .map((option) => (
+              <div
+                key={option.value}
+                className={twMerge(
+                  'cursor-pointer px-3 py-2 text-sm',
+                  option.value === value && 'bg-indigo-100'
+                )}
+                onClick={() => {
+                  onChange(option.value);
+                  setIsOpen(false);
+                }}
+              >
+                {option.label}
+              </div>
+            ))}
         </div>
       )}
     </div>
@@ -102,16 +108,16 @@ const FilterOptions: React.FC = () => {
 
   const handleRegionSelect = (region: string) => {
     setSelectedRegion(region);
-    console.log('Selected region:', region);
+    console.log('지역:', region);
   };
 
   const handlePlaceSelect = (place: string) => {
     setSelectedPlace(place);
-    console.log('Selected place:', place);
+    console.log('장소:', place);
   };
 
   return (
-    <div className='flex gap-[9px]'>
+    <div className='flex gap-[10px]'>
       <CustomSelect
         options={REGION_OPTIONS}
         id='region'
