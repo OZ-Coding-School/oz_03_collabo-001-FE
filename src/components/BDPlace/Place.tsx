@@ -21,7 +21,7 @@ const Place = () => {
         <img
           src={isBookMarked ? BgBookMarkFill : BgBookMarkLine}
           alt={isBookMarked ? BgBookMarkFill : BgBookMarkLine}
-          className='h-[3vh]'
+          className='h-5'
         />
       </label>
       <div className='flex h-2/5 flex-col justify-between p-1.5'>
