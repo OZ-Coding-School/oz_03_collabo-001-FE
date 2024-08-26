@@ -1,5 +1,5 @@
+// import { Link } from 'react-router-dom';
 import Logout from '../../page/Login/Logout';
-import { Link } from 'react-router-dom';
 import ProfilePhotoEdit from './ProfileEdit';
 import UserNameEditor from './NicknameEdit';
 
@@ -12,7 +12,7 @@ const UserInfo: React.FC = () => {
           <UserNameEditor />
           <div className='mt-[5px] text-[12px] text-caption'>
             <p>12345@naver.com(계정정보)</p>
-            {/* <Logout /> */}
+            <Logout />
           </div>
         </div>
       </div>

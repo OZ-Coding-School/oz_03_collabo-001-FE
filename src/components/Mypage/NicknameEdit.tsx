@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 // import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
