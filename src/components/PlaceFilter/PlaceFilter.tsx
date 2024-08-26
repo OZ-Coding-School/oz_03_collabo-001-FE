@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import FilterOptions from './FilterOptions';
 import PlaceList from './PlaceList';
+import FilterDistance from './FilterDistance';
 
 interface PlaceHomeFilterProps {
   closeModal: () => void;
@@ -27,8 +28,9 @@ const PlaceHomeFilter: React.FC<PlaceHomeFilterProps> = ({ closeModal }) => {
           </button>
           <p className='py-[18px] font-semibold'>애개플레이스</p>
         </div>
-        <div className='px-3 py-[15px]'>
+        <div className='flex items-center gap-[10px] px-3 py-[15px]'>
           <FilterOptions />
+          <FilterDistance />
         </div>
         <div>
           {/* <PlaceItem />
