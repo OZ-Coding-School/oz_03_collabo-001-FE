@@ -18,9 +18,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='/bdPlaceHome' element={<PlaceHome />} />
-          <Route path='/bdInfo' element={<Info />} />
-          <Route path='/bdMag' element={<Magazine />} />
+          <Route path='/bdplacehome' element={<PlaceHome />} />
+          <Route path='/bdinfo' element={<Info />} />
+          <Route path='/bdmag' element={<Magazine />} />
           <Route path='/mypage' element={<PrivateRoute element={MyPage} />} />
           <Route path='/login' element={<Login />} />
           <Route path='/auth/provider' element={<AuthProvider />} />
