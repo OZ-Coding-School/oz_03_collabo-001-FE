@@ -16,6 +16,9 @@ export default {
       'caption': '#666666',
       'nav': '#b1b1b1',
     },
+    backgroundImage: {
+      'checkBox': "url('/src/assets/Icon/Detail_Icon/Check.svg')",
+    },
   },
   plugins: [
     function ({ addComponents }) {
