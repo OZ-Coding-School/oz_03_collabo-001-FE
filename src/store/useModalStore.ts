@@ -4,6 +4,7 @@ interface ModalState {
   modals: { [key: string]: boolean }; // 각 모달의 상태를 키-값 쌍으로 관리
   openModal: (modalName: string) => void;
   closeModal: (modalName: string) => void;
+  openSubModal: (subModalName: string) => void;
 }
 
 const useModalStore = create<ModalState>((set) => ({
@@ -17,6 +18,11 @@ const useModalStore = create<ModalState>((set) => ({
   closeModal: (modalName) =>
     set((state) => ({
       modals: { ...state.modals, [modalName]: false }, // 특정 모달을 닫기
+    })),
+
+  openSubModal: (subModalName) =>
+    set((state) => ({
+      modals: { ...state.modals, [subModalName]: true }, // 서브모달을 열기
     })),
 }));
 
