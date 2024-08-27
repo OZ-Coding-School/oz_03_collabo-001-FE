@@ -1,4 +1,5 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+// import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GoChevronLeft } from 'react-icons/go';
 
 const BackwardsHeader = ({ title }: { title?: string }) => {

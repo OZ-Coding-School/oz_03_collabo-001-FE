@@ -7,20 +7,17 @@ import handleGoogleLogin from './Google/GoogleLogin';
 import handleKakaoLogin from './Kakao/KakaoLogin';
 import handleNaverLogin from './Naver/NaverLogin';
 import { GoChevronLeft } from 'react-icons/go';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const navigate = useNavigate();
-
   return (
     <div className='flex h-screen flex-col items-center justify-start gap-[18px] bg-white'>
       <div className='mt-[18px] flex h-20 w-[100%] items-center px-3 text-left'>
-        <button
-          onClick={() => navigate(-1)}
-          className='mr-[8px] font-extrabold'
-        >
-          <GoChevronLeft className='text-[24px] opacity-[70%]' />
-        </button>
+        <Link to='/'>
+          <button className='mr-[8px] font-extrabold'>
+            <GoChevronLeft className='text-[24px] opacity-[70%]' />
+          </button>
+        </Link>
       </div>
       <div className='mb-[48px] mt-10'>
         <img src={Main_Logo} alt='메인 로고' className='h-[65px]' />
