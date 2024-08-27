@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import { twMerge } from 'tailwind-merge';
+import ReviewWriter from './ReviewWriter';
 
 const MAX_IMAGES = 5;
 
@@ -11,6 +13,8 @@ const PhotoUpload: React.FC = () => {
     Array(MAX_IMAGES).fill('')
   );
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const [checkedRate, setCheckedRate] = useState<number>(5);
 
   // input 요소의 ref를 생성합니다.
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -79,7 +83,7 @@ const PhotoUpload: React.FC = () => {
           />
           <button
             onClick={() => handleDelete(index)}
-            className='rounded-full absolute right-2 top-2 flex h-[24px] w-[24px] items-center justify-center bg-[#e0e0e0] bg-opacity-50 text-xs font-semibold text-[#333]'
+            className='absolute right-2 top-2 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-[#e0e0e0] bg-opacity-50 text-xs font-semibold text-[#333]'
             title='삭제'
           >
             &times;
@@ -101,7 +105,41 @@ const PhotoUpload: React.FC = () => {
   );
 
   return (
-    <div className='h-[416px] bg-white'>
+    <div className='bg-white'>
+      <ReviewWriter />
+      <div className='bg-white p-3'>
+        <p className='mb-[10px] text-sm font-semibold'>별점을 선택해주세요</p>
+        <div className='flex gap-[15px]'>
+          {[1, 2, 3, 4, 5].map((rate) => (
+            <label key={rate} className='flex'>
+              <input
+                type='radio'
+                name='rating'
+                value={rate}
+                onChange={() => setCheckedRate(rate)}
+                className='hidden'
+              />
+              <div
+                className={twMerge(
+                  'flex h-[36px] items-center rounded-md bg-border p-[8px] text-[#b8b7b7]',
+                  'hover:text-[#fddf02]',
+                  checkedRate === rate && 'text-[#fddf02]'
+                )}
+              >
+                {Array(rate).fill(<span className='text-sm'>★</span>)}
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+      <div className='flex flex-col gap-2 bg-white p-3'>
+        <p className='text-sm font-semibold'>후기를 남겨주세요</p>
+        <p className='text-xs text-caption'>최대 500자 까지 가능합니다.</p>
+        <textarea
+          className='h-[300px] w-full resize-none rounded-md border border-border p-2 text-xs'
+          placeholder='후기를 작성해주세요. (최소 10자 이상 작성하셔야 합니다)'
+        />
+      </div>
       <div className='h-[334px] space-y-[8px] px-[12px] py-[15px]'>
         <div className='h-[40px] content-end text-[14px] font-semibold'>
           사진을 등록해주세요.
@@ -128,7 +166,7 @@ const PhotoUpload: React.FC = () => {
         <div className='flex space-x-[19px]'>{[3, 4].map(renderPreview)}</div>
       </div>
 
-      <div className='mb-[10px] h-[72px] px-[12px] pb-[10px] pt-[20px]'>
+      <div className='h-[72px] px-[12px] pb-[10px] pt-[20px]'>
         <button
           onClick={handleUpload}
           className='h-[42px] w-[376px] rounded-[4px] bg-primary text-sm font-medium text-white'
