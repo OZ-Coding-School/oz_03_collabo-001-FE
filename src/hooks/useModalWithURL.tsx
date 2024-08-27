@@ -39,11 +39,9 @@ const useModalWithURL = (modalName: string) => {
       closeModal(modalName);
       params.delete('submodal');
       navigate({ search: params.toString() }, { replace: false });
-      console.log('서브모달 있음');
     } else if (!hasSubmodalParam) {
       closeModal(modalName);
       params.delete('modal');
-      console.log('서브모달 없음');
       navigate({ search: params.toString() }, { replace: false });
     }
   };
