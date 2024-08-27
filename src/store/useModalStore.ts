@@ -5,6 +5,7 @@ interface ModalState {
   openModal: (modalName: string) => void;
   closeModal: (modalName: string) => void;
   openSubModal: (subModalName: string) => void;
+  openThirdModal: (thirdModalName: string) => void;
 }
 
 const useModalStore = create<ModalState>((set) => ({
@@ -23,6 +24,11 @@ const useModalStore = create<ModalState>((set) => ({
   openSubModal: (subModalName) =>
     set((state) => ({
       modals: { ...state.modals, [subModalName]: true }, // 서브모달을 열기
+    })),
+
+  openThirdModal: (thirdModalName) =>
+    set((state) => ({
+      modals: { ...state.modals, [thirdModalName]: true }, // 서브모달의 서브모달 열기
     })),
 }));
 
