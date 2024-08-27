@@ -1,10 +1,9 @@
+// import { useEffect, useState } from 'react'; // useState 제거
+// import { useNavigate, useSearchParams } from 'react-router-dom';
 import RecoPlace from './RecoPlace';
 import RegionTab from './RegionTab';
 import Banner from '../../page/Home/Banner';
 import MoreTitle from '../layout/MoreTitle';
-import { useEffect, useState } from 'react'; // useState 제거
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import PlaceHomeFilter from '../PlaceFilter/PlaceFilter';
 import Place6 from './Place6';
 
 interface CurrentProps {
@@ -12,31 +11,6 @@ interface CurrentProps {
 }
 
 const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const modalParam = searchParams.get('modal');
-    if (modalParam) {
-      setIsModalOpen(true);
-    } else {
-      setIsModalOpen(false);
-    }
-  }, [searchParams]);
-
-  const openModal = () => {
-    const params = new URLSearchParams(searchParams);
-    params.set('modal', 'filter');
-    navigate({ search: params.toString() }, { replace: true });
-  };
-
-  const closeModal = () => {
-    const params = new URLSearchParams(searchParams);
-    params.delete('modal');
-    navigate({ search: params.toString() }, { replace: true });
-  };
-
   return (
     <>
       <div className='flex flex-col gap-[15px]'>
@@ -63,7 +37,6 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
                   ? '지역별 펫존'
                   : '지역별 키즈존'
             }
-            openModal={openModal}
           />
           <RegionTab
             tabs={[
@@ -90,7 +63,6 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
                   ? '장소별 펫존'
                   : '장소별 키즈존'
             }
-            openModal={openModal}
           />
           <RegionTab
             tabs={['전체', '카페', '펜션', '음식점', '야외/공원']}
@@ -99,7 +71,6 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
           <Place6 />
         </div>
       </div>
-      {isModalOpen && <PlaceHomeFilter closeModal={closeModal} />}
     </>
   );
 };

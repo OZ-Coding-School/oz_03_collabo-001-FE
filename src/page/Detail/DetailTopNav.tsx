@@ -1,10 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
-const DetailTopNav: React.FC = () => {
-  const [placeTopNavBtn, setPlaceTopNavBtn] = useState(0);
+interface DetailTopNavProps {
+  contentScrollTop: number;
+  reviewScrollTop: number;
+  guideScrollTop: number;
+  containerRef: React.RefObject<HTMLDivElement>; // containerRef 추가
+}
+
+const DetailTopNav: React.FC<DetailTopNavProps> = ({
+  contentScrollTop,
+  reviewScrollTop,
+  guideScrollTop,
+  containerRef,
+}) => {
+  const [placeTopNavBtn, setPlaceTopNavBtn] = useState<number>(0);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
+  const [scrollOnClick, setScrollOnClick] = useState<boolean>(false);
 
   const placeNavMenu = [
     { name: '상세내용' },
@@ -24,37 +37,58 @@ const DetailTopNav: React.FC = () => {
     }
   }, [placeTopNavBtn]);
 
+  useEffect(() => {
+    if (scrollOnClick && containerRef.current) {
+      const scrollPositions = [
+        contentScrollTop,
+        reviewScrollTop,
+        guideScrollTop,
+      ];
+      containerRef.current.scrollTo({
+        top: scrollPositions[placeTopNavBtn],
+        behavior: 'smooth',
+      });
+      setScrollOnClick(false); // Reset the flag after scrolling
+    }
+  }, [
+    placeTopNavBtn,
+    contentScrollTop,
+    reviewScrollTop,
+    guideScrollTop,
+    scrollOnClick,
+    containerRef,
+  ]);
+
   const handleClick = (index: number) => {
     setPlaceTopNavBtn(index);
+    setScrollOnClick(true); // Set flag to trigger scrolling
   };
 
   return (
-    <div>
-      <div className='relative flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
-        {placeNavMenu.map((item, index) => (
-          <button
-            key={item.name}
-            ref={(el) => (buttonRefs.current[index] = el)}
-            className={classNames(
-              'relative flex h-[48px] w-[133.33px] items-center justify-center transition-colors duration-200',
-              placeTopNavBtn === index
-                ? 'font-bold text-primary'
-                : 'text-gray-600'
-            )}
-            onClick={() => handleClick(index)}
-          >
-            <span>{item.name}</span>
-          </button>
-        ))}
-        <span
-          ref={indicatorRef}
-          className='absolute bottom-0 h-[5px] bg-primary text-primary transition-all duration-300'
-          style={{
-            borderTopLeftRadius: '0.5rem',
-            borderTopRightRadius: '0.5rem',
-          }}
-        />
-      </div>
+    <div className='sticky top-[0px] flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
+      {placeNavMenu.map((item, index) => (
+        <button
+          key={item.name}
+          ref={(el) => (buttonRefs.current[index] = el)}
+          className={classNames(
+            'relative flex h-[48px] w-[133.33px] items-center justify-center transition-colors duration-200',
+            placeTopNavBtn === index
+              ? 'font-bold text-primary'
+              : 'text-gray-600'
+          )}
+          onClick={() => handleClick(index)}
+        >
+          <span>{item.name}</span>
+        </button>
+      ))}
+      <span
+        ref={indicatorRef}
+        className='absolute bottom-0 h-[5px] bg-primary text-primary transition-all duration-300'
+        style={{
+          borderTopLeftRadius: '0.5rem',
+          borderTopRightRadius: '0.5rem',
+        }}
+      />
     </div>
   );
 };

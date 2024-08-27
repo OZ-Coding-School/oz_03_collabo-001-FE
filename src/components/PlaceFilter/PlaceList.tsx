@@ -37,21 +37,18 @@ const PlaceList: React.FC = () => {
           ))}
         </React.Fragment>
       ))} */}
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
-      <PlaceItem />
+      <PlaceItem placeId='1' />
+      <PlaceItem placeId='2' />
+      <PlaceItem placeId='3' />
+      <PlaceItem placeId='4' />
+      <PlaceItem placeId='5' />
+      <PlaceItem placeId='6' />
+      <PlaceItem placeId='7' />
+      <PlaceItem placeId='8' />
+      <PlaceItem placeId='9' />
+      <PlaceItem placeId='10' />
+      <PlaceItem placeId='11' />
+      <PlaceItem placeId='12' />
 
       {/* {isFetchingNextPage && <div>Loading more...</div>}
       <div ref={observerElem} /> */}
