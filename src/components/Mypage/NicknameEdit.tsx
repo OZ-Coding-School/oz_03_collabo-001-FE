@@ -1,31 +1,26 @@
-/* eslint-disable jsx-a11y/no-autofocus */
-// import axios from 'axios';
-import { useState, useEffect } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const UserNameEditor = () => {
+const NicknameEdit: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('');
   const [inputValue, setInputValue] = useState(name);
 
-  // 컴포넌트가 마운트될 때 서버에서 닉네임을 불러옴
-  //   useEffect(() => {
-  //     axios
-  //       .get('/api/username')
-  //       .then((response) => {
-  //         setName(response.data.name);
-  //         setInputValue(response.data.name);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching the nickname:', error);
-  //       });
-  //   }, []);
-
-  const handleEditClick = () => {
+  const handleEditClick = async () => {
     if (isEditing) {
-      // 현재 편집 중일 때 버튼을 누르면 저장
-      setName(inputValue);
-      sessionStorage.setItem('nickname', inputValue);
+      try {
+        // 현재 편집 중일 때 버튼을 누르면 저장
+        setName(inputValue);
+        sessionStorage.setItem('nickname', inputValue);
+
+        await axios.post('http://127.0.0.1:8000/users/mypage/update-name/', {
+          nickname: inputValue,
+        });
+      } catch (error) {
+        console.error('서버에 닉네임 저장 실패:', error);
+        // 실패 시 처리할 로직 (예: 에러 메시지 표시)
+      }
     }
     setIsEditing(!isEditing); // 편집 모드 토글
   };
@@ -34,14 +29,23 @@ const UserNameEditor = () => {
     setInputValue(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      setName(inputValue); // 엔터를 누르면 저장
-      sessionStorage.setItem('nickname', inputValue);
-      setIsEditing(false); // 편집 모드 종료
+      try {
+        setName(inputValue); // 엔터를 누르면 저장
+        sessionStorage.setItem('nickname', inputValue);
+        setIsEditing(false); // 편집 모드 종료
+
+        // 서버에 저장 요청
+        await axios.post('http://127.0.0.1:8000/users/mypage/update-name/', {
+          nickname: inputValue,
+        });
+      } catch (error) {
+        console.error('서버에 닉네임 저장 실패:', error);
+        // 실패 시 처리할 로직
+      }
     }
   };
-
   useEffect(() => {
     const savedName = sessionStorage.getItem('nickname');
     if (savedName) {
@@ -51,19 +55,6 @@ const UserNameEditor = () => {
       setName('작성자이름(별명)'); // 기본값
     }
   }, []);
-  //서버랑 같이사용시
-  //   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //     if (e.key === 'Enter') {
-  //       axios.post('/api/username', { name: inputValue })
-  //         .then(() => {
-  //           setName(inputValue);
-  //           setIsEditing(false); // 편집 모드 종료
-  //         })
-  //         .catch(error => {
-  //           console.error('Error updating the nickname:', error);
-  //         });
-  //     }
-  //   };
 
   return (
     <div className='flex justify-center'>
@@ -96,4 +87,4 @@ const UserNameEditor = () => {
   );
 };
 
-export default UserNameEditor;
+export default NicknameEdit;

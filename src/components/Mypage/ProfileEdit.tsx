@@ -17,13 +17,13 @@ const ProfilePhotoEdit: React.FC = () => {
     }
   }, []);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
       setFile(selectedFile);
 
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async () => {
         if (reader.readyState === 2) {
           const imgDataUrl = reader.result as string;
 
@@ -32,12 +32,10 @@ const ProfilePhotoEdit: React.FC = () => {
             return;
           }
 
-          try {
-            setUserImg(imgDataUrl);
-            sessionStorage.setItem('profileImg', imgDataUrl);
-          } catch (error) {
-            console.error('세션 저장소에 저장 실패:', error);
-          }
+          setUserImg(imgDataUrl);
+          sessionStorage.setItem('profileImg', imgDataUrl);
+
+          await uploadProfilePhoto(selectedFile);
         }
       };
       reader.readAsDataURL(selectedFile);
@@ -50,37 +48,28 @@ const ProfilePhotoEdit: React.FC = () => {
     }
   };
 
-  const uploadProfilePhoto = async () => {
-    if (file) {
-      const formData = new FormData();
-      formData.append('profile_img', file);
+  const uploadProfilePhoto = async (selectedFile: File) => {
+    const formData = new FormData();
+    formData.append('profile_img', selectedFile);
 
-      try {
-        const response = await axios.post(
-          '/api/upload-profile-photo',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          console.log('업로드 성공');
-        } else {
-          console.log('업로드 실패');
+    try {
+      const response = await axios.post(
+        'http://127.0.0.1:8000/users/mypage/update-image/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         }
-      } catch (error) {
+      );
+
+      if (response.status === 200) {
+        console.log('업로드 성공');
+      } else {
         console.log('업로드 실패');
       }
-    }
-  };
-
-  const handleProfileChange = () => {
-    handleButtonClick();
-    if (file) {
-      uploadProfilePhoto();
+    } catch (error) {
+      console.log('업로드 실패');
     }
   };
 
@@ -105,7 +94,7 @@ const ProfilePhotoEdit: React.FC = () => {
       </div>
       <button
         className='mr-[18px] mt-[10px] w-[79px] text-[10px] text-caption underline'
-        onClick={handleProfileChange}
+        onClick={handleButtonClick}
       >
         프로필변경
       </button>

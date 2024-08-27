@@ -1,7 +1,7 @@
 // import { Link } from 'react-router-dom';
 import Logout from '../../page/Login/Logout';
 import ProfilePhotoEdit from './ProfileEdit';
-import UserNameEditor from './NicknameEdit';
+import NicknameEdit from './NicknameEdit';
 
 const UserInfo: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const UserInfo: React.FC = () => {
       <div className='flex h-[119px] items-center rounded-[10px] border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
         <ProfilePhotoEdit />
         <div>
-          <UserNameEditor />
+          <NicknameEdit />
           <div className='mt-[5px] text-[12px] text-caption'>
             <p>12345@naver.com(계정정보)</p>
             <Logout />
