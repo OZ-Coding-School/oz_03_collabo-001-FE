@@ -1,5 +1,6 @@
-import { useRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useRef, useEffect, useState } from 'react';
+import useModalWithURL from '../../hooks/useModalWithURL';
 import { GoChevronLeft } from 'react-icons/go';
 import { ImPlus } from 'react-icons/im';
 import Banner from '../../page/Home/Banner';
@@ -11,6 +12,7 @@ import DetailContent from '../../page/Detail/DetailContent';
 import ReviewPictures from '../../page/Detail/ReviewPictures';
 import ReviewList from '../../page/Detail/ReviewList';
 import DetailGuide from '../../page/Detail/DetailGuide';
+import ReviewUpload from '../../page/Review/ReviewUpload';
 
 const NAV_HEIGHT = 48; // 고정 NAV의 높이
 
@@ -19,6 +21,8 @@ interface DetailModalProps {
 }
 
 const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
+  const { isOpen, openThirdModal } = useModalWithURL(`ReviewUpload`);
+
   // 스크롤할 컨테이너에 대한 ref
   const modalContentRef = useRef<HTMLDivElement>(null);
 
@@ -118,9 +122,13 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
         aria-label='후기 작성하기'
         style={{ right: 'calc(50% - 170px)' }}
         className='fixed bottom-[25px] flex h-[38px] w-[38px] items-center justify-center rounded-full bg-primary'
+        onClick={() => {
+          openThirdModal();
+        }}
       >
         <ImPlus className='text-white' />
       </button>
+      {isOpen && <ReviewUpload closeModal={closeModal} />}
     </div>,
     modalRoot
   );
