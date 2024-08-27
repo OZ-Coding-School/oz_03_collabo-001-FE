@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useModalStore from '../store/useModalStore'; // 적절한 경로로 수정
 
 const useModalWithURL = (modalName: string) => {
-  const { modals, openModal, closeModal, openSubModal } = useModalStore();
+  const { modals, openModal, closeModal, openSubModal, openThirdModal } =
+    useModalStore();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -11,16 +12,26 @@ const useModalWithURL = (modalName: string) => {
     const params = new URLSearchParams(location.search);
     const openModalName = params.get('modal');
     const openSubModalName = params.get('submodal');
+    const openThirdModalName = params.get('thirdmodal');
 
     // 모달 상태 동기화
     if (openModalName === modalName) {
       openModal(modalName);
     } else if (openSubModalName === modalName) {
       openSubModal(modalName);
+    } else if (openThirdModalName === modalName) {
+      openThirdModal(modalName);
     } else {
       closeModal(modalName);
     }
-  }, [location.search, openModal, closeModal, openSubModal, modalName]);
+  }, [
+    location.search,
+    openModal,
+    closeModal,
+    openSubModal,
+    openThirdModal,
+    modalName,
+  ]);
 
   // 모달 열기 함수
   const handleOpenModal = () => {
@@ -35,7 +46,12 @@ const useModalWithURL = (modalName: string) => {
   const handleCloseModal = () => {
     const params = new URLSearchParams(location.search);
     const hasSubmodalParam = params.has('submodal');
-    if (hasSubmodalParam) {
+    const hasThirdmodalParam = params.has('thirdmodal');
+    if (hasThirdmodalParam) {
+      closeModal(modalName);
+      params.delete('thirdmodal');
+      navigate({ search: params.toString() }, { replace: false });
+    } else if (hasSubmodalParam) {
       closeModal(modalName);
       params.delete('submodal');
       navigate({ search: params.toString() }, { replace: false });
@@ -54,11 +70,20 @@ const useModalWithURL = (modalName: string) => {
     openSubModal(modalName); // 서브모달 열기
   };
 
+  // 서브 모달2 열기 함수
+  const handleOpenThirdModal = () => {
+    const params = new URLSearchParams(location.search);
+    params.set('thirdmodal', modalName);
+    navigate({ search: params.toString() }, { replace: true });
+    openThirdModal(modalName); // 서브모달2 열기
+  };
+
   return {
     isOpen: modals[modalName] || false,
     openModal: handleOpenModal,
     closeModal: handleCloseModal,
     openSubModal: handleOpenSubModal,
+    openThirdModal: handleOpenThirdModal,
   };
 };
 
