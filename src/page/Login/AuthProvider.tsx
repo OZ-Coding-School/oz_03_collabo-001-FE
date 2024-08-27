@@ -57,7 +57,7 @@ const AuthProvider = () => {
   }, [navigate, login]);
 
   return (
-    <div className='flex h-screen flex-col items-center justify-start gap-[18px] bg-white pt-[116px]'>
+    <div className='flex h-svh flex-col items-center justify-start gap-[18px] bg-white pt-[116px]'>
       <div className='mb-[48px] mt-10'>
         <img src={Main_Logo} alt='메인 로고' className='h-[65px]' />
         <p className='text-center text-base font-medium'>

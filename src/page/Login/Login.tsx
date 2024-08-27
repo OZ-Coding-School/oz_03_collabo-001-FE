@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
-    <div className='flex h-screen flex-col items-center justify-start gap-[18px] bg-white'>
+    <div className='flex h-svh flex-col items-center justify-start gap-[18px] bg-white'>
       <div className='mt-[18px] flex h-20 w-[100%] items-center px-3 text-left'>
         <Link to='/'>
           <button className='mr-[8px] font-extrabold'>
