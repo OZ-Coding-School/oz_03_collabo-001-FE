@@ -2,10 +2,15 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { twMerge } from 'tailwind-merge';
 import ReviewWriter from './ReviewWriter';
+import { GoChevronLeft } from 'react-icons/go';
 
 const MAX_IMAGES = 5;
 
-const PhotoUpload: React.FC = () => {
+interface PhotoUploadProps {
+  closeModal: () => void;
+}
+
+const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
   const [images, setImages] = useState<(File | null)[]>(
     Array(MAX_IMAGES).fill(null)
   );
@@ -105,7 +110,13 @@ const PhotoUpload: React.FC = () => {
   );
 
   return (
-    <div className='bg-white'>
+    <div className='reviewModal absolute z-50 h-[100vh] w-[400px] overflow-x-hidden overflow-y-scroll bg-white'>
+      <div className='flex h-[48px] w-[400px] items-center bg-white px-2'>
+        <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+          <GoChevronLeft className='text-[24px] opacity-[70%]' />
+        </button>
+        <p>후기 작성하기</p>
+      </div>
       <ReviewWriter />
       <div className='bg-white p-3'>
         <p className='mb-[10px] text-sm font-semibold'>별점을 선택해주세요</p>
