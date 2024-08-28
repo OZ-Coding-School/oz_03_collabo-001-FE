@@ -32,8 +32,9 @@ const AuthProvider = () => {
         );
 
         if (response.status === 200) {
-          console.log(`${state} 로그인 성공`, response);
+          console.log(`${state} 로그인 성공`);
           login();
+
           navigate('/');
         }
       } catch (error) {

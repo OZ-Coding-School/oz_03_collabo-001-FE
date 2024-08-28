@@ -3,15 +3,12 @@ import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import PlaceList from '../PlaceFilter/PlaceList';
 
-interface PlaceFilterModalProps {
+interface BookMarkModalProps {
   title: string;
   closeModal: () => void;
 }
 
-const PlaceFilterModal: React.FC<PlaceFilterModalProps> = ({
-  title,
-  closeModal,
-}) => {
+const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
 
@@ -34,19 +31,7 @@ const PlaceFilterModal: React.FC<PlaceFilterModalProps> = ({
         </div>
 
         <div>
-          {/* <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem /> */}
-          <PlaceList /> {/* 여기서 PlaceList 컴포넌트를 사용 */}
+          <PlaceList />
         </div>
       </div>
     </div>,
@@ -54,4 +39,4 @@ const PlaceFilterModal: React.FC<PlaceFilterModalProps> = ({
   );
 };
 
-export default PlaceFilterModal;
+export default BookMarkModal;

@@ -37,6 +37,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
                   ? '지역별 펫존'
                   : '지역별 키즈존'
             }
+            gps={true}
           />
           <RegionTab
             tabs={[

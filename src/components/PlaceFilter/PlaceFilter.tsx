@@ -33,19 +33,7 @@ const PlaceHomeFilter: React.FC<PlaceHomeFilterProps> = ({ closeModal }) => {
           <FilterDistance />
         </div>
         <div>
-          {/* <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem />
-          <PlaceItem /> */}
-          <PlaceList /> {/* 여기서 PlaceList 컴포넌트를 사용 */}
+          <PlaceList />
         </div>
       </div>
     </div>,

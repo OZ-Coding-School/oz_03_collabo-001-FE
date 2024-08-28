@@ -1,32 +1,27 @@
 import useModalWithURL from '../../hooks/useModalWithURL';
 import more from '../../assets/More.svg';
 import PlaceHomeFilter from '../PlaceFilter/PlaceFilter';
-import PlaceListModal from '../modal/PlaceListModal';
+import BookMarkModal from '../modal/BookmarkModal';
+import MyGPS from '../MyGPS';
 
 interface MoreTitleProps {
   title: string;
+  gps?: boolean;
 }
 
-const MoreTitle: React.FC<MoreTitleProps> = ({ title }) => {
+const MoreTitle: React.FC<MoreTitleProps> = ({ title, gps = false }) => {
   let modalName = '';
   let ModalComponent = null;
 
-  switch (title) {
-    case '지역별 애개플레이스':
-      modalName = 'bdplace';
-      ModalComponent = PlaceHomeFilter;
-      break;
-    case '나만의 북마크':
-      modalName = 'myBookmarkModal';
-      ModalComponent = PlaceListModal;
-      break;
-    case '최근 본 장소':
-      modalName = 'recentModal';
-      ModalComponent = PlaceListModal;
-      break;
-    default:
-      modalName = '';
-      ModalComponent = null;
+  if (title.includes('지역별') || title.includes('장소별')) {
+    modalName = 'bdplace';
+    ModalComponent = PlaceHomeFilter;
+  } else if (title === '나만의 북마크') {
+    modalName = 'myBookmarkModal';
+    ModalComponent = BookMarkModal;
+  } else if (title === '최근 본 장소') {
+    modalName = 'recentModal';
+    ModalComponent = BookMarkModal;
   }
 
   const { isOpen, openModal, closeModal } = useModalWithURL(modalName);
@@ -34,7 +29,10 @@ const MoreTitle: React.FC<MoreTitleProps> = ({ title }) => {
   return (
     <>
       <div className='colTitle flex items-center justify-between'>
-        <p className='font-semibold'>{title}</p>
+        <div className='flex items-center gap-2'>
+          <p className='font-semibold'>{title}</p>
+          {gps && <MyGPS />}
+        </div>
         <button
           type='button'
           aria-label={`${title} 더보기`}
