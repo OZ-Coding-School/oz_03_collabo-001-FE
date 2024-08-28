@@ -21,16 +21,18 @@ const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
   if (!modalRoot) return null; // modal-root가 존재하지 않으면 렌더링하지 않음
 
   return ReactDOM.createPortal(
-    <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
-      <div className='flex h-[100%] flex-col overflow-y-scroll bg-white'>
-        <div className='flex h-[72px] items-center px-2 py-3'>
-          <button onClick={closeModal} className='mr-[8px] font-extrabold'>
-            <GoChevronLeft className='text-[24px] opacity-[70%]' />
-          </button>
-          <p className='py-[18px] font-semibold'>{title}</p>
+    <div className='flex h-[100vh] items-start justify-center overflow-x-hidden overflow-y-scroll bg-white'>
+      <div className='w-full'>
+        <div className='col'>
+          <div className='colTitle flex h-[72px] items-center'>
+            <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+              <GoChevronLeft className='text-[24px] opacity-[70%]' />
+            </button>
+            <p className='py-[18px] font-semibold'>{title}</p>
+          </div>
         </div>
 
-        <div>
+        <div className=''>
           <PlaceList />
         </div>
       </div>

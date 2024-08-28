@@ -5,10 +5,10 @@ import NicknameEdit from './NicknameEdit';
 
 const UserInfo: React.FC = () => {
   return (
-    <div className='flex justify-center bg-white py-[20px]'>
-      <div className='flex h-[119px] items-center rounded-[10px] border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
+    <div className='col flex justify-center bg-white py-[20px]'>
+      <div className='flex h-[119px] w-full items-center rounded-[10px] border-[0.5px] border-[#b3b3b3] px-[15px] py-[20px]'>
         <ProfilePhotoEdit />
-        <div>
+        <div className='pl-[10px]'>
           <NicknameEdit />
           <div className='mt-[5px] text-[12px] text-caption'>
             <p>12345@naver.com(계정정보)</p>
