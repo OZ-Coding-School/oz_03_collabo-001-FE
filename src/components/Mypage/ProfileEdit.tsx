@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const ProfilePhotoEdit: React.FC = () => {
   const [userImg, setUserImg] = useState<string>(defaultProfile);
-  const [file, setFile] = useState<File | null>(null);
+  const [, setFile] = useState<File | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
 
   // 페이지가 로드될 때 sessionStorage에서 이미지 로드
