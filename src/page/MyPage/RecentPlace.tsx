@@ -1,6 +1,6 @@
 import MoreTitle from '../../components/layout/MoreTitle';
 import Place from '../../components/BDPlace/Place';
-import useRecentPlacesStore from '../../store/RecentPlaceStore';
+import useRecentPlacesStore from '../../store/recentPlaceStore';
 import useBookmarkStore from '../../store/bookmarkStore';
 
 const RecentPlace: React.FC = () => {
