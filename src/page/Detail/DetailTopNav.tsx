@@ -5,7 +5,8 @@ interface DetailTopNavProps {
   contentScrollTop: number;
   reviewScrollTop: number;
   guideScrollTop: number;
-  containerRef: React.RefObject<HTMLDivElement>; // containerRef 추가
+  containerRef: React.RefObject<HTMLDivElement>;
+  reviewCount: number;
 }
 
 const DetailTopNav: React.FC<DetailTopNavProps> = ({
@@ -13,6 +14,7 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
   reviewScrollTop,
   guideScrollTop,
   containerRef,
+  reviewCount,
 }) => {
   const [placeTopNavBtn, setPlaceTopNavBtn] = useState<number>(0);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -21,7 +23,7 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
 
   const placeNavMenu = [
     { name: '상세내용' },
-    { name: '후기' },
+    { name: `후기 (${reviewCount})` },
     { name: '이용안내' },
   ];
 
