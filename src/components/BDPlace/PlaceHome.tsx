@@ -8,9 +8,9 @@ const PlaceTopNav: React.FC = () => {
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
 
   const placeNavMenu = [
-    { name: '애개플레이스', component: <PlaceHomeContents current={'BD'} /> },
+    { name: '애개플레이스', component: <PlaceHomeContents current={'bd'} /> },
     { name: '펫존', component: <PlaceHomeContents current={'pet'} /> },
-    { name: '키즈존', component: <PlaceHomeContents current={'kid'} /> },
+    { name: '키즈존', component: <PlaceHomeContents current={'kids'} /> },
     // ex: 컴포넌트 연결시 이렇게 사용 { name: '애개플레이스', component: <MiddleNav /> },
   ];
 
