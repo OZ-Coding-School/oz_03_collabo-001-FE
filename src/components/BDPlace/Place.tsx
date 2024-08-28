@@ -1,49 +1,78 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react-hooks/exhaustive-deps */
 import useModalWithURL from '../../hooks/useModalWithURL';
-import BgBookMarkLine from '../../assets/Icon/BookMark/Bg_BookMark_Line.svg';
-import BgBookMarkFill from '../../assets/Icon/BookMark/Bg_BookMark_Fill.svg';
+import BookmarkButton from '../BookmarkButton';
 import BgImage from '../../assets/images/starfield.png';
 import DetailModal from '../modal/DetailModal';
+import useRecentPlacesStore from '../../store/RecentPlaceStore';
+import useBookmarkStore from '../../store/bookmarkStore';
+import { useEffect } from 'react';
 
 interface PlaceProps {
   placeId: string; // 각 Place에 고유한 ID를 부여하여 모달 상태를 구분
+  location: string;
+  name: string;
+  rating: number;
+  reviewCount: number;
+  isBookmarked: boolean; // 북마크 상태를 나타내는 필드
 }
 
-const Place: React.FC<PlaceProps> = ({ placeId }) => {
+const Place: React.FC<PlaceProps> = ({
+  placeId,
+  location,
+  name,
+  rating,
+  reviewCount,
+  isBookmarked = false, // 기본값 설정
+}) => {
   const { isOpen, openModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
   );
 
-  const [isBookMarked, setIsBookMarked] = useState<boolean>(false);
+  const { toggleBookmark, addPlaceInfo } = useBookmarkStore();
+  const { addRecentPlace } = useRecentPlacesStore();
 
-  const handleBoockMark = () => {
-    setIsBookMarked(!isBookMarked);
+  useEffect(() => {
+    addPlaceInfo({ placeId, location, name, rating, reviewCount });
+  }, [addPlaceInfo, placeId]);
+
+  const handlePlaceClick = () => {
+    addRecentPlace(placeId, { location, name, rating, reviewCount });
+    openModal();
+  };
+
+  const handleBookmarkToggle = () => {
+    // 장소의 모든 정보를 전달하여 북마크 상태를 업데이트
+    toggleBookmark({ placeId, location, name, rating, reviewCount });
   };
 
   return (
     <>
-      <div className='relative h-[120px] w-[120px] overflow-clip rounded-lg border-[1px] border-border bg-[white]'>
-        <button
-          onClick={() => {
-            openModal();
-          }}
-        >
-          <img src={BgImage} alt='' className='h-3/5 w-full object-cover' />
-        </button>
-        <label className='absolute right-1 top-1'>
-          <input type='checkbox' onClick={handleBoockMark} className='hidden' />
+      <div className='relative flex h-[120px] w-[120px] cursor-pointer flex-col overflow-clip rounded-lg border-[1px] border-border bg-[white]'>
+        <button onClick={handlePlaceClick}>
           <img
-            src={isBookMarked ? BgBookMarkFill : BgBookMarkLine}
-            alt={isBookMarked ? BgBookMarkFill : BgBookMarkLine}
-            className='h-5'
+            src={BgImage}
+            alt=''
+            className='h-[70px] w-[120px] object-cover'
           />
-        </label>
-        <div className='flex h-2/5 flex-col justify-between p-1.5'>
-          <p className='truncate text-nowrap text-[12px] font-semibold'>{`[${'경기'}] ${'스타필드 고양'}`}</p>
+        </button>
+        <div className='absolute right-1 top-1'>
+          <BookmarkButton
+            placeId={placeId}
+            isBookmarked={isBookmarked}
+            onToggle={handleBookmarkToggle}
+          />
+        </div>
+        <div
+          className='flex h-[50px] flex-col justify-between p-1.5'
+          onClick={handlePlaceClick}
+        >
+          <p className='truncate text-nowrap text-[12px] font-semibold'>{`[${location}] ${name}`}</p>
           <p className='flex gap-1 text-[10px]'>
             <span className='text-primary'>★</span>
-            <span>{'4.8'}</span>
-            <span className='text-caption'>{`(${'3'})`}</span>
+            <span>{rating.toFixed(1)}</span>
+            <span className='text-caption'>{reviewCount}</span>
           </p>
         </div>
       </div>
