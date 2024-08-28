@@ -8,7 +8,7 @@ export const Api = {
   userTokenVerify: async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8000/users/token/verify/',
+        'https://api.dogandbaby.co.kr/users/token/verify/',
         {},
         {
           withCredentials: true,
@@ -25,7 +25,7 @@ export const Api = {
   userTokenRefresh: async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8000/users/token/refresh/',
+        'https://api.dogandbaby.co.kr/users/token/refresh/',
         {},
         {
           withCredentials: true,
