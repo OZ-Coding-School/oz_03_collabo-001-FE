@@ -1,8 +1,10 @@
 import ReviewListItem from './ReviewListItem';
 
-const ReviewList = () => {
-  // 후기의 갯수
-  const reviewCount = 50;
+interface ReviewList {
+  reviewCount: number;
+}
+
+const ReviewList: React.FC<ReviewList> = ({ reviewCount }) => {
   // 후기 내용
   const reviewText =
     '친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요 친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요';

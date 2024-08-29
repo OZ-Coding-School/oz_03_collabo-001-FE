@@ -35,6 +35,7 @@ const useModalWithURL = (modalName: string) => {
 
   // 모달 열기 함수
   const handleOpenModal = () => {
+    if (modalName === '') return;
     openModal(modalName);
     const params = new URLSearchParams(location.search);
     params.set('modal', modalName);

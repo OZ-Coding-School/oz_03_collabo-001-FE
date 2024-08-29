@@ -118,7 +118,7 @@ const PlaceList: React.FC = () => {
   //   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div className='h-[100%] w-[400px]'>
+    <div className='h-[100%]'>
       {/* {data?.pages.map((page, i) => (
         <React.Fragment key={i}>
           {page.map((place) => (

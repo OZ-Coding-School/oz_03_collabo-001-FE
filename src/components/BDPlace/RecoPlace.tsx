@@ -31,16 +31,16 @@ export default function RecoPlace() {
         className='recoSwiper m-0 w-full'
       >
         <SwiperSlide>
-          <RecoPlaceItem />
+          <RecoPlaceItem placeId='123' />
         </SwiperSlide>
         <SwiperSlide>
-          <RecoPlaceItem />
+          <RecoPlaceItem placeId='456' />
         </SwiperSlide>
         <SwiperSlide>
-          <RecoPlaceItem />
+          <RecoPlaceItem placeId='789' />
         </SwiperSlide>
         <SwiperSlide>
-          <RecoPlaceItem />
+          <RecoPlaceItem placeId='563' />
         </SwiperSlide>
       </Swiper>
 

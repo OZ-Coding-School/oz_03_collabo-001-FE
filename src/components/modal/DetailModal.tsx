@@ -13,6 +13,7 @@ import ReviewPictures from '../../page/Detail/ReviewPictures';
 import ReviewList from '../../page/Detail/ReviewList';
 import DetailGuide from '../../page/Detail/DetailGuide';
 import ReviewUpload from '../../page/Review/ReviewUpload';
+import ShareBtn from '../ShareBtn';
 
 const NAV_HEIGHT = 48; // 고정 NAV의 높이
 
@@ -21,6 +22,11 @@ interface DetailModalProps {
 }
 
 const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
+  // 후기 갯수
+  // const [reviewCount, setReviewCount] = useState(0);
+  const reviewCount = 10;
+
+  // 후기작성 모달
   const { isOpen, openThirdModal } = useModalWithURL(`ReviewUpload`);
 
   // 스크롤할 컨테이너에 대한 ref
@@ -44,6 +50,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
   const [contentScrollTop, setContentScrollTop] = useState<number>(0);
   const [reviewScrollTop, setReviewScrollTop] = useState<number>(0);
   const [guideScrollTop, setGuideScrollTop] = useState<number>(0);
+  const [isContentExpanded, setIsContentExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     const updateScrollPositions = () => {
@@ -75,7 +82,11 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
     return () => {
       window.removeEventListener('resize', updateScrollPositions);
     };
-  }, []);
+  }, [isContentExpanded]);
+
+  const handleContentExpandChange = (expanded: boolean) => {
+    setIsContentExpanded(expanded);
+  };
 
   return ReactDOM.createPortal(
     <div className='detailModal h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
@@ -83,10 +94,15 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
         className='h-[100vh] w-[400px] overflow-y-auto overflow-x-hidden'
         ref={modalContentRef}
       >
-        <div className='flex h-[48px] w-[400px] items-center bg-white px-2'>
-          <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+        <div className='flex h-[48px] items-center justify-between bg-white px-2'>
+          <button
+            onClick={closeModal}
+            className='mr-[8px] font-extrabold'
+            aria-label='닫기'
+          >
             <GoChevronLeft className='text-[24px] opacity-[70%]' />
           </button>
+          <ShareBtn />
         </div>
 
         <div className='flex flex-col gap-[15px]'>
@@ -101,15 +117,16 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
               contentScrollTop={contentScrollTop}
               reviewScrollTop={reviewScrollTop}
               guideScrollTop={guideScrollTop}
-              containerRef={modalContentRef} // containerRef를 props로 전달
+              containerRef={modalContentRef}
+              reviewCount={reviewCount}
             />
             <div className='flex flex-col gap-[15px]'>
               <div ref={contentRef}>
-                <DetailContent />
+                <DetailContent onExpandChange={handleContentExpandChange} />
               </div>
               <div ref={reviewRef}>
-                <ReviewPictures />
-                <ReviewList />
+                {reviewCount <= 0 ? null : <ReviewPictures />}
+                <ReviewList reviewCount={reviewCount} />
               </div>
               <div ref={guideRef}>
                 <DetailGuide />
