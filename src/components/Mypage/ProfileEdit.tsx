@@ -74,8 +74,8 @@ const ProfilePhotoEdit: React.FC = () => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center'>
-      <div className='mr-[18px] flex h-[66px] w-[79px] flex-col items-center justify-center'>
+    <div className='flex w-[70px] flex-col items-center justify-center'>
+      <div className='flex h-[66px] flex-col items-center justify-center'>
         <div className='relative h-[66px] w-[66px]'>
           <img
             className='absolute inset-0 h-full w-full rounded-full object-cover'
@@ -93,7 +93,7 @@ const ProfilePhotoEdit: React.FC = () => {
         </div>
       </div>
       <button
-        className='mr-[18px] mt-[10px] w-[79px] text-[10px] text-caption underline'
+        className='mt-[10px] text-[10px] text-caption underline'
         onClick={handleButtonClick}
       >
         프로필변경

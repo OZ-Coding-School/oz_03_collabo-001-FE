@@ -62,7 +62,9 @@ const MyBookmark: React.FC = () => {
             />
           ))
         ) : (
-          <div>북마크된 장소가 없습니다.</div>
+          <div className='text-[14px] text-caption'>
+            북마크된 장소가 없습니다.
+          </div>
         )}
       </div>
     </div>

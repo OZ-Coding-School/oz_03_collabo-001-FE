@@ -10,6 +10,15 @@
   overflow-y: scroll;
 }
 
+#modal-root {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 50;
+  width: 400px;
+  overflow: hidden;
+}
+
 :root,
 html,
 body {

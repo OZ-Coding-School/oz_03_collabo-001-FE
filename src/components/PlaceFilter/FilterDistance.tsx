@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import useGeolocation from '../../hooks/useGeolocation';
-import LocationStore from '../../store/LocationStore'; // Zustand 스토어 임포트
+import LocationStore from '../../store/locationStore'; // Zustand 스토어 임포트
 
 const FilterDistance = () => {
   const [isChecked, setIsChecked] = useState(false);

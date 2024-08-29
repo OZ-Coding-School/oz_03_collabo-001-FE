@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import LocationStore from '../store/LocationStore';
+import LocationStore from '../store/locationStore';
 
 const useGeolocation = () => {
   const [error, setError] = useState<string | null>(null);
