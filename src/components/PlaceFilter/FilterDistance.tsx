@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import useGeolocation from '../../hooks/useGeolocation';
-import LocationStore from '../../store/LocationStore'; // Zustand 스토어 임포트
+import LocationStore from '../../store/locationStore';
 
 const FilterDistance = () => {
   const [isChecked, setIsChecked] = useState(false);
   const { getLocation } = useGeolocation();
-  const address = LocationStore((state) => state.address); // Zustand에서 주소 가져오기
+  const address = LocationStore((state) => state.address);
 
   const handleCheckboxChange = () => {
     setIsChecked((prev) => !prev);
