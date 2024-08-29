@@ -54,7 +54,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
                 ? '새로생긴 펫존'
                 : '새로생긴 키즈존'}
           </p>
-          <Place6 />
+          <Place6 current={current} section='new' regionList={placeRegions} />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
@@ -68,10 +68,11 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             gps={true}
           />
           <RegionTab
-            tabs={placeRegions.map((item) => item.region)}
+            tabs={placeRegions}
             current={current}
+            section='region'
+            regionList={placeRegions}
           />
-          <Place6 />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
@@ -84,10 +85,11 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             }
           />
           <RegionTab
-            tabs={placeSubcategories.map((item) => item.subcategory)}
+            tabs={placeSubcategories}
             current={current}
+            section='sub_category'
+            regionList={placeRegions}
           />
-          <Place6 />
         </div>
       </div>
     </>

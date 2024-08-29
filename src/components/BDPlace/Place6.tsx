@@ -1,93 +1,88 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import Place from './Place';
 import useBookmarkStore from '../../store/bookmarkStore';
 
-interface PlaceData {
+interface RegionListType {
   id: string;
-  name: string;
-  location: string;
-  rating: number;
-  reviewCount: number;
-  isBookmarked: boolean; // 북마크 여부를 나타내는 필드
+  region: string;
 }
 
-const mockPlaceData: PlaceData[] = [
-  {
-    id: '1',
-    location: '경기',
-    name: '스타필드 고양',
-    rating: 4.8,
-    reviewCount: 120,
-    isBookmarked: false, // 기본값 설정
-  },
-  {
-    id: '2',
-    location: '서울',
-    name: '롯데월드몰',
-    rating: 4.5,
-    reviewCount: 95,
-    isBookmarked: false, // 기본값 설정
-  },
-  {
-    id: '3',
-    location: '서울',
-    name: '코엑스몰',
-    rating: 4.7,
-    reviewCount: 150,
-    isBookmarked: false, // 기본값 설정
-  },
-  {
-    id: '4',
-    location: '서울',
-    name: '동대문 디자인 플라자',
-    rating: 4.6,
-    reviewCount: 80,
-    isBookmarked: false, // 기본값 설정
-  },
-  {
-    id: '5',
-    location: '서울',
-    name: '잠실 롯데타워',
-    rating: 4.9,
-    reviewCount: 200,
-    isBookmarked: false, // 기본값 설정
-  },
-  {
-    id: '6',
-    location: '서울',
-    name: '남산타워',
-    rating: 4.4,
-    reviewCount: 110,
-    isBookmarked: false, // 기본값 설정
-  },
-];
+interface Props {
+  current: string;
+  currentTab?: string;
+  section: string;
+  regionList: RegionListType[];
+}
 
-const Place6: React.FC = () => {
+interface PlaceData {
+  id: string;
+  store_image: string;
+  is_bookmarked: boolean;
+  place_region: string;
+  name: string;
+  rating: number;
+  comments_count: number;
+}
+
+interface FetchParams {
+  main_category: string;
+  place_region?: string;
+  place_subcategory?: string;
+  page: number;
+  page_size: number;
+  latitude: number;
+  longitude: number;
+  is_active: boolean;
+}
+
+interface ApiResponse {
+  results: {
+    results: PlaceData[];
+  };
+}
+
+const Place6: React.FC<Props> = ({
+  current,
+  currentTab,
+  section,
+  regionList,
+}) => {
   const [places, setPlaces] = useState<PlaceData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const { bookmarks } = useBookmarkStore(); // 북마크 상태 가져오기
 
   useEffect(() => {
-    // 데이터 fetching 함수
-    // const fetchPlaces = async () => {
-    //   try {
-    //     const response = await axios.get('https://your-backend-api/places'); // 백엔드 API 호출
-    //     setPlaces(response.data); // 장소 데이터 설정
-    //   } catch (error) {
-    //     console.error('Error fetching places:', error);
-    //     setError('장소 정보를 가져오는 데 실패했습니다.');
-    //   }
-    // };
-
-    // 목데이터를 사용하여 상태를 설정
     const fetchPlaces = async () => {
       try {
-        // 목데이터를 사용하여 상태를 설정
-        const placesWithBookmarks = mockPlaceData.map((place) => ({
-          ...place,
-          isBookmarked: !!bookmarks[place.id], // 스토어에서 북마크 상태를 가져와 설정
-        }));
+        const params: FetchParams = {
+          main_category: current,
+          page: 1,
+          page_size: 6,
+          latitude: 0,
+          longitude: 0,
+          is_active: false,
+        };
+        if (section === 'region') {
+          params.place_region = currentTab;
+        } else if (section === 'sub_category') {
+          params.place_subcategory = currentTab;
+        } else {
+          params.place_region = '';
+          params.place_subcategory = '';
+        }
+        const response = await axios.get<ApiResponse>(
+          'http://127.0.0.1:8000/places/',
+          {
+            params,
+          }
+        );
+        const placesWithBookmarks = response.data.results.results.map(
+          (place) => ({
+            ...place,
+            is_bookmarked: !!bookmarks[place.id], // 스토어에서 북마크 상태를 가져와 설정
+          })
+        );
         setPlaces(placesWithBookmarks);
       } catch (error) {
         console.error('Error fetching places:', error);
@@ -96,23 +91,24 @@ const Place6: React.FC = () => {
     };
 
     fetchPlaces();
-  }, [bookmarks]);
+  }, [bookmarks, section, current, currentTab]);
 
   if (error) {
     return <div>오류: {error}</div>;
   }
 
   return (
-    <div className='grid grid-cols-3 grid-rows-2 gap-[10px] py-2'>
+    <div className='flex flex-wrap gap-[10px] py-2'>
       {places.map((place) => (
         <Place
           key={place.id}
           placeId={place.id}
-          location={place.location}
+          location={place.place_region}
           name={place.name}
           rating={place.rating}
-          reviewCount={place.reviewCount}
-          isBookmarked={place.isBookmarked || false} // 북마크 상태를 전달
+          reviewCount={place.comments_count}
+          isBookmarked={place.is_bookmarked || false} // 북마크 상태를 전달
+          regionList={regionList}
         />
       ))}
     </div>
