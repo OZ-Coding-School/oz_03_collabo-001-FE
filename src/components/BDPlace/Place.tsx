@@ -7,7 +7,12 @@ import BgImage from '../../assets/images/starfield.png';
 import DetailModal from '../modal/DetailModal';
 import useRecentPlacesStore from '../../store/recentPlaceStore';
 import useBookmarkStore from '../../store/bookmarkStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+interface RegionListType {
+  id: string;
+  region: string;
+}
 
 interface PlaceProps {
   placeId: string; // 각 Place에 고유한 ID를 부여하여 모달 상태를 구분
@@ -16,6 +21,7 @@ interface PlaceProps {
   rating: number;
   reviewCount: number;
   isBookmarked: boolean; // 북마크 상태를 나타내는 필드
+  regionList: RegionListType[];
 }
 
 const Place: React.FC<PlaceProps> = ({
@@ -25,7 +31,10 @@ const Place: React.FC<PlaceProps> = ({
   rating,
   reviewCount,
   isBookmarked = false, // 기본값 설정
+  regionList,
 }) => {
+  const [locationName, setLocationName] = useState<string>('');
+
   const { isOpen, openModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
   );
@@ -46,6 +55,11 @@ const Place: React.FC<PlaceProps> = ({
     // 장소의 모든 정보를 전달하여 북마크 상태를 업데이트
     toggleBookmark({ placeId, location, name, rating, reviewCount });
   };
+
+  useEffect(() => {
+    const foundItem = regionList.find((item) => item.id === location);
+    setLocationName(foundItem ? foundItem.region : '');
+  }, [regionList]);
 
   return (
     <>
@@ -68,7 +82,7 @@ const Place: React.FC<PlaceProps> = ({
           className='flex h-[50px] flex-col justify-between p-1.5'
           onClick={handlePlaceClick}
         >
-          <p className='truncate text-nowrap text-[12px] font-semibold'>{`[${location}] ${name}`}</p>
+          <p className='truncate text-nowrap text-[12px] font-semibold'>{`[${locationName}] ${name}`}</p>
           <p className='flex gap-1 text-[10px]'>
             <span className='text-primary'>★</span>
             <span>{rating.toFixed(1)}</span>
