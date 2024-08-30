@@ -9,7 +9,7 @@ import useRecentPlacesStore from '../../store/recentPlaceStore';
 import useBookmarkStore from '../../store/bookmarkStore';
 import { useEffect, useState } from 'react';
 
-interface RegionListType {
+export interface RegionListType {
   id: string;
   region: string;
 }
@@ -47,7 +47,13 @@ const Place: React.FC<PlaceProps> = ({
   }, [addPlaceInfo, placeId]);
 
   const handlePlaceClick = () => {
-    addRecentPlace(placeId, { location, name, rating, reviewCount });
+    addRecentPlace(placeId, {
+      location,
+      name,
+      rating,
+      reviewCount,
+      regionList: [],
+    });
     openModal();
   };
 
