@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
+import axios from 'axios';
 import useModalWithURL from '../../hooks/useModalWithURL';
 import { GoChevronLeft } from 'react-icons/go';
 import { ImPlus } from 'react-icons/im';
@@ -19,26 +20,56 @@ const NAV_HEIGHT = 48; // 고정 NAV의 높이
 
 interface DetailModalProps {
   closeModal: () => void;
+  placeId: string;
 }
 
-const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
+interface PlaceData {
+  name: string;
+  address: string;
+  rating: number;
+}
+
+const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
+  // 장소 정보
+  const [placeData, setPlaceData] = useState<PlaceData | null>(null);
   // 후기 갯수
-  // const [reviewCount, setReviewCount] = useState(0);
-  const reviewCount = 10;
+  const [reviewCount, setReviewCount] = useState(0);
+  // 데이터 로드 상태 추적
+  const [dataFetched, setDataFetched] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/places/${placeId}/`
+        );
+        const response2 = await axios.get(
+          `http://127.0.0.1:8000/places/${placeId}/comments/`
+          // `http://127.0.0.1:8000/places/comments/2/`
+        );
+        // console.log(response2.data.length);]
+        const fetchedData: PlaceData = {
+          name: response.data.name,
+          address: response.data.address,
+          rating: response.data.rating,
+        };
+
+        setPlaceData(fetchedData);
+        setReviewCount(response2.data.length);
+        setDataFetched(true);
+      } catch (error) {
+        console.log('error:', error);
+      }
+    };
+
+    fetchPlaces();
+  }, [placeId]);
 
   // 후기작성 모달
   const { isOpen, openThirdModal } = useModalWithURL(`ReviewUpload`);
 
   // 스크롤할 컨테이너에 대한 ref
   const modalContentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
 
   const modalRoot = document.getElementById('modal-root');
   if (!modalRoot) return null; // modal-root가 존재하지 않으면 렌더링하지 않음
@@ -52,41 +83,68 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
   const [guideScrollTop, setGuideScrollTop] = useState<number>(0);
   const [isContentExpanded, setIsContentExpanded] = useState<boolean>(false);
 
+  const updateScrollPositions = useCallback(() => {
+    if (
+      contentRef.current &&
+      reviewRef.current &&
+      guideRef.current &&
+      modalContentRef.current
+    ) {
+      setContentScrollTop(
+        contentRef.current.getBoundingClientRect().top +
+          modalContentRef.current.scrollTop -
+          NAV_HEIGHT
+      );
+      setReviewScrollTop(
+        reviewRef.current.getBoundingClientRect().top +
+          modalContentRef.current.scrollTop -
+          NAV_HEIGHT
+      );
+      setGuideScrollTop(
+        guideRef.current.getBoundingClientRect().top +
+          modalContentRef.current.scrollTop -
+          NAV_HEIGHT
+      );
+    }
+  }, []);
+
   useEffect(() => {
-    const updateScrollPositions = () => {
-      if (contentRef.current && reviewRef.current && guideRef.current) {
+    if (dataFetched) {
+      // 데이터가 로드된 후에만 실행
+      updateScrollPositions();
+      window.addEventListener('resize', updateScrollPositions);
+
+      if (modalContentRef.current) {
+        modalContentRef.current.addEventListener(
+          'scroll',
+          updateScrollPositions
+        );
+      }
+
+      return () => {
+        window.removeEventListener('resize', updateScrollPositions);
         if (modalContentRef.current) {
-          setContentScrollTop(
-            contentRef.current.getBoundingClientRect().top +
-              modalContentRef.current.scrollTop - // modalContentRef 사용
-              NAV_HEIGHT
-          );
-          setReviewScrollTop(
-            reviewRef.current.getBoundingClientRect().top +
-              modalContentRef.current.scrollTop - // modalContentRef 사용
-              NAV_HEIGHT
-          );
-          setGuideScrollTop(
-            guideRef.current.getBoundingClientRect().top +
-              modalContentRef.current.scrollTop - // modalContentRef 사용
-              NAV_HEIGHT
+          modalContentRef.current.removeEventListener(
+            'scroll',
+            updateScrollPositions
           );
         }
-      }
-    };
-
-    setTimeout(updateScrollPositions, 0);
-
-    window.addEventListener('resize', updateScrollPositions);
-
-    return () => {
-      window.removeEventListener('resize', updateScrollPositions);
-    };
-  }, [isContentExpanded]);
+      };
+    }
+  }, [updateScrollPositions, dataFetched]);
 
   const handleContentExpandChange = (expanded: boolean) => {
     setIsContentExpanded(expanded);
   };
+
+  if (!placeData) {
+    return ReactDOM.createPortal(
+      <div className='detailModal h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
+        <p>loading ...</p>
+      </div>,
+      modalRoot
+    );
+  }
 
   return ReactDOM.createPortal(
     <div className='detailModal h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
@@ -108,9 +166,13 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
         <div className='flex flex-col gap-[15px]'>
           <div>
             <Banner />
-            <ShopSimpleData />
-            <ShopDetailData />
-            <ShopInfoData />
+            <ShopSimpleData
+              name={placeData.name}
+              address={placeData.address}
+              rating={placeData.rating}
+            />
+            <ShopDetailData address={placeData.address} />
+            <ShopInfoData placeId={placeId} />
           </div>
           <div>
             <DetailTopNav
@@ -125,8 +187,8 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal }) => {
                 <DetailContent onExpandChange={handleContentExpandChange} />
               </div>
               <div ref={reviewRef}>
-                {reviewCount <= 0 ? null : <ReviewPictures />}
-                <ReviewList reviewCount={reviewCount} />
+                <ReviewPictures placeId={placeId} />
+                <ReviewList placeId={placeId} reviewCount={reviewCount} />
               </div>
               <div ref={guideRef}>
                 <DetailGuide />
