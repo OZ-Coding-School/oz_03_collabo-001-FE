@@ -3,8 +3,6 @@ import DetailModal from '../modal/DetailModal';
 import BookmarkButton from '../BookmarkButton';
 import Location from '../../assets/Location.svg';
 import Star from '../../assets/star.svg';
-import useBookmarkStore from '../../store/bookmarkStore';
-import { useMemo } from 'react';
 
 interface PlaceItem {
   placeId: string;
@@ -12,7 +10,7 @@ interface PlaceItem {
   name: string;
   rating: number;
   reviewCount: number;
-  isBookmarked: boolean; // 북마크 상태를 나타내는 필드
+  isBookmarked: boolean;
 }
 
 const PlaceItem: React.FC<PlaceItem> = ({
@@ -26,19 +24,6 @@ const PlaceItem: React.FC<PlaceItem> = ({
     `detailModal_${placeId}`
   );
 
-  const { bookmarks, toggleBookmark } = useBookmarkStore();
-
-  // 현재 장소의 북마크 상태를 가져옵니다.
-  const isBookmarked = useMemo(
-    () => !!bookmarks[placeId],
-    [bookmarks, placeId]
-  );
-
-  const handleBookmarkToggle = () => {
-    // 장소 정보를 포함하여 북마크 토글
-    toggleBookmark({ placeId, location, name, rating, reviewCount });
-  };
-
   return (
     <>
       <div className='flex items-center border-b border-border bg-white p-[10px]'>
@@ -51,11 +36,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
             <li className='relative mb-[4px] text-[14px] font-semibold'>
               <p>{`[${location}] ${name}`}</p>
               <div className='absolute right-0 top-0'>
-                <BookmarkButton
-                  placeId={placeId}
-                  isBookmarked={isBookmarked}
-                  onToggle={handleBookmarkToggle}
-                />
+                <BookmarkButton placeId={placeId} />
               </div>
             </li>
             <li className='mb-[4px] flex'>
@@ -79,7 +60,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </ul>
         </div>
       </div>
-      {isOpen && <DetailModal closeModal={closeModal} />}
+      {isOpen && <DetailModal closeModal={closeModal} placeId={placeId} />}
     </>
   );
 };

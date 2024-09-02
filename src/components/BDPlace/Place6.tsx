@@ -77,13 +77,8 @@ const Place6: React.FC<Props> = ({
             params,
           }
         );
-        const placesWithBookmarks = response.data.results.results.map(
-          (place) => ({
-            ...place,
-            is_bookmarked: !!bookmarks[place.id], // 스토어에서 북마크 상태를 가져와 설정
-          })
-        );
-        setPlaces(placesWithBookmarks);
+        console.log(response.data.results.results);
+        setPlaces(response.data.results.results);
       } catch (error) {
         console.error('Error fetching places:', error);
         setError('장소 정보를 가져오는 데 실패했습니다.');
@@ -107,7 +102,7 @@ const Place6: React.FC<Props> = ({
           name={place.name}
           rating={place.rating}
           reviewCount={place.comments_count}
-          isBookmarked={place.is_bookmarked || false} // 북마크 상태를 전달
+          isBookmarked={place.is_bookmarked}
           regionList={regionList}
         />
       ))}

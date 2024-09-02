@@ -30,7 +30,6 @@ const Place: React.FC<PlaceProps> = ({
   name,
   rating,
   reviewCount,
-  isBookmarked = false, // 기본값 설정
   regionList,
 }) => {
   const [locationName, setLocationName] = useState<string>('');
@@ -39,7 +38,7 @@ const Place: React.FC<PlaceProps> = ({
     `detailModal_${placeId}`
   );
 
-  const { toggleBookmark, addPlaceInfo } = useBookmarkStore();
+  const { addPlaceInfo } = useBookmarkStore();
   const { addRecentPlace } = useRecentPlacesStore();
 
   useEffect(() => {
@@ -55,11 +54,6 @@ const Place: React.FC<PlaceProps> = ({
       regionList: [],
     });
     openModal();
-  };
-
-  const handleBookmarkToggle = () => {
-    // 장소의 모든 정보를 전달하여 북마크 상태를 업데이트
-    toggleBookmark({ placeId, location, name, rating, reviewCount });
   };
 
   useEffect(() => {
@@ -78,11 +72,7 @@ const Place: React.FC<PlaceProps> = ({
           />
         </button>
         <div className='absolute right-1 top-1'>
-          <BookmarkButton
-            placeId={placeId}
-            isBookmarked={isBookmarked}
-            onToggle={handleBookmarkToggle}
-          />
+          <BookmarkButton placeId={placeId} />
         </div>
         <div
           className='flex h-[50px] flex-col justify-between p-1.5'
