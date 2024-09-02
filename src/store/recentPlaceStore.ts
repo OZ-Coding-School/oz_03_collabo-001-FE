@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand';
+import { RegionListType } from '../components/BDPlace/Place';
 
 interface RecentPlaceInfo {
+  regionList: RegionListType[];
   location: string;
   name: string;
   rating: number;

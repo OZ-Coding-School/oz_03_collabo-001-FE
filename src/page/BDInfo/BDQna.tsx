@@ -6,7 +6,6 @@ const BDQnA = () => {
   return (
     <>
       <img src={image} alt='' className='h-28 w-full object-cover' />
-
       <div className='bg-white p-3'>
         <InfoTab
           tabs={[

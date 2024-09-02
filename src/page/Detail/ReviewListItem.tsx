@@ -2,14 +2,24 @@ import classNames from 'classnames';
 import DetailRating from './DetailRating';
 import useTruncatedText from '../../hooks/useTruncatedText';
 
+interface Images {
+  url: string;
+}
+
 interface ReviewListItemProps {
   className?: string;
   reviewText: string;
+  rating: number;
+  images: Images[];
+  nickname: string;
 }
 
 const ReviewListItem: React.FC<ReviewListItemProps> = ({
   className,
   reviewText,
+  images,
+  rating,
+  nickname,
 }) => {
   // useTruncatedText 훅 사용
   const truncatedText = useTruncatedText(reviewText, 100);
@@ -19,26 +29,40 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({
     'border-border border-b': className !== 'noBorder',
     '': true,
   });
-
   return (
     <div className={borderClass}>
       <div className='flex items-center pt-[10px]'>
         <div className='imgWrap h-[23px] w-[23px] rounded-full bg-background'></div>
-        <p className='ml-[8px] text-[14px] font-semibold'>애개육아맘</p>
+        <p className='ml-[8px] text-[14px] font-semibold'>{nickname}</p>
         <span className='ml-[4px] mr-[8px] text-[12px] text-caption'>
           2024.01.01
         </span>
-        <DetailRating initialRating={4} />
+        <DetailRating initialRating={rating} />
       </div>
 
       <div>
         <p className='py-[10px] text-[12px]'>{truncatedText}</p>
-
-        <div className='flex justify-between pb-[30px]'>
-          <div className='imgWrap h-[115px] w-[115px] rounded-[10px] border-2 border-border bg-background'></div>
-          <div className='imgWrap h-[115px] w-[115px] rounded-[10px] border-2 border-border bg-background'></div>
-          <div className='imgWrap h-[115px] w-[115px] rounded-[10px] border-2 border-border bg-background'></div>
-        </div>
+        {images.length !== 0 ? (
+          <div className='mb-[20px] overflow-x-auto'>
+            <div className='flex gap-[7px]'>
+              {images.map((_, i) => {
+                return (
+                  <div
+                    className='imgWrap h-[115px] w-[115px] flex-shrink-0 overflow-hidden rounded-[10px] border-2 border-border bg-background'
+                    key={i}
+                  >
+                    {/* <p>{images[i].url}</p> */}
+                    <img
+                      src={`${images[i].url}`}
+                      alt=''
+                      className='h-[115px] w-[115px] object-cover'
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
