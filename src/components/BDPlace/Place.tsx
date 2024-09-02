@@ -90,7 +90,7 @@ const Place: React.FC<PlaceProps> = ({
           </p>
         </div>
       </div>
-      {isOpen && <DetailModal closeModal={closeModal} />}
+      {isOpen && <DetailModal placeId={placeId} closeModal={closeModal} />}
     </>
   );
 };

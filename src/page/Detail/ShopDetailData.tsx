@@ -4,7 +4,11 @@ import tag from '../../assets/Icon/Detail_Icon/Tag.svg';
 import mapMark from '../../assets/Icon/Detail_Icon/MapMark.svg';
 import copy from '../../assets/Icon/Detail_Icon/Copy.svg';
 
-const ShopDetailData: React.FC = () => {
+interface ShopDetailDataProps {
+  address: string;
+}
+
+const ShopDetailData: React.FC<ShopDetailDataProps> = ({ address }) => {
   return (
     <div className='flex h-[90px] flex-col justify-center border-b-[0.5px] border-t-[0.5px] border-border bg-white text-[#808080]'>
       <div className='flex h-[18px] items-center pr-[12px]'>
@@ -38,8 +42,8 @@ const ShopDetailData: React.FC = () => {
           alt='맵마크아이콘'
           className='ml-[10px] mr-[5px] h-[16px] w-[16px]'
         />
-        <div className='h-[18px] w-[280px] text-[13px]'>
-          경기도 고양시 일산동구 정발산동 145-4번지
+        <div className='h-[18px] w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
+          {address}
         </div>
         <img
           src={copy}
