@@ -19,6 +19,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
   name,
   rating,
   reviewCount,
+  isBookmarked,
 }) => {
   const { isOpen, openSubModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
@@ -36,7 +37,10 @@ const PlaceItem: React.FC<PlaceItem> = ({
             <li className='relative mb-[4px] text-[14px] font-semibold'>
               <p>{`[${location}] ${name}`}</p>
               <div className='absolute right-0 top-0'>
-                <BookmarkButton placeId={placeId} />
+                <BookmarkButton
+                  placeId={placeId}
+                  isBookmarkedInitially={isBookmarked}
+                />
               </div>
             </li>
             <li className='mb-[4px] flex'>
