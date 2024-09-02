@@ -115,14 +115,16 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
   if (error) {
     return ReactDOM.createPortal(
       <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
-        <div className='flex h-[100%] flex-col items-center justify-center bg-white'>
-          <p className='text-red-500 py-4 text-center'>{error}</p>
-          <button
-            onClick={closeModal}
-            className='bg-blue-500 mt-4 px-4 py-2 text-white'
-          >
-            닫기
-          </button>
+        <div className='flex h-[100%] flex-col overflow-y-scroll bg-white'>
+          <div className='flex h-[72px] w-[400px] items-center px-2 py-3'>
+            <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+              <GoChevronLeft className='text-[24px] opacity-[70%]' />
+            </button>
+            <p className='py-[18px] font-semibold'>{extractLastPart(title)}</p>
+          </div>
+          <div className='flex items-center gap-[10px] px-3 py-[15px]'>
+            {error}
+          </div>
         </div>
       </div>,
       document.getElementById('modal-root')!
