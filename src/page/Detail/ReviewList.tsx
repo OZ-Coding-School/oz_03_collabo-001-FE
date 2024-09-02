@@ -47,7 +47,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
   const reviewItems = Array.from({ length: reviewItemCount });
 
   return (
-    <div className='col'>
+    <div className='col pb-[20px]'>
       <div className='colTitle flex items-center justify-between'>
         <p className='font-semibold'>
           후기 <span className='text-primary'>{reviewCount}</span>개

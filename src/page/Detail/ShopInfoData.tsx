@@ -1,5 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useRef } from 'react';
 // import { Scrollbars } from 'react-custom-scrollbars-2';
 // import parkingIcon from '../../assets/Icon/Detail_Icon/Parking.svg';
 // import wifi from '../../assets/Icon/Detail_Icon/Wifi.svg';
@@ -8,16 +7,16 @@ import axios from 'axios';
 // import babyChair from '../../assets/Icon/Detail_Icon/Baby_Chair.svg';
 // import withPet from '../../assets/Icon/Detail_Icon/With_Pet.svg';
 
-interface ShopInfoDataProps {
-  placeId: string;
-}
-
-interface placeInfoMenu {
-  name: string;
+interface ServiceIcon {
   image: string;
+  name: string;
 }
 
-const ShopInfoData: React.FC<ShopInfoDataProps> = ({ placeId }) => {
+interface ShopInfoDataProps {
+  placeInfoMenu: ServiceIcon[];
+}
+
+const ShopInfoData: React.FC<ShopInfoDataProps> = ({ placeInfoMenu }) => {
   const buttonRefs = useRef<HTMLDivElement[]>([]);
   // const placeInfoMenu = [
   //   { image: parkingIcon, name: '주차가능' },
@@ -31,23 +30,8 @@ const ShopInfoData: React.FC<ShopInfoDataProps> = ({ placeId }) => {
   //   { image: withPet, name: '반려동물동반' },
   //   { image: withPet, name: '반려동물동반' },
   // ];
-  const [placeInfoMenu, setPlaceInfoMenu] = useState<placeInfoMenu[]>([]);
 
-  useEffect(() => {
-    const fetchShopInfoData = async () => {
-      try {
-        const response = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/`
-        );
-        console.log(response.data);
-        setPlaceInfoMenu(response.data.service_icons);
-      } catch (error) {
-        console.log('error:', error);
-      }
-    };
-
-    fetchShopInfoData();
-  }, [placeId]);
+  console.log(placeInfoMenu);
 
   return (
     <div className='h-[60px] overflow-x-auto overflow-y-hidden bg-white'>
