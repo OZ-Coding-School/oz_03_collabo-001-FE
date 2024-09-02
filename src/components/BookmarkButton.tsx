@@ -8,7 +8,7 @@ import useAuthStore from '../store/authStore';
 
 interface BookmarkButtonProps {
   placeId: string;
-  isBookmarkedInitially: boolean; // 초기 북마크 상태를 받기 위한 prop
+  isBookmarkedInitially: boolean;
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({
