@@ -1,6 +1,7 @@
+import { toast } from 'react-toastify';
 import share from '../assets/share.svg';
 
-const ShareBtn = () => {
+const ShareBtn: React.FC = () => {
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -11,15 +12,49 @@ const ShareBtn = () => {
         });
       } catch (error) {
         console.log('공유 실패 :', error);
+        toast.error('링크 공유에 실패했습니다.', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     } else {
-      alert('이 브라우저는 Web Share API를 지원하지 않습니다.');
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success('링크 복사에 성공했습니다.', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      } catch (error) {
+        console.error('링크 복사 실패:', error);
+        toast.error('링크 공유에 실패했습니다.', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
     }
   };
 
   return (
     <button aria-label='공유하기' onClick={handleShare}>
-      <img src={share} alt='' />
+      <img src={share} alt='공유 아이콘' />
     </button>
   );
 };
