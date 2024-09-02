@@ -167,6 +167,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
           <div>
             <Banner />
             <ShopSimpleData
+              placeId={placeId}
               name={placeData.name}
               address={placeData.address}
               rating={placeData.rating}
