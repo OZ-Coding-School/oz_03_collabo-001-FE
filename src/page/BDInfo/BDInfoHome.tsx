@@ -18,11 +18,11 @@ const BDInfoHome = () => {
             </button>
           </div>
           <div>
-            <InfoPost />
-            <InfoPost />
-            <InfoPost />
-            <InfoPost />
-            <InfoPost />
+            <InfoPost isQuestion={false} />
+            <InfoPost isQuestion={false} />
+            <InfoPost isQuestion={false} />
+            <InfoPost isQuestion={false} />
+            <InfoPost isQuestion={false} />
           </div>
         </div>
         <div className='bg-white p-3'>
@@ -54,11 +54,11 @@ const BDInfoHome = () => {
             </button>
           </div>
           <div>
-            <InfoPost />
-            <InfoPost />
-            <InfoPost />
-            <InfoPost />
-            <InfoPost />
+            <InfoPost isQuestion={true} />
+            <InfoPost isQuestion={true} />
+            <InfoPost isQuestion={true} />
+            <InfoPost isQuestion={true} />
+            <InfoPost isQuestion={true} />
           </div>
         </div>
       </div>
