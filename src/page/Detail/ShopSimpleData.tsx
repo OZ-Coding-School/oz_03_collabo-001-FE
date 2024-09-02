@@ -7,6 +7,7 @@ interface ShopSimpleDataProps {
   name: string;
   address: string;
   rating: number;
+  is_bookmarked: boolean;
 }
 
 const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
@@ -14,6 +15,7 @@ const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
   name,
   address,
   rating,
+  is_bookmarked,
 }) => {
   return (
     <div className='flex items-center bg-[white] py-[3.5px]'>
@@ -26,7 +28,10 @@ const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
         <div className='ml-[12px] w-[324px] flex-col items-center space-y-[5px] bg-[white] py-[10px] pr-[12px]'>
           <div className='flex items-center justify-between text-[1rem] font-bold'>
             {name}
-            <BookmarkButton placeId={placeId} />
+            <BookmarkButton
+              placeId={placeId}
+              isBookmarkedInitially={is_bookmarked}
+            />
           </div>
           <div className='text-[0.75rem]'>{address}</div>
           <DetailRating initialRating={rating} />
