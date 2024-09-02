@@ -1,27 +1,46 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import { useState, useEffect, useCallback } from 'react';
 import { twMerge } from 'tailwind-merge';
 import useGeolocation from '../../hooks/useGeolocation';
-import LocationStore from '../../store/locationStore';
 
-const FilterDistance = () => {
+interface FilterDistanceProps {
+  onDistanceFilterChange: (
+    latitude: number | null,
+    longitude: number | null,
+    isChecked: boolean
+  ) => void;
+}
+
+const FilterDistance: React.FC<FilterDistanceProps> = ({
+  onDistanceFilterChange,
+}) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { getLocation } = useGeolocation();
-  const address = LocationStore((state) => state.address);
+  const { getLocation, latitude, longitude } = useGeolocation();
 
-  const handleCheckboxChange = () => {
-    setIsChecked((prev) => !prev);
-
-    if (!isChecked) {
-      if (address) {
-        console.log('저장된 주소 사용:', address);
+  const handleCheckboxChange = useCallback(() => {
+    setIsChecked((prev) => {
+      if (prev) {
+        console.log('거리순 필터링 비활성화');
+        onDistanceFilterChange(null, null, false);
       } else {
-        console.log('지역 정보 가져오는중...');
-        getLocation();
+        if (latitude && longitude) {
+          console.log('저장된 위치 사용:', latitude, longitude);
+          onDistanceFilterChange(latitude, longitude, true);
+        } else {
+          console.log('위치 정보 가져오는 중...');
+          getLocation();
+        }
       }
-    } else {
-      console.log('체크 해제');
+      return !prev;
+    });
+  }, [latitude, longitude, onDistanceFilterChange, getLocation]);
+
+  useEffect(() => {
+    if (latitude !== null && longitude !== null && isChecked) {
+      onDistanceFilterChange(latitude, longitude, isChecked);
     }
-  };
+  }, [latitude, longitude, isChecked]);
 
   return (
     <div className='flex items-center justify-center'>
