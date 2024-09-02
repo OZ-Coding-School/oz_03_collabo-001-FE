@@ -27,6 +27,7 @@ interface PlaceData {
   name: string;
   address: string;
   rating: number;
+  is_bookmark: boolean;
 }
 
 const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
@@ -52,6 +53,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
           name: response.data.name,
           address: response.data.address,
           rating: response.data.rating,
+          is_bookmark: response.data.bookmark,
         };
 
         setPlaceData(fetchedData);
@@ -81,7 +83,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
   const [contentScrollTop, setContentScrollTop] = useState<number>(0);
   const [reviewScrollTop, setReviewScrollTop] = useState<number>(0);
   const [guideScrollTop, setGuideScrollTop] = useState<number>(0);
-  const [isContentExpanded, setIsContentExpanded] = useState<boolean>(false);
+  const [, setIsContentExpanded] = useState<boolean>(false);
 
   const updateScrollPositions = useCallback(() => {
     if (
@@ -171,6 +173,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
               name={placeData.name}
               address={placeData.address}
               rating={placeData.rating}
+              is_bookmarked={placeData.is_bookmark}
             />
             <ShopDetailData address={placeData.address} />
             <ShopInfoData placeId={placeId} />
