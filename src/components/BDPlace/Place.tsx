@@ -21,7 +21,7 @@ interface PlaceProps {
   rating: number;
   reviewCount: number;
   isBookmarked: boolean; // 북마크 상태를 나타내는 필드
-  regionList: RegionListType[];
+  regionList?: RegionListType[];
 }
 
 const Place: React.FC<PlaceProps> = ({
@@ -30,6 +30,7 @@ const Place: React.FC<PlaceProps> = ({
   name,
   rating,
   reviewCount,
+  isBookmarked,
   regionList,
 }) => {
   const [locationName, setLocationName] = useState<string>('');
@@ -57,7 +58,7 @@ const Place: React.FC<PlaceProps> = ({
   };
 
   useEffect(() => {
-    const foundItem = regionList.find((item) => item.id === location);
+    const foundItem = regionList?.find((item) => item.id === location);
     setLocationName(foundItem ? foundItem.region : '');
   }, [regionList]);
 
@@ -72,7 +73,10 @@ const Place: React.FC<PlaceProps> = ({
           />
         </button>
         <div className='absolute right-1 top-1'>
-          <BookmarkButton placeId={placeId} />
+          <BookmarkButton
+            placeId={placeId}
+            isBookmarkedInitially={isBookmarked}
+          />
         </div>
         <div
           className='flex h-[50px] flex-col justify-between p-1.5'
