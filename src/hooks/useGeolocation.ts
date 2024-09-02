@@ -5,6 +5,8 @@ import LocationStore from '../store/locationStore';
 const useGeolocation = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
   const setAddress = LocationStore((state) => state.setAddress);
   const address = LocationStore((state) => state.address);
 
@@ -13,61 +15,57 @@ const useGeolocation = () => {
     setError(null);
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude: lat, longitude: lon } = position.coords;
+        setLatitude(lat);
+        setLongitude(lon);
 
-          try {
-            const response = await axios.get(
-              `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
-              {
-                headers: {
-                  Authorization: `KakaoAK ${import.meta.env.VITE_REACT_APP_KAKAO_API_KEY}`,
-                },
-              }
-            );
-
-            const documents = response.data.documents;
-            if (documents.length > 0) {
-              const {
-                region_1depth_name,
-                region_2depth_name,
-                region_3depth_name,
-              } = documents[0].address;
-
-              const formattedAddress = `${region_1depth_name} ${region_2depth_name} ${region_3depth_name}`;
-              setAddress(formattedAddress);
-              setError(null);
-
-              console.log('현위치:', formattedAddress);
-            } else {
-              setError('현위치를 찾을 수 없습니다.');
+        try {
+          const response = await axios.get(
+            `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lon}&y=${lat}`,
+            {
+              headers: {
+                Authorization: `KakaoAK ${import.meta.env.VITE_REACT_APP_KAKAO_API_KEY}`,
+              },
             }
-          } catch (error) {
-            console.error('현위치 가져오기 실패 :', error);
-            setError('현위치를 가져오는 데 실패했습니다.');
-          } finally {
-            setIsLoading(false); // 로딩 끝
+          );
+
+          const documents = response.data.documents;
+          if (documents.length > 0) {
+            const {
+              region_1depth_name,
+              region_2depth_name,
+              region_3depth_name,
+            } = documents[0].address;
+
+            const formattedAddress = `${region_1depth_name} ${region_2depth_name} ${region_3depth_name}`;
+            setAddress(formattedAddress);
+            setError(null);
+
+            console.log('현위치:', formattedAddress, 'lat', lat, 'lon', lon);
+          } else {
+            setError('현위치를 찾을 수 없습니다.');
           }
-        },
-        (err) => {
-          console.error('현위치 가져오기 실패 :', err);
-          setError('위치 정보 사용을 허용해주세요.');
+        } catch (error) {
+          console.error('현위치 가져오기 실패 :', error);
+          setError('현위치를 가져오는 데 실패했습니다.');
+        } finally {
           setIsLoading(false); // 로딩 끝
         }
-      );
+      });
     } else {
       setError('위치 정보 사용을 허용해주세요.');
       setIsLoading(false); // 로딩 끝
     }
   };
+
   useEffect(() => {
     if (address) {
       console.log('주소 업데이트됨:', address);
     }
   }, [address]);
 
-  return { address, error, isLoading, getLocation };
+  return { address, latitude, longitude, error, isLoading, getLocation };
 };
 
 export default useGeolocation;

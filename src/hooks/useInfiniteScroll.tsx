@@ -1,79 +1,31 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from 'react';
-import {
-  useInfiniteQuery,
-  InfiniteQueryObserverResult,
-  UseInfiniteQueryOptions,
-} from '@tanstack/react-query';
 
-interface UseInfiniteScrollProps<TData, TError> {
-  queryKey: readonly unknown[];
-  queryFn: (context: any) => Promise<TData>;
-  getNextPageParam: (lastPage: TData, allPages: TData[]) => unknown;
-  options?: Omit<
-    UseInfiniteQueryOptions<TData, TError>,
-    'queryKey' | 'queryFn' | 'getNextPageParam'
-  >;
-}
-
-function useInfiniteScroll<TData, TError = unknown>({
-  queryKey,
-  queryFn,
-  getNextPageParam,
-  options = {
-    initialPageParam: undefined,
-  },
-}: UseInfiniteScrollProps<TData, TError>) {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error,
-  }: InfiniteQueryObserverResult<TData, TError> = useInfiniteQuery({
-    queryKey,
-    queryFn,
-    getNextPageParam,
-    ...options,
-  });
-
+const useInfiniteScroll = (callback: () => void, hasMore: boolean) => {
   const observerElem = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
+        if (entries[0].isIntersecting && hasMore) {
+          callback();
         }
       },
-      { threshold: 1.0 }
+      { threshold: 0.1 }
     );
 
-    if (observerElem.current) {
-      observer.observe(observerElem.current);
+    const currentElem = observerElem.current;
+    if (currentElem) {
+      observer.observe(currentElem);
     }
 
     return () => {
-      if (observerElem.current) {
-        observer.unobserve(observerElem.current);
+      if (currentElem) {
+        observer.unobserve(currentElem);
       }
     };
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+  }, [callback, hasMore]);
 
-  return {
-    data,
-    observerElem,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error,
-    fetchNextPage,
-    hasNextPage,
-  };
-}
+  return { observerElem };
+};
 
 export default useInfiniteScroll;
