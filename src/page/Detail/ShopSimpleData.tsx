@@ -1,13 +1,16 @@
 import DetailRating from './DetailRating';
 import placeview from '../../assets/Icon/Detail_Icon/placeview.svg';
+import BookmarkButton from '../../components/BookmarkButton';
 
 interface ShopSimpleDataProps {
+  placeId: string;
   name: string;
   address: string;
   rating: number;
 }
 
 const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
+  placeId,
   name,
   address,
   rating,
@@ -21,7 +24,10 @@ const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
           alt='장소 사진'
         />
         <div className='ml-[12px] w-[324px] flex-col items-center space-y-[5px] bg-[white] py-[10px] pr-[12px]'>
-          <div className='text-[1rem] font-bold'>{name}</div>
+          <div className='flex items-center justify-between text-[1rem] font-bold'>
+            {name}
+            <BookmarkButton placeId={placeId} />
+          </div>
           <div className='text-[0.75rem]'>{address}</div>
           <DetailRating initialRating={rating} />
         </div>
