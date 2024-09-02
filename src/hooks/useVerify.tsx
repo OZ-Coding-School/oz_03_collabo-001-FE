@@ -52,7 +52,7 @@ const useVerify = () => {
         await Api.userTokenVerify();
       } catch (error) {
         console.error('토큰 검증 및 갱신 실패 :', error);
-        nav('/login', { replace: true }); // 검증 및 갱신 실패 시 로그인 페이지로 리디렉션
+        nav('/login', { replace: true });
       }
     }
   }, [nav]);
