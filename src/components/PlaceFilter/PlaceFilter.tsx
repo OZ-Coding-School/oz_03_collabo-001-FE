@@ -115,7 +115,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
   if (error) {
     return ReactDOM.createPortal(
       <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
-        <div className='flex h-[100%] flex-col overflow-y-scroll bg-white'>
+        <div className='flex h-[100%] w-[400px] flex-col overflow-y-scroll bg-white'>
           <div className='flex h-[72px] w-[400px] items-center px-2 py-3'>
             <button onClick={closeModal} className='mr-[8px] font-extrabold'>
               <GoChevronLeft className='text-[24px] opacity-[70%]' />
@@ -133,7 +133,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
 
   return ReactDOM.createPortal(
     <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
-      <div className='flex h-[100%] flex-col overflow-y-scroll bg-white'>
+      <div className='flex h-[100%] w-[400px] flex-col overflow-y-scroll bg-white'>
         <div className='flex h-[72px] items-center px-2 py-3'>
           <button onClick={closeModal} className='mr-[8px] font-extrabold'>
             <GoChevronLeft className='text-[24px] opacity-[70%]' />
