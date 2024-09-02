@@ -37,13 +37,14 @@ const BDInfo: React.FC = () => {
 
   return (
     <div>
-      <div className='sticky top-0 z-10 flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
+      <div className='sticky top-0 z-10 flex h-[48px] w-[400px] items-center justify-center bg-[#ffffff] text-center text-[14px] text-nav'>
         {placeNavMenu.map((item, index) => (
           <button
             key={item.name}
             ref={(el) => (buttonRefs.current[index] = el)}
             className={twMerge(
-              'relative flex h-[48px] w-[133.33px] items-center justify-center transition-colors duration-200',
+              'relative flex h-[48px] w-[100px] items-center justify-center transition-colors duration-200',
+              index === 0 && 'w-[60px]',
               placeTopNavBtn === index
                 ? 'font-bold text-[#f78222]'
                 : 'font-normal text-[#B1B1B1]'
