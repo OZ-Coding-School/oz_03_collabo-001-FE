@@ -1,22 +1,34 @@
 import MoreTitle from '../../components/layout/MoreTitle';
 import MyReviewListItem from './MyReviewListItem';
 
-const MyReviewList = () => {
-  const reviewItemCount = 3;
-  const reviewItems = Array.from({ length: reviewItemCount });
+interface Comment {
+  id: number;
+  place_image: string;
+  place_name: string;
+  rating_point: number;
+  create_date: string;
+  content: string;
+  comments_images: string[];
+}
 
-  const reviewText =
-    '친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요 친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께많아요 아이들이랑 강아지랑 놀께 많아요친절하고 좋아요 아이들이랑 강아지랑 놀께많아요';
+interface MyReviewListProps {
+  reviews: Comment[];
+}
 
+const MyReviewList: React.FC<MyReviewListProps> = ({ reviews }) => {
   return (
     <>
       <div className='col'>
         <MoreTitle title='작성 후기' />
-        {reviewItems.map((_, index) => (
+        {reviews.map((review, index) => (
           <MyReviewListItem
-            key={index}
+            key={review.id}
             className={index === 0 ? 'first' : ''}
-            reviewText={reviewText}
+            reviewText={review.content}
+            placeName={review.place_name}
+            ratingPoint={review.rating_point}
+            createDate={review.create_date}
+            commentImages={review.comments_images}
           />
         ))}
       </div>

@@ -2,8 +2,16 @@ import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
 import defaultProfile from '../../assets/DefaultProfile.svg';
 import axios from 'axios';
 
-const ProfilePhotoEdit: React.FC = () => {
-  const [userImg, setUserImg] = useState<string>(defaultProfile);
+interface ProfilePhotoEditProps {
+  profile_image: string | null;
+}
+
+const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
+  profile_image,
+}) => {
+  const [userImg, setUserImg] = useState<string>(
+    profile_image || defaultProfile
+  );
   const [, setFile] = useState<File | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
 
@@ -12,10 +20,12 @@ const ProfilePhotoEdit: React.FC = () => {
     const savedImg = sessionStorage.getItem('profileImg');
     if (savedImg) {
       setUserImg(savedImg);
+    } else if (profile_image) {
+      setUserImg(profile_image); // 프롭스로 전달된 이미지 사용
     } else {
-      setUserImg(defaultProfile); // 기본 프로필 이미지를 설정
+      setUserImg(defaultProfile); // 기본 프로필 이미지 사용
     }
-  }, []);
+  }, [profile_image]);
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {

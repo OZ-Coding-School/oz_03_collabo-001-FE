@@ -1,16 +1,21 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
 
-const NicknameEdit: React.FC = () => {
+interface NicknameEditProps {
+  nickname: string;
+}
+
+const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState('');
-  const [inputValue, setInputValue] = useState(name);
+  const [name, setName] = useState(nickname);
+  const [inputValue, setInputValue] = useState(nickname);
 
   const handleEditClick = async () => {
     if (isEditing) {
       try {
-        // 현재 편집 중일 때 버튼을 누르면 저장
         setName(inputValue);
         sessionStorage.setItem('nickname', inputValue);
 
@@ -18,11 +23,20 @@ const NicknameEdit: React.FC = () => {
           nickname: inputValue,
         });
       } catch (error) {
-        console.error('서버에 닉네임 저장 실패:', error);
-        // 실패 시 처리할 로직 (예: 에러 메시지 표시)
+        console.error('서버에 닉네임 변경 실패:', error);
+        toast.error('닉네임 변경 실패!', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     }
-    setIsEditing(!isEditing); // 편집 모드 토글
+    setIsEditing(!isEditing);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,29 +46,38 @@ const NicknameEdit: React.FC = () => {
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       try {
-        setName(inputValue); // 엔터를 누르면 저장
+        setName(inputValue);
         sessionStorage.setItem('nickname', inputValue);
-        setIsEditing(false); // 편집 모드 종료
+        setIsEditing(false);
 
-        // 서버에 저장 요청
         await axios.post('http://127.0.0.1:8000/users/mypage/update-name/', {
           nickname: inputValue,
         });
       } catch (error) {
         console.error('서버에 닉네임 저장 실패:', error);
-        // 실패 시 처리할 로직
+        toast.error('닉네임 변경 실패!', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     }
   };
+
   useEffect(() => {
     const savedName = sessionStorage.getItem('nickname');
     if (savedName) {
       setName(savedName);
       setInputValue(savedName);
     } else {
-      setName('작성자이름(별명)'); // 기본값
+      setName(nickname);
     }
-  }, []);
+  }, [nickname]);
 
   return (
     <div className='flex justify-center'>
