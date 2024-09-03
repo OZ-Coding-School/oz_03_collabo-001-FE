@@ -19,9 +19,13 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         setName(inputValue);
         sessionStorage.setItem('nickname', inputValue);
 
-        await axios.post('http://127.0.0.1:8000/users/mypage/update-name/', {
-          nickname: inputValue,
-        });
+        await axios.post(
+          'http://127.0.0.1:8000/users/mypage/update-name/',
+          {
+            nickname: inputValue,
+          },
+          { withCredentials: true }
+        );
       } catch (error) {
         console.error('서버에 닉네임 변경 실패:', error);
         toast.error('닉네임 변경 실패!', {
@@ -50,9 +54,13 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         sessionStorage.setItem('nickname', inputValue);
         setIsEditing(false);
 
-        await axios.post('http://127.0.0.1:8000/users/mypage/update-name/', {
-          nickname: inputValue,
-        });
+        await axios.post(
+          'http://127.0.0.1:8000/users/mypage/update-name/',
+          {
+            nickname: inputValue,
+          },
+          { withCredentials: true }
+        );
       } catch (error) {
         console.error('서버에 닉네임 저장 실패:', error);
         toast.error('닉네임 변경 실패!', {
@@ -95,6 +103,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
                 : 'border-none bg-transparent'
             )}
             autoFocus
+            maxLength={10}
           />
         ) : (
           name
