@@ -3,23 +3,23 @@ import BookmarkLine from '../assets/Icon/BookMark/Bg_BookMark_Line.svg';
 import BookmarkFill from '../assets/Icon/BookMark/Bg_BookMark_Fill.svg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import useVerify from '../hooks/useVerify';
 
 interface BookmarkButtonProps {
   placeId: string;
   isBookmarkedInitially: boolean;
+  onBookmarkChange?: (placeId: string) => void;
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   placeId,
   isBookmarkedInitially,
+  onBookmarkChange,
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(isBookmarkedInitially);
-  const { checkLoginStatus } = useVerify();
 
   const handleBookmarkToggle = async () => {
     try {
-      await checkLoginStatus();
+      // await checkLoginStatus();
       if (isBookmarked) {
         // 북마크 제거 요청
         await axios.delete(
@@ -28,7 +28,6 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
         );
         setIsBookmarked(false);
       } else {
-        // 북마크 추가 요청
         await axios.post(
           `http://127.0.0.1:8000/places/${placeId}/bookmark/`,
           {},
@@ -36,9 +35,13 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
         );
         setIsBookmarked(true);
       }
+
+      if (onBookmarkChange) {
+        onBookmarkChange(placeId);
+      }
     } catch (error) {
       console.error('북마크 처리 실패:', error);
-      toast.error('로그인 상태를 확인해주세요!', {
+      toast.error('로그인 후 사용해 주세요!', {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
