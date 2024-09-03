@@ -1,6 +1,7 @@
 import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
 import defaultProfile from '../../assets/DefaultProfile.svg';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface ProfilePhotoEditProps {
   profile_image: string | null;
@@ -12,19 +13,23 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
   const [userImg, setUserImg] = useState<string>(
     profile_image || defaultProfile
   );
+  const [prevImg, setPrevImg] = useState<string>(
+    profile_image || defaultProfile
+  );
   const [, setFile] = useState<File | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
 
-  // 페이지가 로드될 때 sessionStorage에서 이미지 로드
   useEffect(() => {
     const savedImg = sessionStorage.getItem('profileImg');
     if (savedImg) {
       setUserImg(savedImg);
     } else if (profile_image) {
-      setUserImg(profile_image); // 프롭스로 전달된 이미지 사용
+      setUserImg(profile_image);
     } else {
-      setUserImg(defaultProfile); // 기본 프로필 이미지 사용
+      setUserImg(defaultProfile);
     }
+
+    setPrevImg(profile_image || defaultProfile);
   }, [profile_image]);
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +50,11 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
           setUserImg(imgDataUrl);
           sessionStorage.setItem('profileImg', imgDataUrl);
 
-          await uploadProfilePhoto(selectedFile);
+          const success = await uploadProfilePhoto(selectedFile);
+          if (!success) {
+            setUserImg(prevImg);
+            sessionStorage.setItem('profileImg', prevImg);
+          }
         }
       };
       reader.readAsDataURL(selectedFile);
@@ -76,11 +85,21 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
 
       if (response.status === 200) {
         console.log('업로드 성공');
-      } else {
-        console.log('업로드 실패');
+        return true;
       }
     } catch (error) {
       console.log('업로드 실패');
+      toast.error('프로필 변경 실패!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return false;
     }
   };
 
