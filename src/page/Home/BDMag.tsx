@@ -5,7 +5,7 @@ const BDMag = () => {
   return (
     <div className='col'>
       <MoreTitle title='애개매거진' />
-      <div className='flex justify-between pb-[20px]'>
+      <div className='flex justify-between gap-2 pb-[20px]'>
         <BDMagItem />
         <BDMagItem />
       </div>

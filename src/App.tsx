@@ -8,8 +8,8 @@ import AuthProvider from './page/Login/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/layout/Layout';
-import Magazine from './components/BDMag/Magazine';
 import BDInfo from './page/BDInfo/BDInfo';
+import BDMag from './page/BDMag/BDMag';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='/bdplacehome' element={<PlaceHome />} />
           <Route path='/bdinfo' element={<BDInfo />} />
-          <Route path='/bdmag' element={<Magazine />} />
+          <Route path='/bdmag' element={<BDMag />} />
           <Route path='/mypage' element={<PrivateRoute element={MyPage} />} />
           <Route path='/login' element={<Login />} />
           <Route path='/auth/provider' element={<AuthProvider />} />
