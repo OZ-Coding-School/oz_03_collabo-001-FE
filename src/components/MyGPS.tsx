@@ -20,7 +20,7 @@ const MyGPS: React.FC = () => {
             ? `오류 : ${error}`
             : address
               ? `현위치 : ${address}`
-              : '내 위치'}
+              : '내 위치 보기'}
       </span>
     </button>
   );
