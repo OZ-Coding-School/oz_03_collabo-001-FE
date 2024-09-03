@@ -1,21 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import BDInfoHome from './BDInfoHome';
-import BDFreeBoard from './BDFreeBoard';
-import BDInfoBoard from './BDInfoBoard';
-import BDQna from './BDQna';
+import BDMagHome from './BDMagHome';
+import BDMagMag from './BDMagMag';
+import BDMagStory from './BDMagStory';
 
-const BDInfo: React.FC = () => {
+const BDMag = () => {
   const [placeTopNavBtn, setPlaceTopNavBtn] = useState(0);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
 
   const placeNavMenu = [
-    { name: '홈', component: <BDInfoHome /> },
-    { name: '자유게시판', component: <BDFreeBoard /> },
-    { name: '애개육아상식', component: <BDInfoBoard /> },
-    { name: '애개IN', component: <BDQna /> },
+    { name: '홈', component: <BDMagHome /> },
+    { name: '애개매거진', component: <BDMagMag /> },
+    { name: '애개스토리', component: <BDMagStory /> },
     // ex: 컴포넌트 연결시 이렇게 사용 { name: '애개플레이스', component: <MiddleNav /> },
   ];
 
@@ -43,8 +40,7 @@ const BDInfo: React.FC = () => {
             key={item.name}
             ref={(el) => (buttonRefs.current[index] = el)}
             className={twMerge(
-              'relative flex h-[48px] w-[100px] items-center justify-center transition-colors duration-200',
-              index === 0 && 'w-[60px]',
+              'relative flex h-[48px] w-[133.33px] items-center justify-center transition-colors duration-200',
               placeTopNavBtn === index
                 ? 'font-bold text-[#f78222]'
                 : 'font-normal text-[#B1B1B1]'
@@ -68,4 +64,4 @@ const BDInfo: React.FC = () => {
   );
 };
 
-export default BDInfo;
+export default BDMag;

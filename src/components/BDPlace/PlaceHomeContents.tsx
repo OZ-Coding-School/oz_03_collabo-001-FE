@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 import RecoPlace from './RecoPlace';
 import RegionTab from './RegionTab';
 import Banner from '../../page/Home/Banner';
@@ -33,6 +34,14 @@ interface PlaceRegions {
 // }
 
 const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
+  // 배너, 추천장소 데이터 가져오기
+  const { categoryData, loading, error } = useFetchCategoryData(current);
+  const recoTags: { [key: string]: string[] } = {
+    bd: ['5세아이', '중형견', '실내'],
+    pet: ['대형견이 놀기좋아요', '강아지수영장'],
+    kids: ['아들들이 좋아해요', '5세아이맞춤', '실내'],
+  };
+
   const [placeSubcategories, setPlaceSubcategories] = useState<
     PlaceSubcategories[]
   >([]);
@@ -93,13 +102,24 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
   //     return [];
   //   }
   // };
+      
+  if (!categoryData) {
+    return null;
+  }
+
+  if (loading || error) {
+    return null;
+  }
 
   return (
     <>
       <div className='flex flex-col gap-[15px]'>
         <div>
-          <Banner />
-          <RecoPlace />
+          <Banner bannerImgs={categoryData.bannerImgs} />
+          <RecoPlace
+            recoTags={recoTags[current]}
+            recoPlaces={categoryData.recoPlaces}
+          />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <p className='py-[18px] font-semibold'>

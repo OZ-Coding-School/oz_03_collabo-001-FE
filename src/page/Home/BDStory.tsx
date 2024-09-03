@@ -5,7 +5,7 @@ const BDStory = () => {
   return (
     <div className='col'>
       <MoreTitle title='애개스토리' />
-      <div className='flex flex-wrap justify-between pb-[12px]'>
+      <div className='grid grid-cols-2 justify-between gap-2 pb-[12px]'>
         <BDStoryItem />
         <BDStoryItem />
         <BDStoryItem />

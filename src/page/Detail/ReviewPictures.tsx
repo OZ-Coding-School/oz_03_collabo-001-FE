@@ -4,7 +4,7 @@ import MoreTitle from '../../components/layout/MoreTitle';
 import { FaPlus } from 'react-icons/fa6';
 
 interface ReviewPicturesProps {
-  placeId: string;
+  placeId: string | number;
 }
 
 interface reviewImages {
