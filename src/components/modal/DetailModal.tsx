@@ -20,7 +20,7 @@ const NAV_HEIGHT = 48; // 고정 NAV의 높이
 
 interface DetailModalProps {
   closeModal: () => void;
-  placeId: string;
+  placeId: string | number;
 }
 
 const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {

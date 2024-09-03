@@ -25,7 +25,7 @@ interface PlaceData {
   serviceIcons: ServiceIcon[];
 }
 
-const useFetchPlaceData = (placeId: string) => {
+const useFetchPlaceData = (placeId: string | number) => {
   const [placeData, setPlaceData] = useState<PlaceData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

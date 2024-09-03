@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import ReviewListItem from './ReviewListItem';
 
 interface ReviewListProps {
-  placeId: string;
+  placeId: string | number;
   reviewCount: number;
 }
 
