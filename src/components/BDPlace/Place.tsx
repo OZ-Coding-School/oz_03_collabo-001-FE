@@ -70,7 +70,7 @@ const Place: React.FC<PlaceProps> = ({
           <p className='truncate text-nowrap text-[12px] font-semibold'>{`[${locationName}] ${name}`}</p>
           <p className='flex gap-1 text-[10px]'>
             <span className='text-primary'>★</span>
-            <span>{rating.toFixed(1)}</span>
+            <span>{(rating ?? 0).toFixed(1)}</span>
             <span className='text-caption'>{reviewCount}</span>
           </p>
         </div>

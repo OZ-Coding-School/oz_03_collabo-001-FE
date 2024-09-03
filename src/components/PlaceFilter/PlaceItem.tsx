@@ -71,7 +71,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
             <li className='flex'>
               <img src={Star} alt='별점' aria-hidden />
               <span aria-label='별점' className='ml-[4px] text-[12px]'>
-                {rating.toFixed(1)}
+                {(rating ?? 0).toFixed(1)}
               </span>
               <span
                 aria-label='후기 갯수'
