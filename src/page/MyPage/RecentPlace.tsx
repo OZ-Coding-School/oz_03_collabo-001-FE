@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import MoreTitle from '../../components/layout/MoreTitle';
-import Place from '../../components/BDPlace/Place';
+import Place, { RegionListType } from '../../components/BDPlace/Place';
 import useRecentPlacesStore from '../../store/recentPlaceStore';
 import useBookmarkStore from '../../store/bookmarkStore';
 import axios from 'axios';
-import { RegionListType } from '../../components/BDPlace/Place';
 
 interface PlaceData {
   id: string;
@@ -55,11 +54,12 @@ const RecentPlace: React.FC = () => {
           <Place
             key={placeId}
             placeId={placeId}
+            store_image={''}
             location={info.location}
             name={info.name}
             rating={info.rating}
             reviewCount={info.reviewCount}
-            isBookmarked={!!bookmarks[placeId]} // 북마크 상태 확인
+            isBookmarked={!!bookmarks[placeId]}
             regionList={info.regionList}
           />
         ))}

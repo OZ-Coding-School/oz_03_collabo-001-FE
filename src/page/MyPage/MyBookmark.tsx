@@ -43,6 +43,7 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
             <Place
               key={placeInfo.id}
               placeId={placeInfo.id.toString()}
+              store_image={placeInfo.store_image}
               location={placeInfo.address}
               name={placeInfo.name}
               rating={placeInfo.rating}
