@@ -58,6 +58,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
+            key='region-filter'
             title={
               current === 'bd'
                 ? '지역별 애개플레이스'
@@ -76,6 +77,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
+            key='place-filter'
             title={
               current === 'bd'
                 ? '장소별 애개플레이스'
