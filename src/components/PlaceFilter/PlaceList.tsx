@@ -50,14 +50,14 @@ const fetchPlaces = async (
     main_category: selectPlace,
     page,
     page_size: 10,
-    place_region: regionId || '',
-    place_subcategory: subCategoryId || '',
+    place_region: regionId,
+    place_subcategory: subCategoryId,
     latitude: latitude,
     longitude: longitude,
     is_active: isActive,
   };
 
-  let options: any = {};
+  let options: any = { params };
 
   // 특정 엔드포인트에 대해 URL 변경 및 withCredentials 활성화
   if (uri === 'bookmark') {
@@ -136,6 +136,14 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
   );
 
   useEffect(() => {
+    console.log('Fetching places with:', {
+      regionId,
+      subCategoryId,
+      latitude,
+      longitude,
+      isActive,
+      selectPlace,
+    });
     loadMorePlaces(true);
   }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
 
