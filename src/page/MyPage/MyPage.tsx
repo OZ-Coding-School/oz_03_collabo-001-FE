@@ -27,7 +27,7 @@ interface Bookmark {
 }
 
 interface RecentViewHistory {
-  id: string;
+  id: number;
   store_image: string;
   is_bookmarked: boolean;
   place_region: number;

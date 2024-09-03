@@ -5,15 +5,15 @@ import Location from '../../assets/Location.svg';
 import Star from '../../assets/star.svg';
 
 interface PlaceItem {
-  placeId: string;
+  placeId: number;
   store_image: string;
   isBookmarked: boolean;
-  place_region: string;
+  place_region: number;
   name: string;
   address: string;
   rating: number;
   comments_count: number;
-  onBookmarkChange?: (placeId: string) => void;
+  onBookmarkChange?: (placeId: number) => void;
 }
 
 const PlaceItem: React.FC<PlaceItem> = ({
@@ -31,7 +31,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
     `detailModal_${placeId}`
   );
 
-  const handleBookmarkChange = (placeId: string) => {
+  const handleBookmarkChange = (placeId: number) => {
     if (onBookmarkChange) {
       onBookmarkChange(placeId);
     }
