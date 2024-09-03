@@ -6,12 +6,19 @@ import PlaceItem from './PlaceItem';
 import { useFilterStore } from '../../store/filterStore';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
+interface PlaceListProps {
+  selectPlace?: string;
+  uri?: string;
+}
+
 interface PlaceData {
   id: string;
   store_image: string;
   is_bookmarked: boolean;
   place_region: string;
+  place_subcategory: string;
   name: string;
+  address: string;
   rating: number;
   comments_count: number;
 }
@@ -34,9 +41,13 @@ const fetchPlaces = async (
   latitude: number | null,
   longitude: number | null,
   isActive: boolean,
-  page: number
+  page: number,
+  selectPlace?: string,
+  uri?: string
 ) => {
+  let url = 'http://127.0.0.1:8000/places/';
   const params: any = {
+    main_category: selectPlace,
     page,
     page_size: 10,
     place_region: regionId || '',
@@ -46,10 +57,22 @@ const fetchPlaces = async (
     is_active: isActive,
   };
 
+  let options: any = { params };
+
+  // 특정 엔드포인트에 대해 URL 변경 및 withCredentials 활성화
+  if (uri === 'bookmark') {
+    url = 'http://127.0.0.1:8000/users/mypage/bookmark/';
+    options = { params, withCredentials: true };
+  } else if (uri === 'my_comment') {
+    url = 'http://127.0.0.1:8000/users/mypage/my-comment/';
+    options = { withCredentials: true };
+  } else if (uri === 'view_history') {
+    url = 'http://127.0.0.1:8000/users/mypage/view-history/';
+    options = { withCredentials: true };
+  }
+
   try {
-    const response = await axios.get('http://127.0.0.1:8000/places/', {
-      params,
-    });
+    const response = await axios.get(url, options);
     return response.data;
   } catch (error) {
     console.error('Error fetching places:', error);
@@ -57,7 +80,7 @@ const fetchPlaces = async (
   }
 };
 
-const PlaceList: React.FC = () => {
+const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
   const { regionId, subCategoryId, latitude, longitude, isActive } =
     useFilterStore();
   const [places, setPlaces] = useState<PlaceData[]>([]);
@@ -78,7 +101,9 @@ const PlaceList: React.FC = () => {
         latitude,
         longitude,
         isActive,
-        initialLoad ? 1 : page
+        initialLoad ? 1 : page,
+        selectPlace,
+        uri
       );
       const newPlaces = response.results.results;
 
@@ -106,7 +131,7 @@ const PlaceList: React.FC = () => {
 
   useEffect(() => {
     loadMorePlaces(true);
-  }, [regionId, subCategoryId, latitude, longitude, isActive]);
+  }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
 
   return (
     <div className='h-[100%]'>
@@ -118,11 +143,13 @@ const PlaceList: React.FC = () => {
           <PlaceItem
             key={place.id}
             placeId={place.id}
-            location={regionMap[place.place_region]}
-            name={place.name}
-            rating={place.rating}
-            reviewCount={place.comments_count}
+            store_image={place.store_image}
             isBookmarked={place.is_bookmarked}
+            place_region={regionMap[place.place_region]}
+            name={place.name}
+            address={place.address}
+            rating={place.rating}
+            comments_count={place.comments_count}
           />
         ))}
       </div>

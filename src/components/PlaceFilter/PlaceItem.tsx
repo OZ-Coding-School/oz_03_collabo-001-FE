@@ -6,20 +6,24 @@ import Star from '../../assets/star.svg';
 
 interface PlaceItem {
   placeId: string;
-  location: string;
-  name: string;
-  rating: number;
-  reviewCount: number;
+  store_image: string;
   isBookmarked: boolean;
+  place_region: string;
+  name: string;
+  address: string;
+  rating: number;
+  comments_count: number;
 }
 
 const PlaceItem: React.FC<PlaceItem> = ({
   placeId,
-  location,
-  name,
-  rating,
-  reviewCount,
+  store_image,
   isBookmarked,
+  place_region,
+  name,
+  address,
+  rating,
+  comments_count,
 }) => {
   const { isOpen, openSubModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
@@ -29,13 +33,19 @@ const PlaceItem: React.FC<PlaceItem> = ({
     <>
       <div className='flex items-center border-b border-border bg-white p-[10px]'>
         <button onClick={openSubModal}>
-          <div className='imgWrap h-[70px] w-[119px] rounded-lg bg-background'></div>
+          <div className='h-[70px] w-[120px]'>
+            <img
+              src={store_image}
+              alt=''
+              className='h-[100%] w-[100%] rounded-lg'
+            />
+          </div>
         </button>
 
-        <div className='ml-[12px] grow p-[8px]'>
+        <div className='ml-[12px] w-[230px] grow p-[8px]'>
           <ul>
-            <li className='relative mb-[4px] text-[14px] font-semibold'>
-              <p>{`[${location}] ${name}`}</p>
+            <li className='relative mb-[4px] truncate text-nowrap text-[14px] font-semibold'>
+              <p className='w-[200px] truncate text-nowrap'>{`[${place_region}] ${name}`}</p>
               <div className='absolute right-0 top-0'>
                 <BookmarkButton
                   placeId={placeId}
@@ -45,8 +55,8 @@ const PlaceItem: React.FC<PlaceItem> = ({
             </li>
             <li className='mb-[4px] flex'>
               <img src={Location} alt='' aria-hidden />
-              <span className='ml-[4px] text-[12px] font-medium text-caption'>
-                경기 고양시 덕양구 고양대로 1955
+              <span className='ml-[4px] truncate text-nowrap text-[12px] font-medium text-caption'>
+                {address}
               </span>
             </li>
             <li className='flex'>
@@ -58,7 +68,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
                 aria-label='후기 갯수'
                 className='ml-[4px] text-[12px] text-caption'
               >
-                {reviewCount}
+                {comments_count}
               </span>
             </li>
           </ul>
