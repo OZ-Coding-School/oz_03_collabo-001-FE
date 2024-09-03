@@ -3,7 +3,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import useModalWithURL from '../../hooks/useModalWithURL';
 import BookmarkButton from '../BookmarkButton';
-// import BgImage from '../../assets/images/starfield.png';
 import DetailModal from '../modal/DetailModal';
 import useRecentPlacesStore from '../../store/recentPlaceStore';
 import useBookmarkStore from '../../store/bookmarkStore';
