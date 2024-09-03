@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 // import { twMerge } from 'tailwind-merge';
 import useModalWithURL from '../../hooks/useModalWithURL';
 import DetailModal from '../modal/DetailModal';
@@ -40,7 +42,7 @@ const RecoPlaceItem: React.FC<RecoPlaceItemProps> = ({ placeId }) => {
           </ul>
         </div>
       </div>
-      {isOpen && <DetailModal closeModal={closeModal} />}
+      {isOpen && <DetailModal closeModal={closeModal} placeId={placeId} />}
     </>
   );
 };
