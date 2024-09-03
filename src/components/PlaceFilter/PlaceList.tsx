@@ -105,25 +105,35 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
         selectPlace,
         uri
       );
-      const newPlaces = response.results.results;
+
+      const newPlaces = response?.results?.results || [];
 
       if (initialLoad) {
-        setPlaces(newPlaces);
-        setPage(2);
+        if (newPlaces.length === 0) {
+          setError('데이터가 없습니다.');
+          setHasMore(false);
+        } else {
+          setPlaces(newPlaces);
+          setPage(2);
+          setHasMore(!!response.next);
+        }
       } else {
-        setPlaces((prevPlaces) => [...prevPlaces, ...newPlaces]);
-        setPage((prevPage) => prevPage + 1);
+        if (newPlaces.length === 0) {
+          setHasMore(false);
+        } else {
+          setPlaces((prevPlaces) => [...prevPlaces, ...newPlaces]);
+          setPage((prevPage) => prevPage + 1);
+          setHasMore(!!response.next);
+        }
       }
-
-      setHasMore(!!response.next);
     } catch (error) {
       console.error('Error loading more places:', error);
       setError('장소를 가져오는데 실패했습니다.');
+      setHasMore(false);
     } finally {
       setIsLoading(false);
     }
   };
-
   const handleBookmarkChange = (placeId: string) => {
     setPlaces((prevPlaces) =>
       prevPlaces.filter((place) => place.id !== placeId)
