@@ -13,6 +13,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [showButton, setShowButton] = useState<boolean>(false);
   const imgRef = useRef<HTMLImageElement>(null);
+  const [imagesLoaded, setImagesLoaded] = useState<number>(0);
 
   const handleToggleExpand = () => {
     const newExpandedState = !isExpanded;
@@ -22,14 +23,16 @@ const DetailContent: React.FC<DetailContentProps> = ({
 
   const handleImageLoad = () => {
     if (imgRef.current) {
-      const imgHeight = imgRef.current.clientHeight;
+      const imgHeight = imgRef.current.scrollHeight;
       setShowButton(imgHeight >= 500);
     }
   };
 
   useEffect(() => {
-    handleImageLoad();
-  }, [contentImgs]);
+    if (imagesLoaded === contentImgs.length) {
+      handleImageLoad();
+    }
+  }, [imagesLoaded, contentImgs.length]);
 
   const ImgWrap: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const className = twMerge(
@@ -54,7 +57,15 @@ const DetailContent: React.FC<DetailContentProps> = ({
         <>
           <ImgWrap>
             {contentImgs.map((item, i) => {
-              return <img key={i} src={item} alt={`이미지 ${i}`} />;
+              return (
+                <img
+                  key={i}
+                  src={item}
+                  alt={`이미지 ${i}`}
+                  onLoad={() => setImagesLoaded((prev) => prev + 1)}
+                  style={{ display: 'block', width: '100%' }}
+                />
+              );
             })}
           </ImgWrap>
           {showButton && (
