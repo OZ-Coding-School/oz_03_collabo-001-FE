@@ -2,7 +2,7 @@ import BgImage from '../../assets/images/starfield.png';
 
 const BDMagItem = () => {
   return (
-    <div className='h-[180px] w-[48%] max-w-[180px] overflow-clip rounded-[5px] border border-border bg-[white]'>
+    <div className='overflow-clip rounded-[5px] border border-border bg-[white]'>
       <img src={BgImage} alt='' className='h-2/3 w-full object-cover' />
       <div className='flex flex-col justify-between p-2'>
         <p className='truncate text-[0.9rem] font-bold'>
