@@ -13,6 +13,7 @@ interface PlaceItem {
   address: string;
   rating: number;
   comments_count: number;
+  onBookmarkChange?: (placeId: string) => void;
 }
 
 const PlaceItem: React.FC<PlaceItem> = ({
@@ -24,10 +25,17 @@ const PlaceItem: React.FC<PlaceItem> = ({
   address,
   rating,
   comments_count,
+  onBookmarkChange,
 }) => {
   const { isOpen, openSubModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
   );
+
+  const handleBookmarkChange = (placeId: string) => {
+    if (onBookmarkChange) {
+      onBookmarkChange(placeId);
+    }
+  };
 
   return (
     <>
@@ -50,6 +58,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
                 <BookmarkButton
                   placeId={placeId}
                   isBookmarkedInitially={isBookmarked}
+                  onBookmarkChange={() => handleBookmarkChange(placeId)}
                 />
               </div>
             </li>
