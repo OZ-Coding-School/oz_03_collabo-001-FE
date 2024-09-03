@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-//카테고리별 배너, 추천장소 가져오기
-
-interface images {
+interface Image {
   image: string;
+  url_link?: string;
 }
 
-interface places {
+interface Place {
   address: string;
   comments_count: number;
   id: number;
@@ -21,13 +20,28 @@ interface places {
 
 interface RecoPlaceItem {
   content: string;
-  places: places;
+  places: Place;
   tags: number[];
 }
 
+interface PlaceRegion {
+  id: number;
+  region: string;
+}
+
+interface PlaceSubcategory {
+  id: number;
+  subcategory: string;
+}
+
 interface CategoryData {
-  bannerImgs: images[];
+  bannerImgs: Image[];
   recoPlaces: RecoPlaceItem[];
+  newPlaces: Place[];
+  regionPlaces: Place[];
+  subcategoryPlaces: Place[];
+  tapRegions: PlaceRegion[];
+  tapSubcategories: PlaceSubcategory[];
 }
 
 const useFetchCategoryData = (category: string) => {
@@ -48,16 +62,22 @@ const useFetchCategoryData = (category: string) => {
           return shuffled.slice(0, num);
         };
 
-        // 초기데이터
-        let bannerImages: images[] = response.data.banners;
-        let recoPlaces: RecoPlaceItem[] = response.data.recommandedplaces;
+        // 초기 데이터
+        let bannerImages: Image[] = response.data.banners || [];
+        let recoPlaces: RecoPlaceItem[] = response.data.recommandedplaces || [];
+        const newPlaces: Place[] = response.data.new_places || [];
+        const regionPlaces: Place[] = response.data.region_places || [];
+        const subcategoryPlaces: Place[] = response.data.subcategory || [];
+        const placeRegions: PlaceRegion[] = response.data.place_regions || [];
+        const placeSubcategories: PlaceSubcategory[] =
+          response.data.place_subcategories || [];
 
-        // 배너의 개수가 8개보다 많을경우 랜덤으로 8개 선택
+        // 배너의 개수가 8개보다 많을 경우 랜덤으로 8개 선택
         if (bannerImages.length > 8) {
           bannerImages = getRandomArrays(bannerImages, 8);
         }
 
-        // 추천장소의 개수가 4개보다 많을경우 랜덤으로 4개 선택
+        // 추천 장소의 개수가 4개보다 많을 경우 랜덤으로 4개 선택
         if (recoPlaces.length > 4) {
           recoPlaces = getRandomArrays(recoPlaces, 4);
         }
@@ -66,10 +86,14 @@ const useFetchCategoryData = (category: string) => {
         const fetchedData: CategoryData = {
           bannerImgs: bannerImages,
           recoPlaces: recoPlaces,
+          newPlaces: newPlaces,
+          regionPlaces: regionPlaces,
+          subcategoryPlaces: subcategoryPlaces,
+          tapRegions: placeRegions,
+          tapSubcategories: placeSubcategories,
         };
 
         // 상태 설정
-        // console.log(response.data);
         setCategoryData(fetchedData);
         setLoading(false);
       } catch (error) {
