@@ -98,6 +98,7 @@ const Place6: React.FC<Props> = ({
         <Place
           key={place.id}
           placeId={place.id}
+          store_image={place.store_image}
           location={place.place_region}
           name={place.name}
           rating={place.rating}

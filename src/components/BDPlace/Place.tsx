@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import useModalWithURL from '../../hooks/useModalWithURL';
 import BookmarkButton from '../BookmarkButton';
-import BgImage from '../../assets/images/starfield.png';
+// import BgImage from '../../assets/images/starfield.png';
 import DetailModal from '../modal/DetailModal';
 import useRecentPlacesStore from '../../store/recentPlaceStore';
 import useBookmarkStore from '../../store/bookmarkStore';
@@ -16,6 +16,7 @@ export interface RegionListType {
 
 interface PlaceProps {
   placeId: string; // 각 Place에 고유한 ID를 부여하여 모달 상태를 구분
+  store_image: string; // Store Image URL
   location: string;
   name: string;
   rating: number;
@@ -26,6 +27,7 @@ interface PlaceProps {
 
 const Place: React.FC<PlaceProps> = ({
   placeId,
+  store_image,
   location,
   name,
   rating,
@@ -67,7 +69,7 @@ const Place: React.FC<PlaceProps> = ({
       <div className='relative flex h-[120px] w-[120px] cursor-pointer flex-col overflow-clip rounded-lg border-[1px] border-border bg-[white]'>
         <button onClick={handlePlaceClick}>
           <img
-            src={BgImage}
+            src={store_image}
             alt=''
             className='h-[70px] w-[120px] object-cover'
           />
