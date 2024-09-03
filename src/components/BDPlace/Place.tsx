@@ -71,7 +71,7 @@ const Place: React.FC<PlaceProps> = ({
           <p className='flex gap-1 text-[10px]'>
             <span className='text-primary'>★</span>
             <span>{(rating ?? 0).toFixed(1)}</span>
-            <span className='text-caption'>{reviewCount}</span>
+            <span className='text-caption'>({reviewCount})</span>
           </p>
         </div>
       </div>
