@@ -3,7 +3,7 @@ import Home from './page/Home/Home';
 import MyPage from './page/MyPage/MyPage';
 import PlaceHome from './components/BDPlace/PlaceHome';
 import Login from './page/Login/Login';
-import PrivateRoute from './components/PrivateRoute';
+// import PrivateRoute from './components/PrivateRoute';
 import AuthProvider from './page/Login/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,7 +21,8 @@ function App() {
           <Route path='/bdplacehome' element={<PlaceHome />} />
           <Route path='/bdinfo' element={<BDInfo />} />
           <Route path='/bdmag' element={<Magazine />} />
-          <Route path='/mypage' element={<PrivateRoute element={MyPage} />} />
+          {/* <Route path='/mypage' element={<PrivateRoute element={MyPage} />} /> */}
+          <Route path='/mypage' element={<MyPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/auth/provider' element={<AuthProvider />} />
         </Route>
