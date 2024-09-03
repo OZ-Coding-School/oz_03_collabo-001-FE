@@ -22,7 +22,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         await axios.post(
           'http://127.0.0.1:8000/users/mypage/update-name/',
           {
-            nickname: inputValue,
+            name: inputValue,
           },
           { withCredentials: true }
         );

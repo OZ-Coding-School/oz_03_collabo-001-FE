@@ -60,7 +60,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
 
   const uploadProfilePhoto = async (selectedFile: File) => {
     const formData = new FormData();
-    formData.append('profile_img', selectedFile);
+    formData.append('profile_image', selectedFile);
 
     try {
       const response = await axios.post(
