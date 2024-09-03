@@ -1,21 +1,36 @@
 import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
 import defaultProfile from '../../assets/DefaultProfile.svg';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const ProfilePhotoEdit: React.FC = () => {
-  const [userImg, setUserImg] = useState<string>(defaultProfile);
+interface ProfilePhotoEditProps {
+  profile_image: string | null;
+}
+
+const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
+  profile_image,
+}) => {
+  const [userImg, setUserImg] = useState<string>(
+    profile_image || defaultProfile
+  );
+  const [prevImg, setPrevImg] = useState<string>(
+    profile_image || defaultProfile
+  );
   const [, setFile] = useState<File | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
 
-  // 페이지가 로드될 때 sessionStorage에서 이미지 로드
   useEffect(() => {
     const savedImg = sessionStorage.getItem('profileImg');
     if (savedImg) {
       setUserImg(savedImg);
+    } else if (profile_image) {
+      setUserImg(profile_image);
     } else {
-      setUserImg(defaultProfile); // 기본 프로필 이미지를 설정
+      setUserImg(defaultProfile);
     }
-  }, []);
+
+    setPrevImg(profile_image || defaultProfile);
+  }, [profile_image]);
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -35,7 +50,11 @@ const ProfilePhotoEdit: React.FC = () => {
           setUserImg(imgDataUrl);
           sessionStorage.setItem('profileImg', imgDataUrl);
 
-          await uploadProfilePhoto(selectedFile);
+          const success = await uploadProfilePhoto(selectedFile);
+          if (!success) {
+            setUserImg(prevImg);
+            sessionStorage.setItem('profileImg', prevImg);
+          }
         }
       };
       reader.readAsDataURL(selectedFile);
@@ -50,7 +69,7 @@ const ProfilePhotoEdit: React.FC = () => {
 
   const uploadProfilePhoto = async (selectedFile: File) => {
     const formData = new FormData();
-    formData.append('profile_img', selectedFile);
+    formData.append('profile_image', selectedFile);
 
     try {
       const response = await axios.post(
@@ -60,16 +79,27 @@ const ProfilePhotoEdit: React.FC = () => {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
+          withCredentials: true,
         }
       );
 
       if (response.status === 200) {
         console.log('업로드 성공');
-      } else {
-        console.log('업로드 실패');
+        return true;
       }
     } catch (error) {
       console.log('업로드 실패');
+      toast.error('프로필 변경 실패!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return false;
     }
   };
 

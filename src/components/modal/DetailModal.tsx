@@ -50,7 +50,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
   const [contentScrollTop, setContentScrollTop] = useState<number>(0);
   const [reviewScrollTop, setReviewScrollTop] = useState<number>(0);
   const [guideScrollTop, setGuideScrollTop] = useState<number>(0);
-  const [isContentExpanded, setIsContentExpanded] = useState<boolean>(false);
+  const [, setIsContentExpanded] = useState<boolean>(false);
 
   const updateScrollPositions = useCallback(() => {
     if (
@@ -150,9 +150,11 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
           <div>
             <Banner bannerImgs={placeData.bannerImgs} />
             <ShopSimpleData
+              placeId={placeId}
               name={placeData.name}
               address={placeData.address}
               rating={placeData.rating}
+              is_bookmarked={placeData.is_bookmark}
               storeImage={placeData.storeImage}
             />
             <ShopDetailData

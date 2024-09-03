@@ -1,25 +1,37 @@
-// import { useEffect, useState } from 'react'; // useState 제거
-// import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 import RecoPlace from './RecoPlace';
 import RegionTab from './RegionTab';
 import Banner from '../../page/Home/Banner';
 import MoreTitle from '../layout/MoreTitle';
 import Place6 from './Place6';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 interface CurrentProps {
   current: string;
 }
+
 interface PlaceSubcategories {
   id: string;
   subcategory: string;
 }
+
 interface PlaceRegions {
   id: string;
   region: string;
 }
+
+// interface PlaceData {
+//   id: string;
+//   store_image: string;
+//   is_bookmarked: boolean;
+//   place_region: number;
+//   place_subcategory: number;
+//   name: string;
+//   address: string;
+//   rating: number;
+//   comments_count: number;
+// }
 
 const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
   // 배너, 추천장소 데이터 가져오기
@@ -34,11 +46,16 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
     PlaceSubcategories[]
   >([]);
   const [placeRegions, setPlaceRegions] = useState<PlaceRegions[]>([]);
+  // const [newPlaces, setNewPlaces] = useState<PlaceData[]>([]);
+  // const [regionPlaces, setRegionPlaces] = useState<PlaceData[]>([]);
+  // const [subcategoryPlaces, setSubcategoryPlaces] = useState<PlaceData[]>([]);
 
   useEffect(() => {
     const getTabs = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/places/');
+        const response = await axios.get('http://127.0.0.1:8000/places/', {
+          withCredentials: true,
+        });
         setPlaceSubcategories(response.data.results.place_subcategories);
         setPlaceRegions(response.data.results.place_regions);
       } catch (err) {
@@ -48,6 +65,44 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
     getTabs();
   }, [current]);
 
+  useEffect(() => {
+    console.log(current);
+    const fetchPlaces = async () => {
+      try {
+        // For new places
+        const response = await axios.get(
+          `http://127.0.0.1:8000/places/${current}/main/`,
+          { withCredentials: true }
+        );
+        console.log(response.data);
+
+        // setNewPlaces(response.data.new_places);
+        // setRegionPlaces(response.data.region_places);
+        // setSubcategoryPlaces(response.data.subcategory);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchPlaces();
+  }, [current]);
+
+  // const fetchPlacesByCategory = async (category: string, section: string) => {
+  //   try {
+  //     let url = `http://127.0.0.1:8000/places/?main_category=${category}&page_size=6`;
+  //     if (section === 'region') {
+  //       url = `http://127.0.0.1:8000/places/?main_category=${category}&page_size=6`;
+  //     } else if (section === 'sub_category') {
+  //       url = `http://127.0.0.1:8000/places/?main_category=${category}&page_size=6`;
+  //     }
+  //     const response = await axios.get(url);
+  //     return response.data.results;
+  //   } catch (err) {
+  //     console.log(err);
+  //     return [];
+  //   }
+  // };
+      
   if (!categoryData) {
     return null;
   }
@@ -74,10 +129,16 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
                 ? '새로생긴 펫존'
                 : '새로생긴 키즈존'}
           </p>
-          <Place6 current={current} section='new' regionList={placeRegions} />
+          <Place6
+            current={current}
+            section='new'
+            regionList={placeRegions}
+            // newPlaces={newPlaces}
+          />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
+            key='region-filter'
             title={
               current === 'bd'
                 ? '지역별 애개플레이스'
@@ -92,10 +153,12 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             current={current}
             section='region'
             regionList={placeRegions}
+            // fetchPlacesByCategory={fetchPlacesByCategory}
           />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
+            key='place-filter'
             title={
               current === 'bd'
                 ? '장소별 애개플레이스'
@@ -109,6 +172,8 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             current={current}
             section='sub_category'
             regionList={placeRegions}
+            // subcategoryPlaces={subcategoryPlaces}
+            // fetchPlacesByCategory={fetchPlacesByCategory}
           />
         </div>
       </div>

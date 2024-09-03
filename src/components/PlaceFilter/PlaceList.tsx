@@ -6,12 +6,19 @@ import PlaceItem from './PlaceItem';
 import { useFilterStore } from '../../store/filterStore';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
+interface PlaceListProps {
+  selectPlace?: string;
+  uri?: string;
+}
+
 interface PlaceData {
   id: string;
   store_image: string;
   is_bookmarked: boolean;
   place_region: string;
+  place_subcategory: string;
   name: string;
+  address: string;
   rating: number;
   comments_count: number;
 }
@@ -34,22 +41,36 @@ const fetchPlaces = async (
   latitude: number | null,
   longitude: number | null,
   isActive: boolean,
-  page: number
+  page: number,
+  selectPlace?: string,
+  uri?: string
 ) => {
+  let url = 'http://127.0.0.1:8000/places/';
   const params: any = {
+    main_category: selectPlace,
     page,
     page_size: 10,
-    place_region: regionId || '',
-    place_subcategory: subCategoryId || '',
+    place_region: regionId,
+    place_subcategory: subCategoryId,
     latitude: latitude,
     longitude: longitude,
     is_active: isActive,
   };
 
+  const options: any = { withCredentials: true };
+
+  if (uri === 'bookmark') {
+    url = 'http://127.0.0.1:8000/users/mypage/bookmark/';
+  } else if (uri === 'my_comment') {
+    url = 'http://127.0.0.1:8000/users/mypage/my-comment/';
+  } else if (uri === 'view_history') {
+    url = 'http://127.0.0.1:8000/users/mypage/view-history/';
+  } else {
+    options.params = params;
+  }
+
   try {
-    const response = await axios.get('http://127.0.0.1:8000/places/', {
-      params,
-    });
+    const response = await axios.get(url, options);
     return response.data;
   } catch (error) {
     console.error('Error fetching places:', error);
@@ -57,7 +78,7 @@ const fetchPlaces = async (
   }
 };
 
-const PlaceList: React.FC = () => {
+const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
   const { regionId, subCategoryId, latitude, longitude, isActive } =
     useFilterStore();
   const [places, setPlaces] = useState<PlaceData[]>([]);
@@ -78,25 +99,44 @@ const PlaceList: React.FC = () => {
         latitude,
         longitude,
         isActive,
-        initialLoad ? 1 : page
+        initialLoad ? 1 : page,
+        selectPlace,
+        uri
       );
-      const newPlaces = response.results.results;
+
+      const newPlaces = response?.results?.results || [];
 
       if (initialLoad) {
-        setPlaces(newPlaces);
-        setPage(2);
+        if (newPlaces.length === 0) {
+          setError('해당하는 장소가 없습니다.');
+          setHasMore(false);
+          setPlaces([]);
+        } else {
+          setPlaces(newPlaces);
+          setPage(2);
+          setHasMore(!!response.next);
+        }
       } else {
-        setPlaces((prevPlaces) => [...prevPlaces, ...newPlaces]);
-        setPage((prevPage) => prevPage + 1);
+        if (newPlaces.length === 0) {
+          setHasMore(false);
+        } else {
+          setPlaces((prevPlaces) => [...prevPlaces, ...newPlaces]);
+          setPage((prevPage) => prevPage + 1);
+          setHasMore(!!response.next);
+        }
       }
-
-      setHasMore(!!response.next);
     } catch (error) {
       console.error('Error loading more places:', error);
       setError('장소를 가져오는데 실패했습니다.');
+      setHasMore(false);
     } finally {
       setIsLoading(false);
     }
+  };
+  const handleBookmarkChange = (placeId: string) => {
+    setPlaces((prevPlaces) =>
+      prevPlaces.filter((place) => place.id !== placeId)
+    );
   };
 
   const { observerElem } = useInfiniteScroll(
@@ -105,8 +145,16 @@ const PlaceList: React.FC = () => {
   );
 
   useEffect(() => {
+    console.log('Fetching places with:', {
+      regionId,
+      subCategoryId,
+      latitude,
+      longitude,
+      isActive,
+      selectPlace,
+    });
     loadMorePlaces(true);
-  }, [regionId, subCategoryId, latitude, longitude, isActive]);
+  }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
 
   return (
     <div className='h-[100%]'>
@@ -118,11 +166,14 @@ const PlaceList: React.FC = () => {
           <PlaceItem
             key={place.id}
             placeId={place.id}
-            location={regionMap[place.place_region]}
-            name={place.name}
-            rating={place.rating}
-            reviewCount={place.comments_count}
+            store_image={place.store_image}
             isBookmarked={place.is_bookmarked}
+            place_region={regionMap[place.place_region]}
+            name={place.name}
+            address={place.address}
+            rating={place.rating}
+            comments_count={place.comments_count}
+            onBookmarkChange={handleBookmarkChange}
           />
         ))}
       </div>
