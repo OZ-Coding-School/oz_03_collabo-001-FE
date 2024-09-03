@@ -20,10 +20,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         sessionStorage.setItem('nickname', inputValue);
 
         await axios.post(
-          'http://127.0.0.1:8000/users/mypage/update-name/',
-          {
-            name: inputValue,
-          },
+          `http://127.0.0.1:8000/users/mypage/update-name/${inputValue}`,
           { withCredentials: true }
         );
       } catch (error) {
