@@ -19,7 +19,6 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
 
   const handleBookmarkToggle = async () => {
     try {
-      // await checkLoginStatus();
       if (isBookmarked) {
         // 북마크 제거 요청
         await axios.delete(
