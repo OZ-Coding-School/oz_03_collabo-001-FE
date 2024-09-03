@@ -2,61 +2,114 @@ import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Place6 from './Place6';
 
-interface TabsType {
-  id: string;
-  subcategory?: string;
-  region?: string;
+interface PlaceData {
+  id: number;
+  store_image: string;
+  is_bookmarked: boolean;
+  place_region: number;
+  place_subcategory: number;
+  name: string;
+  rating: number;
+  comments_count: number;
 }
 
 interface RegionListType {
-  id: string;
+  id: number;
   region: string;
 }
 
+interface SubcategoryListType {
+  id: number;
+  subcategory: string;
+}
+
 interface TabProps {
-  tabs: TabsType[];
   current: string;
-  section: string;
-  regionList: RegionListType[];
+  section: 'new' | 'region' | 'sub_category';
+  newPlaces?: PlaceData[];
+  regionPlaces?: PlaceData[];
+  subcategoryPlaces?: PlaceData[];
+  tapRegions?: RegionListType[];
+  tapSubcategories?: SubcategoryListType[];
 }
 
 const RegionTab: React.FC<TabProps> = ({
-  tabs,
   current,
   section,
-  regionList,
+  newPlaces,
+  regionPlaces,
+  subcategoryPlaces,
+  tapRegions,
+  tapSubcategories,
 }) => {
   const [strTabs, setStrTabs] = useState<string[]>([]);
-  const [tabId, setTabId] = useState<string>('');
-  const [selectedTab, setSelectedTab] = useState<string>(strTabs[0]);
+  const [selectedTab, setSelectedTab] = useState<string>('전체');
+  const [filteredPlaces, setFilteredPlaces] = useState<PlaceData[]>([]);
 
   const handleTabRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedTab(e.target.value);
   };
 
   useEffect(() => {
-    setStrTabs(
-      tabs
-        .map((tab) => (section === 'region' ? tab.region : tab.subcategory))
-        .filter((tab): tab is string => tab !== undefined)
-    );
-  }, [section, tabs]);
+    let tabs: string[] = [];
+
+    if (tapRegions) {
+      tabs = ['전체', ...tapRegions.map((item) => item.region)];
+    } else if (tapSubcategories) {
+      tabs = ['전체', ...tapSubcategories.map((item) => item.subcategory)];
+    }
+
+    setStrTabs(tabs);
+    if (!selectedTab || !tabs.includes(selectedTab)) {
+      setSelectedTab('전체');
+    }
+  }, [tapRegions, tapSubcategories]);
 
   useEffect(() => {
-    setSelectedTab(strTabs[0]);
-  }, [current, strTabs]);
-  useEffect(() => {
-    const foundItem = tabs.find((item) =>
-      section === 'region'
-        ? item.region === selectedTab
-        : item.subcategory === selectedTab
-    );
-    setTabId(foundItem ? foundItem.id : '');
-  }, [section, selectedTab, tabs]);
+    let placesToFilter: PlaceData[] = [];
+
+    if (section === 'region' && regionPlaces) {
+      placesToFilter = regionPlaces;
+    } else if (section === 'sub_category' && subcategoryPlaces) {
+      placesToFilter = subcategoryPlaces;
+    } else if (section === 'new' && newPlaces) {
+      placesToFilter = newPlaces;
+    }
+
+    if (selectedTab === '전체') {
+      setFilteredPlaces(placesToFilter);
+    } else if (tapRegions) {
+      const selectedRegionId = tapRegions.find(
+        (region) => region.region === selectedTab
+      )?.id;
+      setFilteredPlaces(
+        placesToFilter.filter(
+          (place) => place.place_region === selectedRegionId
+        )
+      );
+    } else if (tapSubcategories) {
+      const selectedSubcategoryId = tapSubcategories.find(
+        (subcategory) => subcategory.subcategory === selectedTab
+      )?.id;
+      setFilteredPlaces(
+        placesToFilter.filter(
+          (place) => place.place_subcategory === selectedSubcategoryId
+        )
+      );
+    }
+  }, [
+    selectedTab,
+    section,
+    regionPlaces,
+    subcategoryPlaces,
+    newPlaces,
+    tapRegions,
+    tapSubcategories,
+  ]);
 
   return (
     <div>
-      <div className='flex flex-wrap gap-[6px] py-2'>
+      <div className='flex flex-wrap gap-[6px] pb-[18px]'>
         {strTabs.map((tab) => (
           <label key={tab}>
             <input
@@ -79,9 +132,14 @@ const RegionTab: React.FC<TabProps> = ({
       </div>
       <Place6
         current={current}
-        currentTab={tabId}
         section={section}
-        regionList={regionList}
+        newPlaces={section === 'new' ? filteredPlaces : undefined}
+        regionPlaces={section === 'region' ? filteredPlaces : undefined}
+        subcategoryPlaces={
+          section === 'sub_category' ? filteredPlaces : undefined
+        }
+        tapRegions={tapRegions}
+        tapSubcategories={tapSubcategories}
       />
     </div>
   );
