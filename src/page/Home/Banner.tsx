@@ -1,5 +1,5 @@
-// import image from '../../assets/images/starfield.png';
 // Import Swiper React components
+import image from '../../assets/images/starfield.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -37,7 +37,7 @@ const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
         modules={[Autoplay, Pagination, Navigation]}
         className='bannerSwiper m-0 h-[200px] w-full'
       >
-        {bannerImgs &&
+        {bannerImgs ? (
           bannerImgs.map((item, i) => {
             return (
               <SwiperSlide key={i}>
@@ -48,7 +48,32 @@ const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
                 />
               </SwiperSlide>
             );
-          })}
+          })
+        ) : (
+          <>
+            <SwiperSlide>
+              <img
+                src={image}
+                alt='sample image'
+                className='h-full w-full object-cover'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={image}
+                alt='sample image'
+                className='h-full w-full object-cover'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={image}
+                alt='sample image'
+                className='h-full w-full object-cover'
+              />
+            </SwiperSlide>
+          </>
+        )}
       </Swiper>
       <style>{`
         .bannerSwiper .swiper-pagination-bullet {
