@@ -90,7 +90,7 @@ const MyPage = () => {
           <UserInfo profile={data.profile} />
           <UserDashboard
             recentBookmarks={data.recent_bookmarks}
-            // recentViewHistories={data.recent_view_histories}
+            recentViewHistories={data.recent_view_histories}
             recentComments={data.recent_comments}
             banners={data.banners}
           />
@@ -106,14 +106,14 @@ const MyPage = () => {
 
 interface UserDashboardProps {
   recentBookmarks: Bookmark[];
-  // recentViewHistories: RecentViewHistory[];
+  recentViewHistories: RecentViewHistory[];
   recentComments: RecentComment[];
   banners: Banner[];
 }
 
 const UserDashboard: React.FC<UserDashboardProps> = ({
   recentBookmarks,
-  // recentViewHistories,
+  recentViewHistories,
   recentComments,
   banners,
 }) => {
@@ -123,7 +123,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
         {/* 나만의 북마크 */}
         <MyBookmark bookmarks={recentBookmarks} />
         {/* 최근 본 장소 */}
-        <RecentPlace />
+        <RecentPlace recentplace={recentViewHistories} />
         {/* 작성 후기 */}
         <MyReviewList reviews={recentComments} />
         {/* 내가 작성한 글 */}
