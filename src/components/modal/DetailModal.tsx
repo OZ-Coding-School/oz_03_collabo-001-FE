@@ -42,10 +42,12 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
     const fetchPlaces = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/`
+          `http://127.0.0.1:8000/places/${placeId}/`,
+          { withCredentials: true }
         );
         const response2 = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/comments/`
+          `http://127.0.0.1:8000/places/${placeId}/comments/`,
+          { withCredentials: true }
           // `http://127.0.0.1:8000/places/comments/2/`
         );
         // console.log(response2.data.length);]

@@ -44,7 +44,9 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
   useEffect(() => {
     const getTabs = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/places/');
+        const response = await axios.get('http://127.0.0.1:8000/places/', {
+          withCredentials: true,
+        });
         setPlaceSubcategories(response.data.results.place_subcategories);
         setPlaceRegions(response.data.results.place_regions);
       } catch (err) {
@@ -60,7 +62,8 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
       try {
         // For new places
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${current}/main/`
+          `http://127.0.0.1:8000/places/${current}/main/`,
+          { withCredentials: true }
         );
         console.log(response.data);
 

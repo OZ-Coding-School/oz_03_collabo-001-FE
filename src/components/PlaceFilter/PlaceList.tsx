@@ -57,18 +57,17 @@ const fetchPlaces = async (
     is_active: isActive,
   };
 
-  let options: any = { params };
+  const options: any = { withCredentials: true };
 
-  // 특정 엔드포인트에 대해 URL 변경 및 withCredentials 활성화
+  // 특정 엔드포인트에 대해 URL 변경
   if (uri === 'bookmark') {
     url = 'http://127.0.0.1:8000/users/mypage/bookmark/';
-    options = { params, withCredentials: true };
   } else if (uri === 'my_comment') {
     url = 'http://127.0.0.1:8000/users/mypage/my-comment/';
-    options = { withCredentials: true };
   } else if (uri === 'view_history') {
     url = 'http://127.0.0.1:8000/users/mypage/view-history/';
-    options = { withCredentials: true };
+  } else {
+    options.params = params;
   }
 
   try {

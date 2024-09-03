@@ -67,7 +67,10 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
       try {
         const response = await axios.get<FetchResponse>(
           'http://127.0.0.1:8000/places/',
-          { params: { main_category: selectPlace, page: 1, page_size: 10 } }
+          {
+            params: { main_category: selectPlace, page: 1, page_size: 10 },
+            withCredentials: true,
+          }
         );
         setRegions(response.data.results.place_regions as RegionType[]);
         setSubCategories(

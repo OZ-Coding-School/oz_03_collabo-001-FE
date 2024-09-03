@@ -75,6 +75,7 @@ const Place6: React.FC<Props> = ({
           'http://127.0.0.1:8000/places/',
           {
             params,
+            withCredentials: true,
           }
         );
         console.log(response.data.results.results);
