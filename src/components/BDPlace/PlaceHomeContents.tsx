@@ -102,7 +102,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
   //     return [];
   //   }
   // };
-      
+
   if (!categoryData) {
     return null;
   }
