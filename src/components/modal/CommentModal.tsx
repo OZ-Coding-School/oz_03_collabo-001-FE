@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import PlaceList from '../PlaceFilter/PlaceList';
 
-interface BookMarkModalProps {
+interface CommentModalProps {
   title: string;
   closeModal: () => void;
 }
 
-const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
+const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -29,11 +29,11 @@ const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
             <p className='py-[18px] font-semibold'>{title}</p>
           </div>
         </div>
-        <PlaceList uri={'bookmark'} />
+        <PlaceList uri={'my_comment'} />
       </div>
     </div>,
     document.getElementById('modal-root')!
   );
 };
 
-export default BookMarkModal;
+export default CommentModal;
