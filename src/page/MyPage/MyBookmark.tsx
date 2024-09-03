@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
 import MoreTitle from '../../components/layout/MoreTitle';
 import Place from '../../components/BDPlace/Place';
 
@@ -20,26 +18,12 @@ interface MyBookmarkProps {
 }
 
 const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
-  const [bookmarkedPlaces, setBookmarkedPlaces] = useState<Bookmark[]>([]);
-
-  useEffect(() => {
-    const fetchBookmarksPlaces = async () => {
-      try {
-        setBookmarkedPlaces(bookmarks);
-      } catch (err) {
-        console.error('Failed to load bookmarks and places', err);
-      }
-    };
-
-    fetchBookmarksPlaces();
-  }, [bookmarks]);
-
   return (
     <div className='col'>
       <MoreTitle title='나만의 북마크' />
       <div className='flex flex-wrap gap-[8px] pb-[20px]'>
-        {bookmarkedPlaces.length > 0 ? (
-          bookmarkedPlaces.map((placeInfo) => (
+        {bookmarks.length > 0 ? (
+          bookmarks.map((placeInfo) => (
             <Place
               key={placeInfo.id}
               placeId={placeInfo.id.toString()}
