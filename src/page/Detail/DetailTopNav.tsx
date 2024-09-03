@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import classNames from 'classnames';
 
 interface DetailTopNavProps {
@@ -66,8 +66,31 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
     setScrollOnClick(true); // Set flag to trigger scrolling
   };
 
+  const handleScroll = useCallback(() => {
+    if (containerRef.current) {
+      const scrollTop = containerRef.current.scrollTop;
+      if (scrollTop >= contentScrollTop && scrollTop < reviewScrollTop) {
+        setPlaceTopNavBtn(0); // "상세내용" 버튼 활성화
+      } else if (scrollTop >= reviewScrollTop && scrollTop < guideScrollTop) {
+        setPlaceTopNavBtn(1); // "후기" 버튼 활성화
+      } else if (scrollTop >= guideScrollTop) {
+        setPlaceTopNavBtn(2); // "이용안내" 버튼 활성화
+      }
+    }
+  }, [contentScrollTop, reviewScrollTop, guideScrollTop, containerRef]);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (element) {
+      element.addEventListener('scroll', handleScroll);
+      return () => {
+        element.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [handleScroll, containerRef]);
+
   return (
-    <div className='sticky top-[0px] flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
+    <div className='sticky top-[0px] z-10 flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
       {placeNavMenu.map((item, index) => (
         <button
           key={item.name}

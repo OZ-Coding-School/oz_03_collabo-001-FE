@@ -79,7 +79,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </ul>
         </div>
       </div>
-      {isOpen && <DetailModal closeModal={closeModal} />}
+      {isOpen && <DetailModal closeModal={closeModal} placeId={placeId} />}
     </>
   );
 };
