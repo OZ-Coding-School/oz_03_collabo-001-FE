@@ -51,6 +51,11 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
   } = useFilterStore();
 
   useEffect(() => {
+    // 프롭스가 제대로 전달되었는지 확인하기 위한 로그
+    console.log('PlaceFilter props:', { selectPlace, title, closeModal });
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
@@ -64,8 +69,6 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
           'http://127.0.0.1:8000/places/',
           { params: { main_category: selectPlace, page: 1, page_size: 10 } }
         );
-        console.log(response);
-
         setRegions(response.data.results.place_regions as RegionType[]);
         setSubCategories(
           response.data.results.place_subcategories as SubCategoryType[]
@@ -149,7 +152,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
           <FilterDistance onDistanceFilterChange={handleDistanceFilterChange} />
         </div>
         <div>
-          <PlaceList />
+          <PlaceList selectPlace={selectPlace} />
         </div>
       </div>
     </div>,
