@@ -59,7 +59,6 @@ const fetchPlaces = async (
 
   const options: any = { withCredentials: true };
 
-  // 특정 엔드포인트에 대해 URL 변경
   if (uri === 'bookmark') {
     url = 'http://127.0.0.1:8000/users/mypage/bookmark/';
   } else if (uri === 'my_comment') {
@@ -109,8 +108,9 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
 
       if (initialLoad) {
         if (newPlaces.length === 0) {
-          setError('데이터가 없습니다.');
+          setError('해당하는 장소가 없습니다.');
           setHasMore(false);
+          setPlaces([]);
         } else {
           setPlaces(newPlaces);
           setPage(2);
