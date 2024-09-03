@@ -57,7 +57,7 @@ const fetchPlaces = async (
     is_active: isActive,
   };
 
-  let options: any = { params };
+  let options: any = {};
 
   // 특정 엔드포인트에 대해 URL 변경 및 withCredentials 활성화
   if (uri === 'bookmark') {
@@ -124,6 +124,12 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
     }
   };
 
+  const handleBookmarkChange = (placeId: string) => {
+    setPlaces((prevPlaces) =>
+      prevPlaces.filter((place) => place.id !== placeId)
+    );
+  };
+
   const { observerElem } = useInfiniteScroll(
     () => loadMorePlaces(false),
     hasMore && !isLoading
@@ -150,6 +156,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
             address={place.address}
             rating={place.rating}
             comments_count={place.comments_count}
+            onBookmarkChange={handleBookmarkChange}
           />
         ))}
       </div>
