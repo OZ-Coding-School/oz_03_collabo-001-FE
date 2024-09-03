@@ -7,7 +7,6 @@ import WritingList from './WritingList';
 import FeaturedBanner from './FeaturedBanner';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import useVerify from '../../hooks/useVerify';
 
 interface UserProfile {
   profile_image: string | null;
@@ -65,13 +64,9 @@ interface MyPageData {
 const MyPage = () => {
   const [data, setData] = useState<MyPageData | null>(null);
 
-  const { checkLoginStatus } = useVerify();
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await checkLoginStatus();
-
         const response = await axios.get(
           'http://127.0.0.1:8000/users/mypage/',
           {
@@ -85,7 +80,7 @@ const MyPage = () => {
     };
 
     fetchData();
-  }, [checkLoginStatus]);
+  }, []);
 
   return (
     <>
