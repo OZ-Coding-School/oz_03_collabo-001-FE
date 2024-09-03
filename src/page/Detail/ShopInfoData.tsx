@@ -31,7 +31,7 @@ const ShopInfoData: React.FC<ShopInfoDataProps> = ({ placeInfoMenu }) => {
   //   { image: withPet, name: '반려동물동반' },
   // ];
 
-  console.log(placeInfoMenu);
+  // console.log(placeInfoMenu);
 
   return (
     <div className='h-[60px] overflow-x-auto overflow-y-hidden bg-white'>
