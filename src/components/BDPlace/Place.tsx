@@ -4,8 +4,6 @@
 import useModalWithURL from '../../hooks/useModalWithURL';
 import BookmarkButton from '../BookmarkButton';
 import DetailModal from '../modal/DetailModal';
-import useRecentPlacesStore from '../../store/recentPlaceStore';
-import useBookmarkStore from '../../store/bookmarkStore';
 import { useEffect, useState } from 'react';
 
 export interface RegionListType {
@@ -14,13 +12,13 @@ export interface RegionListType {
 }
 
 interface PlaceProps {
-  placeId: string; // 각 Place에 고유한 ID를 부여하여 모달 상태를 구분
-  store_image: string; // Store Image URL
+  placeId: string;
+  store_image: string;
   location: string;
   name: string;
   rating: number;
   reviewCount: number;
-  isBookmarked: boolean; // 북마크 상태를 나타내는 필드
+  isBookmarked: boolean;
   regionList?: RegionListType[];
 }
 
@@ -40,28 +38,14 @@ const Place: React.FC<PlaceProps> = ({
     `detailModal_${placeId}`
   );
 
-  const { addPlaceInfo } = useBookmarkStore();
-  const { addRecentPlace } = useRecentPlacesStore();
-
-  useEffect(() => {
-    addPlaceInfo({ placeId, location, name, rating, reviewCount });
-  }, [addPlaceInfo, placeId]);
-
-  const handlePlaceClick = () => {
-    addRecentPlace(placeId, {
-      location,
-      name,
-      rating,
-      reviewCount,
-      regionList: [],
-    });
-    openModal();
-  };
-
   useEffect(() => {
     const foundItem = regionList?.find((item) => item.id === location);
     setLocationName(foundItem ? foundItem.region : '');
-  }, [regionList]);
+  }, [regionList, location]);
+
+  const handlePlaceClick = () => {
+    openModal();
+  };
 
   return (
     <>
