@@ -68,9 +68,13 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
     filesToUpload.forEach((file) => formData.append('images', file));
 
     axios
-      .post(`/places/{place_pk}/comments/`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      .post(
+        `https://api.dogandbaby.co.kr/places/{place_pk}/comments/`,
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }
+      )
       .then((response) => console.log('Upload success:', response.data))
       .catch((error) => console.error('Upload error:', error));
   };
