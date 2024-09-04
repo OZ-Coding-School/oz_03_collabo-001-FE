@@ -9,9 +9,10 @@ const MAX_IMAGES = 5;
 
 interface PhotoUploadProps {
   closeModal: () => void;
+  placeId: number;
 }
 
-const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
+const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   const [images, setImages] = useState<(File | null)[]>(
     Array(MAX_IMAGES).fill(null)
   );
@@ -69,13 +70,9 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
     filesToUpload.forEach((file) => formData.append('images', file));
 
     axios
-      .post(
-        `https://api.dogandbaby.co.kr/places/{place_pk}/comments/`,
-        formData,
-        {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }
-      )
+      .post(`http://127.0.0.1:8000/places/${placeId}/comments/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
       .then((response) => console.log('Upload success:', response.data))
       .catch((error) => {
         console.error('Upload error:', error);
