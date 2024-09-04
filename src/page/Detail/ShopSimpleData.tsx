@@ -16,7 +16,7 @@ const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
   name,
   address,
   rating,
-  // is_bookmarked,
+  is_bookmarked,
   storeImage,
 }) => {
   return (
@@ -28,7 +28,7 @@ const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
         <div className='ml-[12px] w-[324px] flex-col items-center space-y-[5px] bg-[white] py-[10px] pr-[12px]'>
           <div className='flex items-center justify-between text-[1rem] font-bold'>
             {name}
-            <BookmarkButton placeId={placeId} />
+            <BookmarkButton placeId={placeId} isBookmarked={is_bookmarked} />
           </div>
           <div className='text-[0.75rem]'>{address}</div>
           <DetailRating initialRating={rating} />
