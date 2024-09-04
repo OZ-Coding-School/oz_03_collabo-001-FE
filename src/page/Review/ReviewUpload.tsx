@@ -53,12 +53,22 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
       alert('최소 1개의 이미지를 업로드해야 합니다.');
       return;
     }
+    const reviewText = (
+      document.querySelector('textarea') as HTMLTextAreaElement
+    ).value;
+
+    if (reviewText.length < 10) {
+      alert('후기는 최소 10자 이상 작성해야 합니다.');
+      return;
+    }
 
     const formData = new FormData();
+    formData.append('rating', checkedRate.toString());
+    formData.append('review', reviewText);
     filesToUpload.forEach((file) => formData.append('images', file));
 
     axios
-      .post('/api/upload', formData, {
+      .post(`/places/{place_pk}/comments/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((response) => console.log('Upload success:', response.data))
