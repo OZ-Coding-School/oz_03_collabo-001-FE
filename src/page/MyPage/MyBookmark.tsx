@@ -1,6 +1,11 @@
 import MoreTitle from '../../components/layout/MoreTitle';
 import Place from '../../components/BDPlace/Place';
 
+interface MyBookmarkProps {
+  bookmarks: Bookmark[];
+  tapRegions: RegionListType[];
+}
+
 interface Bookmark {
   id: number;
   store_image: string;
@@ -13,11 +18,16 @@ interface Bookmark {
   comments_count: number;
 }
 
-interface MyBookmarkProps {
-  bookmarks: Bookmark[];
+interface RegionListType {
+  id: number;
+  region: string;
 }
 
-const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
+const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
+  const getLocationName = (id: number) => {
+    return tapRegions?.find((region) => region.id === id)?.region || '';
+  };
+
   return (
     <div className='col'>
       <MoreTitle title='나만의 북마크' />
@@ -33,8 +43,7 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
               place_region={placeInfo.place_region}
-              place_subcategory={placeInfo.place_subcategory}
-              locationName={''}
+              locationName={getLocationName(placeInfo.place_region)}
             />
           ))
         ) : (

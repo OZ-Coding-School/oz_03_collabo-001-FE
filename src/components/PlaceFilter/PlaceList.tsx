@@ -15,7 +15,7 @@ interface RegionType {
 interface PlaceListProps {
   selectPlace?: string;
   uri?: string;
-  place_regions: RegionType[];
+  place_regions?: RegionType[];
 }
 
 interface PlaceData {
@@ -56,8 +56,6 @@ const fetchPlaces = async (
 
   if (uri === 'bookmark') {
     url = 'http://127.0.0.1:8000/users/mypage/bookmark/';
-  } else if (uri === 'my_comment') {
-    url = 'http://127.0.0.1:8000/users/mypage/my-comment/';
   } else if (uri === 'view_history') {
     url = 'http://127.0.0.1:8000/users/mypage/view-history/';
   } else {
@@ -151,7 +149,7 @@ const PlaceList: React.FC<PlaceListProps> = ({
   }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
 
   const getLocationName = (placeRegionId: number) => {
-    const region = place_regions.find((region) => region.id === placeRegionId);
+    const region = place_regions?.find((region) => region.id === placeRegionId);
     return region ? region.region : 'Unknown';
   };
 

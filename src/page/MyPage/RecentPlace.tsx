@@ -1,6 +1,10 @@
-import React from 'react';
 import MoreTitle from '../../components/layout/MoreTitle';
 import Place from '../../components/BDPlace/Place';
+
+interface RecentPlaceProps {
+  recentplace: PlaceData[];
+  tapRegions: RegionListType[];
+}
 
 interface PlaceData {
   id: number;
@@ -14,11 +18,19 @@ interface PlaceData {
   comments_count: number;
 }
 
-interface RecentPlaceProps {
-  recentplace: PlaceData[];
+interface RegionListType {
+  id: number;
+  region: string;
 }
 
-const RecentPlace: React.FC<RecentPlaceProps> = ({ recentplace }) => {
+const RecentPlace: React.FC<RecentPlaceProps> = ({
+  recentplace,
+  tapRegions,
+}) => {
+  const getLocationName = (id: number) => {
+    return tapRegions?.find((region) => region.id === id)?.region || '';
+  };
+
   return (
     <div className='col'>
       <MoreTitle title='최근 본 장소' />
@@ -33,9 +45,8 @@ const RecentPlace: React.FC<RecentPlaceProps> = ({ recentplace }) => {
               rating={placeInfo.rating}
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
-              place_region={0}
-              place_subcategory={0}
-              locationName={''}
+              place_region={placeInfo.place_region}
+              locationName={getLocationName(placeInfo.place_region)}
             />
           ))
         ) : (

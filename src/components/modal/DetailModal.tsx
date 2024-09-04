@@ -203,7 +203,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
       >
         <ImPlus className='text-white' />
       </button>
-      {isOpen && <ReviewUpload closeModal={closeModal} />}
+      {isOpen && <ReviewUpload closeModal={closeModal} placeId={placeId} />}
     </div>,
     modalRoot
   );

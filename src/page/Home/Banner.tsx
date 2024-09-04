@@ -15,10 +15,12 @@ interface PlaceBannerImg {
 }
 
 interface BannerProps {
-  bannerImgs: PlaceBannerImg[];
+  bannerImgs?: PlaceBannerImg[];
 }
 
 const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
+  const hasImages = bannerImgs && bannerImgs.length > 0;
+
   return (
     <>
       <Swiper
@@ -37,7 +39,7 @@ const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
         modules={[Autoplay, Pagination, Navigation]}
         className='bannerSwiper m-0 h-[200px] w-full'
       >
-        {bannerImgs ? (
+        {hasImages ? (
           bannerImgs.map((item, i) => {
             return (
               <SwiperSlide key={i}>
@@ -54,21 +56,21 @@ const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
             <SwiperSlide>
               <img
                 src={image}
-                alt='sample image'
+                alt='sample_image'
                 className='h-full w-full object-cover'
               />
             </SwiperSlide>
             <SwiperSlide>
               <img
                 src={image}
-                alt='sample image'
+                alt='sample_image'
                 className='h-full w-full object-cover'
               />
             </SwiperSlide>
             <SwiperSlide>
               <img
                 src={image}
-                alt='sample image'
+                alt='sample_image'
                 className='h-full w-full object-cover'
               />
             </SwiperSlide>
