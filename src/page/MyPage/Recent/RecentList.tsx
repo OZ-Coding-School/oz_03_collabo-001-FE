@@ -2,9 +2,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import PlaceItem from './PlaceItem';
-import { useFilterStore } from '../../store/filterStore';
-import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import PlaceItem from '../../../components/PlaceFilter/PlaceItem';
+import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
 // import ScrollToTopButton from './ScrollToTopButton';
 
 interface RegionType {
@@ -29,31 +28,16 @@ interface PlaceData {
   comments_count: number;
 }
 
-const fetchPlaces = async (
-  regionId: number | null,
-  subCategoryId: number | null,
-  latitude: number | null,
-  longitude: number | null,
-  isActive: boolean,
-  page: number,
-  selectPlace?: string
-) => {
+const fetchPlaces = async (page: number) => {
   const params: any = {
-    main_category: selectPlace,
     page,
     page_size: 10,
-    place_region: regionId,
-    place_subcategory: subCategoryId,
-    latitude: latitude,
-    longitude: longitude,
-    is_active: isActive,
   };
-
   try {
-    const response = await axios.get('http://127.0.0.1:8000/places/', {
-      params,
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      'http://127.0.0.1:8000/users/mypage/bookmark',
+      { params, withCredentials: true }
+    );
     return response.data;
   } catch (error) {
     console.error('정보 가져오기 실패:', error);
@@ -61,9 +45,7 @@ const fetchPlaces = async (
   }
 };
 
-const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
-  const { regionId, subCategoryId, latitude, longitude, isActive } =
-    useFilterStore();
+const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   const [places, setPlaces] = useState<PlaceData[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -78,15 +60,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetchPlaces(
-        regionId,
-        subCategoryId,
-        latitude,
-        longitude,
-        isActive,
-        initialLoad ? 1 : page,
-        selectPlace
-      );
+      const response = await fetchPlaces(initialLoad ? 1 : page);
 
       const newPlaces = response?.results?.results || [];
 
@@ -125,7 +99,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
 
   useEffect(() => {
     loadMorePlaces(true);
-  }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
+  }, []);
 
   const getLocationName = (placeRegionId: number) => {
     const region = tapRegions?.find((region) => region.id === placeRegionId);
@@ -160,4 +134,4 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
   );
 };
 
-export default PlaceList;
+export default RecentList;
