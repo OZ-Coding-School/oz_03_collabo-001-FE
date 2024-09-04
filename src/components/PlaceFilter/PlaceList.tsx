@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PlaceItem from './PlaceItem';
 import { useFilterStore } from '../../store/filterStore';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import ScrollToTopButton from './ScrollToTopButton';
 
 interface RegionType {
   id: number;
@@ -85,6 +86,8 @@ const PlaceList: React.FC<PlaceListProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   const loadMorePlaces = async (initialLoad: boolean = false) => {
     if (isLoading) return;
 
@@ -153,7 +156,7 @@ const PlaceList: React.FC<PlaceListProps> = ({
   };
 
   return (
-    <div className='h-[100%]'>
+    <div className='h-[100vh]' ref={scrollContainerRef}>
       {error && !isLoading && !places.length && (
         <div className='text-red-500 py-4 text-center'>{error}</div>
       )}
@@ -176,6 +179,8 @@ const PlaceList: React.FC<PlaceListProps> = ({
       </div>
       {isLoading && <div className='py-4 text-center'>가져오는 중...</div>}
       {hasMore && <div ref={observerElem} className='h-1' />}
+
+      <ScrollToTopButton scrollContainerRef={scrollContainerRef} />
     </div>
   );
 };
