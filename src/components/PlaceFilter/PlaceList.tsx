@@ -1,14 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PlaceItem from './PlaceItem';
 import { useFilterStore } from '../../store/filterStore';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import ScrollToTopButton from './ScrollToTopButton';
+
+interface RegionType {
+  id: number;
+  region: string;
+}
 
 interface PlaceListProps {
   selectPlace?: string;
   uri?: string;
+  place_regions: RegionType[];
 }
 
 interface PlaceData {
@@ -61,12 +68,16 @@ const fetchPlaces = async (
     const response = await axios.get(url, options);
     return response.data;
   } catch (error) {
-    console.error('Error fetching places:', error);
+    console.error('정보 가져오기 실패:', error);
     return { results: [], next: null };
   }
 };
 
-const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
+const PlaceList: React.FC<PlaceListProps> = ({
+  selectPlace,
+  uri,
+  place_regions,
+}) => {
   const { regionId, subCategoryId, latitude, longitude, isActive } =
     useFilterStore();
   const [places, setPlaces] = useState<PlaceData[]>([]);
@@ -74,6 +85,8 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const loadMorePlaces = async (initialLoad: boolean = false) => {
     if (isLoading) return;
@@ -114,13 +127,14 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
         }
       }
     } catch (error) {
-      console.error('Error loading more places:', error);
+      console.error('장소 더 가져오기 실패:', error);
       setError('장소를 가져오는데 실패했습니다.');
       setHasMore(false);
     } finally {
       setIsLoading(false);
     }
   };
+
   const handleBookmarkChange = (placeId: number) => {
     setPlaces((prevPlaces) =>
       prevPlaces.filter((place) => place.id !== placeId)
@@ -133,19 +147,16 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
   );
 
   useEffect(() => {
-    console.log('Fetching places with:', {
-      regionId,
-      subCategoryId,
-      latitude,
-      longitude,
-      isActive,
-      selectPlace,
-    });
     loadMorePlaces(true);
   }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
 
+  const getLocationName = (placeRegionId: number) => {
+    const region = place_regions.find((region) => region.id === placeRegionId);
+    return region ? region.region : 'Unknown';
+  };
+
   return (
-    <div className='h-[100%]'>
+    <div className='h-[100vh]' ref={scrollContainerRef}>
       {error && !isLoading && !places.length && (
         <div className='text-red-500 py-4 text-center'>{error}</div>
       )}
@@ -157,6 +168,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
             store_image={place.store_image}
             isBookmarked={place.is_bookmarked}
             place_region={place.place_region}
+            locationName={getLocationName(place.place_region)}
             name={place.name}
             address={place.address}
             rating={place.rating}
@@ -167,6 +179,8 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
       </div>
       {isLoading && <div className='py-4 text-center'>가져오는 중...</div>}
       {hasMore && <div ref={observerElem} className='h-1' />}
+
+      <ScrollToTopButton scrollContainerRef={scrollContainerRef} />
     </div>
   );
 };

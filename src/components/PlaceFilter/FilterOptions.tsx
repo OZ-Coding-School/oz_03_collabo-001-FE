@@ -128,14 +128,12 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
   const handleRegionSelect = (regionId: number) => {
     setSelectedRegion(regionId);
     setRegionId(regionId);
-    console.log('Selected Region ID:', regionId);
     onFilterChange(regionId, selectedSubCategory);
   };
 
   const handleSubCategorySelect = (subCategoryId: number) => {
     setSelectedSubCategory(subCategoryId);
     setSubCategoryId(subCategoryId);
-    console.log('Selected SubCategory ID:', subCategoryId);
     onFilterChange(selectedRegion, subCategoryId);
   };
 

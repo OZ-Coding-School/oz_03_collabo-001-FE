@@ -84,11 +84,20 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
       );
 
       if (response.status === 200) {
-        console.log('업로드 성공');
+        toast.success('이미지 변경 완료!', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
         return true;
       }
     } catch (error) {
-      console.log('업로드 실패');
+      console.error('업로드 실패', error);
       toast.error('프로필 변경 실패!', {
         position: 'top-right',
         autoClose: 5000,

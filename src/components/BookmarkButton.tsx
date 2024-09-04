@@ -26,6 +26,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
           { withCredentials: true }
         );
         setIsBookmarked(false);
+        console.log('북마크 제거');
       } else {
         await axios.post(
           `http://127.0.0.1:8000/places/${placeId}/bookmark/`,
@@ -33,6 +34,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
           { withCredentials: true }
         );
         setIsBookmarked(true);
+        console.log('북마크 등록');
       }
 
       if (onBookmarkChange) {
