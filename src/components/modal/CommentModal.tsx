@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import axios from 'axios';
-import MyReviewListItem from '../../page/MyPage/MyReviewListItem';
+import MyReviewListItem from '../../page/MyPage/Review/MyReviewListItem';
 
 interface CommentModalProps {
   title: string;
@@ -33,7 +33,11 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
           'http://127.0.0.1:8000/users/mypage/my-comment/',
           { withCredentials: true }
         );
-        console.log(response.data);
+
+        if (response.status === 200) {
+          console.log('서버 연결 성공');
+        }
+
         setReviews(response.data);
         setLoading(false);
       } catch (error) {
