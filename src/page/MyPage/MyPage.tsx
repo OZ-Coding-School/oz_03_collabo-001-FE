@@ -8,6 +8,7 @@ import FeaturedBanner from './FeaturedBanner';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 
 interface UserProfile {
   profile_image: string | null;
@@ -128,13 +129,19 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
   recentComments,
   banners,
 }) => {
+  const { categoryData } = useFetchCategoryData('main');
+  const tapRegions = categoryData?.tapRegions ?? [];
+
   return (
     <>
       <div className='flex flex-col gap-[15px]'>
         {/* 나만의 북마크 */}
-        <MyBookmark bookmarks={recentBookmarks} />
+        <MyBookmark bookmarks={recentBookmarks} tapRegions={tapRegions} />
         {/* 최근 본 장소 */}
-        <RecentPlace recentplace={recentViewHistories} />
+        <RecentPlace
+          recentplace={recentViewHistories}
+          tapRegions={tapRegions}
+        />
         {/* 작성 후기 */}
         <MyReviewList reviews={recentComments} />
         {/* 내가 작성한 글 */}
