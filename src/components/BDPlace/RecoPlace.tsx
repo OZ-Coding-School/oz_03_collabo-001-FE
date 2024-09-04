@@ -1,22 +1,62 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-// import required modules
 import { Pagination, Navigation } from 'swiper/modules';
 import RecoPlaceItem from './RecoPlaceItem';
 
-export default function RecoPlace() {
+interface places {
+  address: string;
+  comments_count: number;
+  id: number;
+  is_bookmarked: boolean;
+  name: string;
+  place_region: number;
+  place_subcategory: number;
+  rating: number;
+  store_image: string;
+}
+
+interface RecoPlaceItem {
+  content: string;
+  places: places;
+  tags: number[];
+}
+
+interface RecoPlaceProps {
+  recoTags: string[];
+  recoPlaces: RecoPlaceItem[];
+}
+
+const RecoPlace: React.FC<RecoPlaceProps> = ({ recoTags, recoPlaces }) => {
+  const regionMap: { [key: string]: string } = {
+    '': '전체',
+    '1': '서울',
+    '2': '경기',
+    '3': '인천',
+    '4': '충청',
+    '5': '강원',
+    '6': '전라',
+    '7': '경상',
+    '8': '제주',
+  };
+
+  if (!recoPlaces) {
+    return null;
+  }
+
   return (
     <div className='col'>
       <div className='colTitle flex items-center'>
-        <p className='font-semibold'>추천장소</p>
-        <span className='ml-[9px] text-[12px] text-caption'>
-          &#35;5세아이 &#35;중형견 &#35;실내
-        </span>
+        <p className='mr-[5px] font-semibold'>추천장소</p>
+        {recoTags.map((item, i) => {
+          return (
+            <span key={i} className='ml-[5px] text-[12px] text-caption'>
+              &#35;{item}
+            </span>
+          );
+        })}
       </div>
       <Swiper
         spaceBetween={0}
@@ -30,18 +70,20 @@ export default function RecoPlace() {
         modules={[Pagination, Navigation]}
         className='recoSwiper m-0 w-full'
       >
-        <SwiperSlide>
-          <RecoPlaceItem placeId='123' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecoPlaceItem placeId='456' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecoPlaceItem placeId='789' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecoPlaceItem placeId='563' />
-        </SwiperSlide>
+        {recoPlaces.map((item, i) => {
+          return (
+            <SwiperSlide key={i}>
+              <RecoPlaceItem
+                placeId={item.places.id}
+                location={regionMap[item.places.place_region]}
+                name={item.places.name}
+                content={item.content}
+                placeImage={item.places.store_image}
+                tags={item.tags}
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
 
       <style>{`
@@ -75,4 +117,6 @@ export default function RecoPlace() {
     `}</style>
     </div>
   );
-}
+};
+
+export default RecoPlace;

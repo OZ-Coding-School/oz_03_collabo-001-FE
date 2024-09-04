@@ -3,6 +3,8 @@ import more from '../../assets/More.svg';
 import PlaceFilter from '../PlaceFilter/PlaceFilter';
 import BookMarkModal from '../modal/BookmarkModal';
 import MyGPS from '../MyGPS';
+import RecoPlaceModal from '../modal/RecoPlaceModal';
+import CommentModal from '../modal/CommentModal';
 
 interface MoreTitleProps {
   title: string;
@@ -30,7 +32,10 @@ const MoreTitle: React.FC<MoreTitleProps> = ({ title, gps = false }) => {
     ModalComponent = BookMarkModal;
   } else if (title === '최근 본 장소') {
     modalName = 'recentModal';
-    ModalComponent = BookMarkModal;
+    ModalComponent = RecoPlaceModal;
+  } else if (title === '작성 후기') {
+    modalName = 'commentModal';
+    ModalComponent = CommentModal;
   }
 
   const { isOpen, openModal, closeModal } = useModalWithURL(modalName);

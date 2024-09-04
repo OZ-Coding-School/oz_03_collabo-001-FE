@@ -2,13 +2,13 @@
 import { create } from 'zustand';
 
 interface FilterState {
-  regionId: string | null;
-  subCategoryId: string | null;
+  regionId: number | null;
+  subCategoryId: number | null;
   latitude: number | null;
   longitude: number | null;
   isActive: boolean;
-  setRegionId: (id: string | null) => void;
-  setSubCategoryId: (id: string | null) => void;
+  setRegionId: (id: number | null) => void;
+  setSubCategoryId: (id: number | null) => void;
   setLatitude: (lat: number | null) => void;
   setLongitude: (long: number | null) => void;
   setIsActive: (active: boolean) => void;

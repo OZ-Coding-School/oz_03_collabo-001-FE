@@ -1,5 +1,5 @@
-import image from '../../assets/images/starfield.png';
 // Import Swiper React components
+import image from '../../assets/images/starfield.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -10,7 +10,15 @@ import 'swiper/css/navigation';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-export default function Banner() {
+interface PlaceBannerImg {
+  image: string;
+}
+
+interface BannerProps {
+  bannerImgs: PlaceBannerImg[];
+}
+
+const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
   return (
     <>
       <Swiper
@@ -29,18 +37,43 @@ export default function Banner() {
         modules={[Autoplay, Pagination, Navigation]}
         className='bannerSwiper m-0 h-[200px] w-full'
       >
-        <SwiperSlide>
-          <img src={image} alt='' className='h-full w-full object-cover' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={image} alt='' className='h-full w-full object-cover' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={image} alt='' className='h-full w-full object-cover' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={image} alt='' className='h-full w-full object-cover' />
-        </SwiperSlide>
+        {bannerImgs ? (
+          bannerImgs.map((item, i) => {
+            return (
+              <SwiperSlide key={i}>
+                <img
+                  src={item.image}
+                  alt={`banner ${i}`}
+                  className='h-full w-full object-cover'
+                />
+              </SwiperSlide>
+            );
+          })
+        ) : (
+          <>
+            <SwiperSlide>
+              <img
+                src={image}
+                alt='sample image'
+                className='h-full w-full object-cover'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={image}
+                alt='sample image'
+                className='h-full w-full object-cover'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={image}
+                alt='sample image'
+                className='h-full w-full object-cover'
+              />
+            </SwiperSlide>
+          </>
+        )}
       </Swiper>
       <style>{`
         .bannerSwiper .swiper-pagination-bullet {
@@ -73,4 +106,6 @@ export default function Banner() {
         }`}</style>
     </>
   );
-}
+};
+
+export default Banner;

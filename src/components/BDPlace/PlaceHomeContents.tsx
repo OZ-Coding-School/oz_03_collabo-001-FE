@@ -1,50 +1,49 @@
-// import { useEffect, useState } from 'react'; // useState 제거
-// import { useNavigate, useSearchParams } from 'react-router-dom';
+import React from 'react';
+import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 import RecoPlace from './RecoPlace';
 import RegionTab from './RegionTab';
 import Banner from '../../page/Home/Banner';
 import MoreTitle from '../layout/MoreTitle';
 import Place6 from './Place6';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 interface CurrentProps {
   current: string;
 }
-interface PlaceSubcategories {
-  id: string;
-  subcategory: string;
-}
-interface PlaceRegions {
-  id: string;
-  region: string;
-}
 
 const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
-  const [placeSubcategories, setPlaceSubcategories] = useState<
-    PlaceSubcategories[]
-  >([]);
-  const [placeRegions, setPlaceRegions] = useState<PlaceRegions[]>([]);
+  // 훅 사용
+  const { categoryData, loading, error } = useFetchCategoryData(current);
 
-  useEffect(() => {
-    const getTabs = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/places/');
-        setPlaceSubcategories(response.data.results.place_subcategories);
-        setPlaceRegions(response.data.results.place_regions);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getTabs();
-  }, [current]);
+  const recoTags: { [key: string]: string[] } = {
+    bd: ['5세아이', '중형견', '실내'],
+    pet: ['대형견이 놀기좋아요', '강아지수영장'],
+    kids: ['아들들이 좋아해요', '5세아이맞춤', '실내'],
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error || !categoryData) {
+    return <div>Error loading data.</div>;
+  }
+
+  const {
+    newPlaces,
+    regionPlaces,
+    subcategoryPlaces,
+    bannerImgs,
+    recoPlaces,
+    tapRegions,
+    tapSubcategories,
+  } = categoryData;
 
   return (
     <>
       <div className='flex flex-col gap-[15px]'>
         <div>
-          <Banner />
-          <RecoPlace />
+          <Banner bannerImgs={bannerImgs} />
+          <RecoPlace recoTags={recoTags[current]} recoPlaces={recoPlaces} />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <p className='py-[18px] font-semibold'>
@@ -54,10 +53,16 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
                 ? '새로생긴 펫존'
                 : '새로생긴 키즈존'}
           </p>
-          <Place6 current={current} section='new' regionList={placeRegions} />
+          <Place6
+            current={current}
+            section='new'
+            newPlaces={newPlaces}
+            tapRegions={tapRegions}
+          />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
+            key='region-filter'
             title={
               current === 'bd'
                 ? '지역별 애개플레이스'
@@ -68,14 +73,15 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             gps={true}
           />
           <RegionTab
-            tabs={placeRegions}
             current={current}
             section='region'
-            regionList={placeRegions}
+            regionPlaces={regionPlaces}
+            tapRegions={tapRegions}
           />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <MoreTitle
+            key='place-filter'
             title={
               current === 'bd'
                 ? '장소별 애개플레이스'
@@ -85,10 +91,11 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             }
           />
           <RegionTab
-            tabs={placeSubcategories}
             current={current}
             section='sub_category'
-            regionList={placeRegions}
+            subcategoryPlaces={subcategoryPlaces}
+            tapRegions={tapRegions}
+            tapSubcategories={tapSubcategories}
           />
         </div>
       </div>

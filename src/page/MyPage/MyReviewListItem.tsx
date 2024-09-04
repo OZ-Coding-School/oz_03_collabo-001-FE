@@ -5,11 +5,19 @@ import DetailRating from '../Detail/DetailRating';
 interface MyReviewListItemProps {
   className?: string;
   reviewText: string;
+  placeName: string;
+  ratingPoint: number;
+  createDate: string;
+  commentImages: string[];
 }
 
 const MyReviewListItem: React.FC<MyReviewListItemProps> = ({
   className,
   reviewText,
+  placeName,
+  ratingPoint,
+  createDate,
+  commentImages,
 }) => {
   // 첫번째 아이템의 경우 상단 border 없앰
   const borderClass = classNames({
@@ -23,14 +31,18 @@ const MyReviewListItem: React.FC<MyReviewListItemProps> = ({
   return (
     <div>
       <div className={borderClass}>
-        <div className='imgWrap h-[50px] w-[50px] overflow-hidden rounded-[10px] bg-background'></div>
-        <p className='ml-[10px] text-[14px] font-semibold'>
-          &#91;경기&#93; 스타필드 일산
-        </p>
+        <div className='imgWrap h-[50px] w-[50px] overflow-hidden rounded-[10px] bg-background'>
+          <img
+            src={commentImages[0]}
+            alt={placeName}
+            className='h-full w-full object-cover'
+          />
+        </div>
+        <p className='ml-[10px] text-[14px] font-semibold'>{placeName}</p>
       </div>
       <div className='mb-[15px] flex'>
-        <DetailRating initialRating={5} />
-        <span className='ml-[8px] text-[12px] text-caption'>2024.01.01</span>
+        <DetailRating initialRating={ratingPoint} />
+        <span className='ml-[8px] text-[12px] text-caption'>{createDate}</span>
       </div>
       <p className='pb-[15px] text-[12px]'>{truncatedText}</p>
       {/* <div className='imgList flex flex-wrap gap-[12px] pb-[40px]'>
