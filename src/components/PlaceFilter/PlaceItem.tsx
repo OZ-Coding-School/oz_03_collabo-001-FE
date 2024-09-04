@@ -20,24 +20,24 @@ interface PlaceItem {
 const PlaceItem: React.FC<PlaceItem> = ({
   placeId,
   store_image,
-  isBookmarked,
+  // isBookmarked,
   // place_region,
   locationName,
   name,
   address,
   rating,
   comments_count,
-  onBookmarkChange,
+  // onBookmarkChange,
 }) => {
   const { isOpen, openSubModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
   );
 
-  const handleBookmarkChange = (placeId: number) => {
-    if (onBookmarkChange) {
-      onBookmarkChange(placeId);
-    }
-  };
+  // const handleBookmarkChange = (placeId: number) => {
+  //   if (onBookmarkChange) {
+  //     onBookmarkChange(placeId);
+  //   }
+  // };
 
   return (
     <>
@@ -59,8 +59,8 @@ const PlaceItem: React.FC<PlaceItem> = ({
               <div className='absolute right-0 top-0'>
                 <BookmarkButton
                   placeId={placeId}
-                  isBookmarkedInitially={isBookmarked}
-                  onBookmarkChange={() => handleBookmarkChange(placeId)}
+                  // isBookmarkedInitially={isBookmarked}
+                  // onBookmarkChange={() => handleBookmarkChange(placeId)}
                 />
               </div>
             </li>
