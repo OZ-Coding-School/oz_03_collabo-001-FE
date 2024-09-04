@@ -11,20 +11,16 @@ interface PlaceProps {
   rating: number;
   reviewCount: number;
   isBookmarked: boolean;
-  place_region: number;
-  place_subcategory?: number;
   locationName: string;
 }
 
 const Place: React.FC<PlaceProps> = ({
   placeId,
   store_image,
-  // place_region,
-  // place_subcategory,
   name,
   rating,
   reviewCount,
-  // isBookmarked,
+  isBookmarked,
   locationName,
 }) => {
   const { isOpen, openModal, closeModal } = useModalWithURL(
@@ -46,7 +42,7 @@ const Place: React.FC<PlaceProps> = ({
           />
         </button>
         <div className='absolute right-1 top-1'>
-          <BookmarkButton placeId={placeId} />
+          <BookmarkButton placeId={placeId} isBookmarked={isBookmarked} />
         </div>
         <div
           className='flex h-[50px] flex-col justify-between p-1.5'
