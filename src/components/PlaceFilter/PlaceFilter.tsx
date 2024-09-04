@@ -22,12 +22,12 @@ interface FetchResponse {
 }
 
 interface RegionType {
-  id: string;
+  id: number;
   region: string;
 }
 
 interface SubCategoryType {
-  id: string;
+  id: number;
   subcategory: string;
 }
 
@@ -101,8 +101,8 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
   };
 
   const handleFilterChange = (
-    regionId: string | null,
-    subCategoryId: string | null
+    regionId: number | null,
+    subCategoryId: number | null
   ) => {
     setRegionId(regionId);
     setSubCategoryId(subCategoryId);

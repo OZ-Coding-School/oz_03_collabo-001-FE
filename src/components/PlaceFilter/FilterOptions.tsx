@@ -7,15 +7,14 @@ import { twMerge } from 'tailwind-merge';
 import { useFilterStore } from '../../store/filterStore';
 
 type Option = {
-  value: string;
+  value: number;
   label: string;
 };
 
 type CustomSelectProps = {
   options: Option[];
-  id: string;
-  value: string | null;
-  onChange: (value: string) => void;
+  value: number | null;
+  onChange: (value: number) => void;
   placeholder: string;
 };
 
@@ -81,12 +80,12 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 };
 
 interface RegionType {
-  id: string;
+  id: number;
   region: string;
 }
 
 interface SubCategoryType {
-  id: string;
+  id: number;
   subcategory: string;
 }
 
@@ -94,8 +93,8 @@ interface FilterOptionsProps {
   regions: RegionType[];
   subCategories: SubCategoryType[];
   onFilterChange: (
-    regionId: string | null,
-    subCategoryId: string | null
+    regionId: number | null,
+    subCategoryId: number | null
   ) => void;
 }
 
@@ -104,8 +103,8 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
   subCategories,
   onFilterChange,
 }) => {
-  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
+  const [selectedRegion, setSelectedRegion] = useState<number | null>(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<number | null>(
     null
   );
 
@@ -126,14 +125,14 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
     })),
   ];
 
-  const handleRegionSelect = (regionId: string) => {
+  const handleRegionSelect = (regionId: number) => {
     setSelectedRegion(regionId);
     setRegionId(regionId);
     console.log('Selected Region ID:', regionId);
     onFilterChange(regionId, selectedSubCategory);
   };
 
-  const handleSubCategorySelect = (subCategoryId: string) => {
+  const handleSubCategorySelect = (subCategoryId: number) => {
     setSelectedSubCategory(subCategoryId);
     setSubCategoryId(subCategoryId);
     console.log('Selected SubCategory ID:', subCategoryId);
@@ -144,14 +143,12 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({
     <div className='flex gap-[10px]'>
       <CustomSelect
         options={regionOptions}
-        id='region'
         value={selectedRegion}
         onChange={handleRegionSelect}
         placeholder='지역'
       />
       <CustomSelect
         options={subCategoryOptions}
-        id='subCategory'
         value={selectedSubCategory}
         onChange={handleSubCategorySelect}
         placeholder='장소'

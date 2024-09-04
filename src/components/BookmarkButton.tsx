@@ -5,9 +5,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 interface BookmarkButtonProps {
-  placeId: string;
+  placeId: number;
   isBookmarkedInitially: boolean;
-  onBookmarkChange?: (placeId: string) => void;
+  onBookmarkChange?: (placeId: number) => void;
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({

@@ -1,47 +1,35 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react-hooks/exhaustive-deps */
 import useModalWithURL from '../../hooks/useModalWithURL';
 import BookmarkButton from '../BookmarkButton';
 import DetailModal from '../modal/DetailModal';
-import { useEffect, useState } from 'react';
-
-export interface RegionListType {
-  id: string;
-  region: string;
-}
 
 interface PlaceProps {
-  placeId: string;
+  placeId: number;
   store_image: string;
-  location: string;
   name: string;
   rating: number;
   reviewCount: number;
   isBookmarked: boolean;
-  regionList?: RegionListType[];
+  place_region: number;
+  place_subcategory: number;
+  locationName: string;
 }
 
 const Place: React.FC<PlaceProps> = ({
   placeId,
   store_image,
-  location,
+  // place_region,
+  // place_subcategory,
   name,
   rating,
   reviewCount,
   isBookmarked,
-  regionList,
+  locationName,
 }) => {
-  const [locationName, setLocationName] = useState<string>('');
-
   const { isOpen, openModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
   );
-
-  useEffect(() => {
-    const foundItem = regionList?.find((item) => item.id === location);
-    setLocationName(foundItem ? foundItem.region : '');
-  }, [regionList, location]);
 
   const handlePlaceClick = () => {
     openModal();

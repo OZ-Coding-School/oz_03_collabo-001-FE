@@ -11,6 +11,7 @@ interface ServiceIcon {
 }
 
 interface PlaceData {
+  id: number;
   name: string;
   address: string;
   rating: number;
@@ -23,9 +24,10 @@ interface PlaceData {
   contentImgs: string[];
   reviewImgs: string[];
   serviceIcons: ServiceIcon[];
+  isBookmark: boolean;
 }
 
-const useFetchPlaceData = (placeId: string | number) => {
+const useFetchPlaceData = (placeId: number) => {
   const [placeData, setPlaceData] = useState<PlaceData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,6 +40,7 @@ const useFetchPlaceData = (placeId: string | number) => {
         );
 
         const fetchedData: PlaceData = {
+          id: placeId,
           name: response.data.name,
           address: response.data.address,
           rating: response.data.rating,
@@ -50,8 +53,8 @@ const useFetchPlaceData = (placeId: string | number) => {
           contentImgs: response.data.description_images,
           reviewImgs: response.data.comment_images,
           serviceIcons: response.data.service_icons,
+          isBookmark: response.data.bookmark,
         };
-
         setPlaceData(fetchedData);
         setLoading(false);
 

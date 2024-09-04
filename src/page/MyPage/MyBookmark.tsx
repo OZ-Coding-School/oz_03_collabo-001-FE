@@ -26,13 +26,15 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
           bookmarks.map((placeInfo) => (
             <Place
               key={placeInfo.id}
-              placeId={placeInfo.id.toString()}
+              placeId={placeInfo.id}
               store_image={placeInfo.store_image}
-              location={placeInfo.address}
               name={placeInfo.name}
               rating={placeInfo.rating}
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
+              place_region={placeInfo.place_region}
+              place_subcategory={placeInfo.place_subcategory}
+              locationName={''}
             />
           ))
         ) : (

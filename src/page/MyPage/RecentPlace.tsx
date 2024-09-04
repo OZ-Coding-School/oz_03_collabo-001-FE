@@ -3,7 +3,7 @@ import MoreTitle from '../../components/layout/MoreTitle';
 import Place from '../../components/BDPlace/Place';
 
 interface PlaceData {
-  id: string;
+  id: number;
   store_image: string;
   is_bookmarked: boolean;
   place_region: number;
@@ -29,11 +29,13 @@ const RecentPlace: React.FC<RecentPlaceProps> = ({ recentplace }) => {
               key={placeInfo.id}
               placeId={placeInfo.id}
               store_image={placeInfo.store_image}
-              location={placeInfo.place_region.toString()}
               name={placeInfo.name}
               rating={placeInfo.rating}
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
+              place_region={0}
+              place_subcategory={0}
+              locationName={''}
             />
           ))
         ) : (

@@ -3,7 +3,7 @@ import BookmarkButton from '../../components/BookmarkButton';
 // import placeview from '../../assets/Icon/Detail_Icon/placeview.svg';
 
 interface ShopSimpleDataProps {
-  placeId: string;
+  placeId: number;
   name: string;
   address: string;
   rating: number;

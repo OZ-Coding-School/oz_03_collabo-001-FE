@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 import RecoPlace from './RecoPlace';
 import RegionTab from './RegionTab';
@@ -11,115 +10,40 @@ interface CurrentProps {
   current: string;
 }
 
-interface PlaceSubcategories {
-  id: string;
-  subcategory: string;
-}
-
-interface PlaceRegions {
-  id: string;
-  region: string;
-}
-
-// interface PlaceData {
-//   id: string;
-//   store_image: string;
-//   is_bookmarked: boolean;
-//   place_region: number;
-//   place_subcategory: number;
-//   name: string;
-//   address: string;
-//   rating: number;
-//   comments_count: number;
-// }
-
 const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
-  // 배너, 추천장소 데이터 가져오기
+  // 훅 사용
   const { categoryData, loading, error } = useFetchCategoryData(current);
+
   const recoTags: { [key: string]: string[] } = {
     bd: ['5세아이', '중형견', '실내'],
     pet: ['대형견이 놀기좋아요', '강아지수영장'],
     kids: ['아들들이 좋아해요', '5세아이맞춤', '실내'],
   };
 
-  const [placeSubcategories, setPlaceSubcategories] = useState<
-    PlaceSubcategories[]
-  >([]);
-  const [placeRegions, setPlaceRegions] = useState<PlaceRegions[]>([]);
-  // const [newPlaces, setNewPlaces] = useState<PlaceData[]>([]);
-  // const [regionPlaces, setRegionPlaces] = useState<PlaceData[]>([]);
-  // const [subcategoryPlaces, setSubcategoryPlaces] = useState<PlaceData[]>([]);
-
-  useEffect(() => {
-    const getTabs = async () => {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/places/', {
-          withCredentials: true,
-        });
-        setPlaceSubcategories(response.data.results.place_subcategories);
-        setPlaceRegions(response.data.results.place_regions);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getTabs();
-  }, [current]);
-
-  useEffect(() => {
-    console.log(current);
-    const fetchPlaces = async () => {
-      try {
-        // For new places
-        const response = await axios.get(
-          `http://127.0.0.1:8000/places/${current}/main/`,
-          { withCredentials: true }
-        );
-        console.log(response.data);
-
-        // setNewPlaces(response.data.new_places);
-        // setRegionPlaces(response.data.region_places);
-        // setSubcategoryPlaces(response.data.subcategory);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchPlaces();
-  }, [current]);
-
-  // const fetchPlacesByCategory = async (category: string, section: string) => {
-  //   try {
-  //     let url = `http://127.0.0.1:8000/places/?main_category=${category}&page_size=6`;
-  //     if (section === 'region') {
-  //       url = `http://127.0.0.1:8000/places/?main_category=${category}&page_size=6`;
-  //     } else if (section === 'sub_category') {
-  //       url = `http://127.0.0.1:8000/places/?main_category=${category}&page_size=6`;
-  //     }
-  //     const response = await axios.get(url);
-  //     return response.data.results;
-  //   } catch (err) {
-  //     console.log(err);
-  //     return [];
-  //   }
-  // };
-      
-  if (!categoryData) {
-    return null;
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  if (loading || error) {
-    return null;
+  if (error || !categoryData) {
+    return <div>Error loading data.</div>;
   }
+
+  const {
+    newPlaces,
+    regionPlaces,
+    subcategoryPlaces,
+    bannerImgs,
+    recoPlaces,
+    tapRegions,
+    tapSubcategories,
+  } = categoryData;
 
   return (
     <>
       <div className='flex flex-col gap-[15px]'>
         <div>
-          <Banner bannerImgs={categoryData.bannerImgs} />
-          <RecoPlace
-            recoTags={recoTags[current]}
-            recoPlaces={categoryData.recoPlaces}
-          />
+          <Banner bannerImgs={bannerImgs} />
+          <RecoPlace recoTags={recoTags[current]} recoPlaces={recoPlaces} />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
           <p className='py-[18px] font-semibold'>
@@ -132,8 +56,8 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
           <Place6
             current={current}
             section='new'
-            regionList={placeRegions}
-            // newPlaces={newPlaces}
+            newPlaces={newPlaces}
+            tapRegions={tapRegions}
           />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
@@ -149,11 +73,10 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             gps={true}
           />
           <RegionTab
-            tabs={placeRegions}
             current={current}
             section='region'
-            regionList={placeRegions}
-            // fetchPlacesByCategory={fetchPlacesByCategory}
+            regionPlaces={regionPlaces}
+            tapRegions={tapRegions}
           />
         </div>
         <div className='flex flex-col bg-white p-[10px] pt-0'>
@@ -168,12 +91,11 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
             }
           />
           <RegionTab
-            tabs={placeSubcategories}
             current={current}
             section='sub_category'
-            regionList={placeRegions}
-            // subcategoryPlaces={subcategoryPlaces}
-            // fetchPlacesByCategory={fetchPlacesByCategory}
+            subcategoryPlaces={subcategoryPlaces}
+            tapRegions={tapRegions}
+            tapSubcategories={tapSubcategories}
           />
         </div>
       </div>

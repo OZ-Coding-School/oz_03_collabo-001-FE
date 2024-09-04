@@ -12,32 +12,20 @@ interface PlaceListProps {
 }
 
 interface PlaceData {
-  id: string;
+  id: number;
   store_image: string;
   is_bookmarked: boolean;
-  place_region: string;
-  place_subcategory: string;
+  place_region: number;
+  place_subcategory: number;
   name: string;
   address: string;
   rating: number;
   comments_count: number;
 }
 
-const regionMap: { [key: string]: string } = {
-  '': '전체',
-  '1': '서울',
-  '2': '경기',
-  '3': '인천',
-  '4': '충청',
-  '5': '강원',
-  '6': '전라',
-  '7': '경상',
-  '8': '제주',
-};
-
 const fetchPlaces = async (
-  regionId: string | null,
-  subCategoryId: string | null,
+  regionId: number | null,
+  subCategoryId: number | null,
   latitude: number | null,
   longitude: number | null,
   isActive: boolean,
@@ -133,7 +121,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
       setIsLoading(false);
     }
   };
-  const handleBookmarkChange = (placeId: string) => {
+  const handleBookmarkChange = (placeId: number) => {
     setPlaces((prevPlaces) =>
       prevPlaces.filter((place) => place.id !== placeId)
     );
@@ -168,7 +156,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
             placeId={place.id}
             store_image={place.store_image}
             isBookmarked={place.is_bookmarked}
-            place_region={regionMap[place.place_region]}
+            place_region={place.place_region}
             name={place.name}
             address={place.address}
             rating={place.rating}
