@@ -12,7 +12,7 @@ interface PlaceProps {
   reviewCount: number;
   isBookmarked: boolean;
   place_region: number;
-  place_subcategory: number;
+  place_subcategory?: number;
   locationName: string;
 }
 
