@@ -1,9 +1,9 @@
 import UserInfo from '../../components/Mypage/UserInfo';
-import MyBookmark from './MyBookmark';
-import RecentPlace from './RecentPlace';
+import MyBookmark from './Bookmark/BookmarkPlace';
+import RecentPlace from './Recent/RecentPlace';
 import BackwardsHeader from '../../components/BackwardsHeader';
-import MyReviewList from './MyReviewList';
-import WritingList from './WritingList';
+import MyReviewList from './Review/MyReviewList';
+import WritingList from './WritingList/WritingList';
 import FeaturedBanner from './FeaturedBanner';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
