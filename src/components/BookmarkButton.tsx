@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BookmarkLine from '../assets/Icon/BookMark/Bg_BookMark_Line.svg';
 import BookmarkFill from '../assets/Icon/BookMark/Bg_BookMark_Fill.svg';
 import axios from 'axios';
@@ -7,14 +7,20 @@ import { useBookmarkStore } from '../store/bookmarkStore';
 
 interface BookmarkButtonProps {
   placeId: number;
+  isBookmarked: boolean;
 }
 
-const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
-  const { bookmarks, addBookmark, removeBookmark, isBookmarked } =
-    useBookmarkStore();
-  const [isBookmarkedState, setIsBookmarkedState] = React.useState(
-    isBookmarked(placeId)
-  );
+const BookmarkButton: React.FC<BookmarkButtonProps> = ({
+  placeId,
+  isBookmarked,
+}) => {
+  const {
+    bookmarks,
+    addBookmark,
+    removeBookmark,
+    isBookmarked: isBookmarkedInStore,
+  } = useBookmarkStore();
+  const [isBookmarkedState, setIsBookmarkedState] = useState(isBookmarked);
 
   const handleBookmarkToggle = async () => {
     try {
@@ -54,9 +60,9 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
     }
   };
 
-  React.useEffect(() => {
-    setIsBookmarkedState(isBookmarked(placeId));
-  }, [bookmarks, placeId, isBookmarked]);
+  useEffect(() => {
+    setIsBookmarkedState(isBookmarkedInStore(placeId));
+  }, [bookmarks, placeId, isBookmarkedInStore]);
 
   return (
     <button
