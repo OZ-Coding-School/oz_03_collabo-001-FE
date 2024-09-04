@@ -1,6 +1,6 @@
 import image from '../../assets/Images/starfield.png';
 import InfoTab from '../../components/BDInfo/InfoTab';
-import BDStoryItem from '../Home/BDStoryItem';
+import BDMagStoryItem from './BDMagStoryItem';
 
 const BDMagStory = () => {
   return (
@@ -16,13 +16,13 @@ const BDMagStory = () => {
             { id: '5', tab: '실외' },
           ]}
         />
-        <div className='mt-2 flex flex-col gap-2'>
-          <BDStoryItem />
-          <BDStoryItem />
-          <BDStoryItem />
-          <BDStoryItem />
-          <BDStoryItem />
-          <BDStoryItem />
+        <div className='mt-2 flex flex-col gap-[10px]'>
+          <BDMagStoryItem />
+          <BDMagStoryItem />
+          <BDMagStoryItem />
+          <BDMagStoryItem />
+          <BDMagStoryItem />
+          <BDMagStoryItem />
         </div>
       </div>
     </div>
