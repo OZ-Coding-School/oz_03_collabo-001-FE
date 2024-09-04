@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../../store/authStore';
+import { toast } from 'react-toastify';
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -18,6 +19,16 @@ const Logout = () => {
       navigate('/');
     } catch (error) {
       console.error('로그아웃 실패:', error);
+      toast.error('로그아웃 실패', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     }
   };
 

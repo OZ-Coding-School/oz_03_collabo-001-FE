@@ -41,8 +41,6 @@ const useGeolocation = () => {
             const formattedAddress = `${region_1depth_name} ${region_2depth_name} ${region_3depth_name}`;
             setAddress(formattedAddress);
             setError(null);
-
-            console.log('현위치:', formattedAddress, 'lat', lat, 'lon', lon);
           } else {
             setError('현위치를 찾을 수 없습니다.');
           }
@@ -50,12 +48,12 @@ const useGeolocation = () => {
           console.error('현위치 가져오기 실패 :', error);
           setError('현위치를 가져오는 데 실패했습니다.');
         } finally {
-          setIsLoading(false); // 로딩 끝
+          setIsLoading(false);
         }
       });
     } else {
       setError('위치 정보 사용을 허용해주세요.');
-      setIsLoading(false); // 로딩 끝
+      setIsLoading(false);
     }
   };
 

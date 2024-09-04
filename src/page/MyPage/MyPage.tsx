@@ -7,6 +7,7 @@ import WritingList from './WritingList';
 import FeaturedBanner from './FeaturedBanner';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface UserProfile {
   profile_image: string | null;
@@ -73,10 +74,19 @@ const MyPage = () => {
             withCredentials: true,
           }
         );
-        console.log(response.data);
         setData(response.data);
       } catch (error) {
         console.error('데이터 가져오기 실패:', error);
+        toast.error('데이터 가져오기 실패', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
       }
     };
 

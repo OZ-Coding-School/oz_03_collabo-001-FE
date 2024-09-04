@@ -6,9 +6,15 @@ import PlaceItem from './PlaceItem';
 import { useFilterStore } from '../../store/filterStore';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
+interface RegionType {
+  id: number;
+  region: string;
+}
+
 interface PlaceListProps {
   selectPlace?: string;
   uri?: string;
+  place_regions: RegionType[];
 }
 
 interface PlaceData {
@@ -61,12 +67,16 @@ const fetchPlaces = async (
     const response = await axios.get(url, options);
     return response.data;
   } catch (error) {
-    console.error('Error fetching places:', error);
+    console.error('정보 가져오기 실패:', error);
     return { results: [], next: null };
   }
 };
 
-const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
+const PlaceList: React.FC<PlaceListProps> = ({
+  selectPlace,
+  uri,
+  place_regions,
+}) => {
   const { regionId, subCategoryId, latitude, longitude, isActive } =
     useFilterStore();
   const [places, setPlaces] = useState<PlaceData[]>([]);
@@ -114,13 +124,14 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
         }
       }
     } catch (error) {
-      console.error('Error loading more places:', error);
+      console.error('장소 더 가져오기 실패:', error);
       setError('장소를 가져오는데 실패했습니다.');
       setHasMore(false);
     } finally {
       setIsLoading(false);
     }
   };
+
   const handleBookmarkChange = (placeId: number) => {
     setPlaces((prevPlaces) =>
       prevPlaces.filter((place) => place.id !== placeId)
@@ -133,16 +144,13 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
   );
 
   useEffect(() => {
-    console.log('Fetching places with:', {
-      regionId,
-      subCategoryId,
-      latitude,
-      longitude,
-      isActive,
-      selectPlace,
-    });
     loadMorePlaces(true);
   }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
+
+  const getLocationName = (placeRegionId: number) => {
+    const region = place_regions.find((region) => region.id === placeRegionId);
+    return region ? region.region : 'Unknown';
+  };
 
   return (
     <div className='h-[100%]'>
@@ -157,6 +165,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, uri }) => {
             store_image={place.store_image}
             isBookmarked={place.is_bookmarked}
             place_region={place.place_region}
+            locationName={getLocationName(place.place_region)}
             name={place.name}
             address={place.address}
             rating={place.rating}

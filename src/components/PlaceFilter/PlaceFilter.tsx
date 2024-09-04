@@ -51,11 +51,6 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
   } = useFilterStore();
 
   useEffect(() => {
-    // 프롭스가 제대로 전달되었는지 확인하기 위한 로그
-    console.log('PlaceFilter props:', { selectPlace, title, closeModal });
-  }, []);
-
-  useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
@@ -155,7 +150,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
           <FilterDistance onDistanceFilterChange={handleDistanceFilterChange} />
         </div>
         <div>
-          <PlaceList selectPlace={selectPlace} />
+          <PlaceList selectPlace={selectPlace} place_regions={regions} />
         </div>
       </div>
     </div>,

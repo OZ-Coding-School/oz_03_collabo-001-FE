@@ -3,6 +3,7 @@ import axios from 'axios';
 import { twMerge } from 'tailwind-merge';
 import ReviewWriter from './ReviewWriter';
 import { GoChevronLeft } from 'react-icons/go';
+import { toast } from 'react-toastify';
 
 const MAX_IMAGES = 5;
 
@@ -62,7 +63,19 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((response) => console.log('Upload success:', response.data))
-      .catch((error) => console.error('Upload error:', error));
+      .catch((error) => {
+        console.error('Upload error:', error);
+        toast.error('후기 등록 실패', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      });
   };
 
   const handleDelete = (index: number) => {

@@ -21,14 +21,11 @@ const FilterDistance: React.FC<FilterDistanceProps> = ({
   const handleCheckboxChange = useCallback(() => {
     setIsChecked((prev) => {
       if (prev) {
-        console.log('거리순 필터링 비활성화');
         onDistanceFilterChange(null, null, false);
       } else {
         if (latitude && longitude) {
-          console.log('저장된 위치 사용:', latitude, longitude);
           onDistanceFilterChange(latitude, longitude, true);
         } else {
-          console.log('위치 정보 가져오는 중...');
           getLocation();
         }
       }
