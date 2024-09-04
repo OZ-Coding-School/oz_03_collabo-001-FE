@@ -5,7 +5,7 @@ import axios from 'axios';
 import PlaceItem from './PlaceItem';
 import { useFilterStore } from '../../store/filterStore';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
-import ScrollToTopButton from './ScrollToTopButton';
+// import ScrollToTopButton from './ScrollToTopButton';
 
 interface RegionType {
   id: number;
@@ -103,7 +103,10 @@ const PlaceList: React.FC<PlaceListProps> = ({
         uri
       );
 
-      const newPlaces = response?.results?.results || [];
+      const newPlaces =
+        uri === 'view_history'
+          ? response?.results || []
+          : response?.results?.results || [];
 
       if (initialLoad) {
         if (newPlaces.length === 0) {
@@ -133,18 +136,13 @@ const PlaceList: React.FC<PlaceListProps> = ({
     }
   };
 
-  const handleBookmarkChange = (placeId: number) => {
-    setPlaces((prevPlaces) =>
-      prevPlaces.filter((place) => place.id !== placeId)
-    );
-  };
-
   const { observerElem } = useInfiniteScroll(
     () => loadMorePlaces(false),
     hasMore && !isLoading
   );
 
   useEffect(() => {
+    console.log(places);
     loadMorePlaces(true);
   }, [regionId, subCategoryId, latitude, longitude, isActive, selectPlace]);
 
@@ -171,14 +169,14 @@ const PlaceList: React.FC<PlaceListProps> = ({
             address={place.address}
             rating={place.rating}
             comments_count={place.comments_count}
-            onBookmarkChange={handleBookmarkChange}
+            // onBookmarkChange={handleBookmarkChange}
           />
         ))}
       </div>
       {isLoading && <div className='py-4 text-center'>가져오는 중...</div>}
       {hasMore && <div ref={observerElem} className='h-1' />}
 
-      <ScrollToTopButton scrollContainerRef={scrollContainerRef} />
+      {/* <ScrollToTopButton scrollContainerRef={scrollContainerRef} /> */}
     </div>
   );
 };

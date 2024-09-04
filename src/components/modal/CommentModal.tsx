@@ -33,6 +33,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
           'http://127.0.0.1:8000/users/mypage/my-comment/',
           { withCredentials: true }
         );
+        console.log(response.data);
         setReviews(response.data);
         setLoading(false);
       } catch (error) {
@@ -65,11 +66,8 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
         </div>
         <div className='p-4'>
           {loading && <p className='text-[14px] text-caption'>로딩 중...</p>}
-          {!loading && !error && reviews.length === 0 && (
-            <p className='text-[14px] text-caption'>작성한 후기가 없습니다.</p>
-          )}
-          {!loading &&
-            !error &&
+          {error && <p className='text-[14px] text-caption'>{error}</p>}
+          {reviews.length > 0 ? (
             reviews.map((review, index) => (
               <MyReviewListItem
                 key={review.id}
@@ -80,7 +78,12 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
                 createDate={review.create_date}
                 commentImages={review.comments_images}
               />
-            ))}
+            ))
+          ) : (
+            <div className='text-[14px] text-caption'>
+              작성한 후기가 없습니다.
+            </div>
+          )}
         </div>
       </div>
     </div>,
