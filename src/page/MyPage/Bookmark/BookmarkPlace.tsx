@@ -1,7 +1,6 @@
 import MoreTitle from '../../../components/layout/MoreTitle';
 import Place from '../../../components/BDPlace/Place';
 import { useBookmarkStore } from '../../../store/bookmarkStore';
-import { useMemo } from 'react';
 
 interface MyBookmarkProps {
   bookmarks: Bookmark[];
@@ -28,9 +27,9 @@ interface RegionListType {
 const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
   const bookmarkIds = useBookmarkStore((state) => state.bookmarks);
 
-  const filteredBookmarks = useMemo(() => {
-    return bookmarks.filter((bookmark) => bookmarkIds.includes(bookmark.id));
-  }, [bookmarks, bookmarkIds]);
+  const filteredBookmarks = bookmarks.filter((bookmark) =>
+    bookmarkIds.includes(bookmark.id)
+  );
 
   const getLocationName = (id: number) => {
     return tapRegions?.find((region) => region.id === id)?.region || 'Unknown';
