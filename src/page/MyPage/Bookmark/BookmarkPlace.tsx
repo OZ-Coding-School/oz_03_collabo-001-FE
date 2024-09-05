@@ -31,10 +31,14 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
   const bookmarkIds = useBookmarkStore((state) => state.bookmarks);
 
   useEffect(() => {
-    const filtered = bookmarks.filter((bookmark) =>
-      bookmarkIds.includes(bookmark.id)
-    );
-    setFilteredBookmarks(filtered);
+    if (bookmarks.length > 0 && bookmarkIds.length > 0) {
+      const filtered = bookmarks.filter((bookmark) =>
+        bookmarkIds.includes(bookmark.id)
+      );
+      setFilteredBookmarks(filtered);
+    } else {
+      setFilteredBookmarks([]);
+    }
   }, [bookmarks, bookmarkIds]);
 
   const getLocationName = (id: number) => {
