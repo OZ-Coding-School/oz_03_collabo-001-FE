@@ -53,7 +53,7 @@ const Place6: React.FC<Props> = ({
   };
 
   return (
-    <div className='flex h-[250px] flex-wrap gap-[8px]'>
+    <div className='breakPoint:grid-cols-3 grid grid-cols-2 gap-[8px]'>
       {places && places.length > 0 ? (
         places.map((place) => (
           <Place

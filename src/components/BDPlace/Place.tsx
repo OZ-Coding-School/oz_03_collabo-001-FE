@@ -37,12 +37,12 @@ const Place: React.FC<PlaceProps> = ({
 
   return (
     <>
-      <div className='relative flex h-[120px] w-[120px] cursor-pointer flex-col overflow-clip rounded-lg border-[1px] border-border bg-[white]'>
+      <div className='breakPoint:w-[120px] relative flex h-[120px] w-[50] cursor-pointer flex-col overflow-clip rounded-lg border-[1px] border-border bg-[white]'>
         <button onClick={handlePlaceClick}>
           <img
             src={store_image}
             alt=''
-            className='h-[70px] w-[120px] object-cover'
+            className='h-[70px] w-full object-cover'
           />
         </button>
         <div className='absolute right-1 top-1'>
