@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import BookmarkLine from '../assets/Icon/BookMark/Bg_BookMark_Line.svg';
 import BookmarkFill from '../assets/Icon/BookMark/Bg_BookMark_Fill.svg';
 import axios from 'axios';
@@ -7,24 +7,14 @@ import { useBookmarkStore } from '../store/bookmarkStore';
 
 interface BookmarkButtonProps {
   placeId: number;
-  isBookmarked: boolean;
 }
 
-const BookmarkButton: React.FC<BookmarkButtonProps> = ({
-  placeId,
-  isBookmarked,
-}) => {
-  const {
-    bookmarks,
-    addBookmark,
-    removeBookmark,
-    isBookmarked: isBookmarkedInStore,
-  } = useBookmarkStore();
-  const [isBookmarkedState, setIsBookmarkedState] = useState(isBookmarked);
+const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
+  const { isBookmarked, addBookmark, removeBookmark } = useBookmarkStore(); // 전역 상태 사용
 
   const handleBookmarkToggle = async () => {
     try {
-      if (isBookmarkedState) {
+      if (isBookmarked(placeId)) {
         await axios.delete(
           `http://127.0.0.1:8000/places/${placeId}/bookmark/`,
           {
@@ -41,10 +31,9 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
             withCredentials: true,
           }
         );
-        console.log('북마크 저장 완료');
+        console.log('북마크 추가 완료');
         addBookmark(placeId);
       }
-      setIsBookmarkedState(!isBookmarkedState);
     } catch (error) {
       console.error('북마크 처리 실패:', error);
       toast.error('로그인 후 사용해 주세요!', {
@@ -60,10 +49,6 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
     }
   };
 
-  useEffect(() => {
-    setIsBookmarkedState(isBookmarkedInStore(placeId));
-  }, [bookmarks, placeId, isBookmarkedInStore]);
-
   return (
     <button
       type='button'
@@ -71,7 +56,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
       onClick={handleBookmarkToggle}
     >
       <img
-        src={isBookmarkedState ? BookmarkFill : BookmarkLine}
+        src={isBookmarked(placeId) ? BookmarkFill : BookmarkLine}
         alt='북마크 아이콘'
         className='h-5'
         aria-hidden
