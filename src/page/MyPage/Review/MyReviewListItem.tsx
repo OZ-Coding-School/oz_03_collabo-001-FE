@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import useTruncatedText from '../../hooks/useTruncatedText';
-import DetailRating from '../Detail/DetailRating';
+import useTruncatedText from '../../../hooks/useTruncatedText';
+import DetailRating from '../../Detail/DetailRating';
 
 interface MyReviewListItemProps {
   className?: string;

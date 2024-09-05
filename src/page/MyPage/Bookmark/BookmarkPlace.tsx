@@ -1,5 +1,7 @@
-import MoreTitle from '../../components/layout/MoreTitle';
-import Place from '../../components/BDPlace/Place';
+import MoreTitle from '../../../components/layout/MoreTitle';
+import Place from '../../../components/BDPlace/Place';
+import { useEffect, useState } from 'react';
+import { useBookmarkStore } from '../../../store/bookmarkStore';
 
 interface MyBookmarkProps {
   bookmarks: Bookmark[];
@@ -24,6 +26,21 @@ interface RegionListType {
 }
 
 const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
+  const [filteredBookmarks, setFilteredBookmarks] = useState<Bookmark[]>([]);
+
+  const bookmarkIds = useBookmarkStore((state) => state.bookmarks);
+
+  useEffect(() => {
+    if (bookmarks.length > 0 && bookmarkIds.length > 0) {
+      const filtered = bookmarks.filter((bookmark) =>
+        bookmarkIds.includes(bookmark.id)
+      );
+      setFilteredBookmarks(filtered);
+    } else {
+      setFilteredBookmarks([]);
+    }
+  }, [bookmarks, bookmarkIds]);
+
   const getLocationName = (id: number) => {
     return tapRegions?.find((region) => region.id === id)?.region || '';
   };
@@ -32,8 +49,8 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
     <div className='col'>
       <MoreTitle title='나만의 북마크' />
       <div className='flex flex-wrap gap-[8px] pb-[20px]'>
-        {bookmarks.length > 0 ? (
-          bookmarks.map((placeInfo) => (
+        {filteredBookmarks.length > 0 ? (
+          filteredBookmarks.map((placeInfo) => (
             <Place
               key={placeInfo.id}
               placeId={placeInfo.id}
@@ -42,7 +59,7 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
               rating={placeInfo.rating}
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
-              place_region={placeInfo.place_region}
+              // isBookmarked={true}
               locationName={getLocationName(placeInfo.place_region)}
             />
           ))

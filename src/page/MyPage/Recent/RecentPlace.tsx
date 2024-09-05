@@ -1,5 +1,5 @@
-import MoreTitle from '../../components/layout/MoreTitle';
-import Place from '../../components/BDPlace/Place';
+import MoreTitle from '../../../components/layout/MoreTitle';
+import Place from '../../../components/BDPlace/Place';
 
 interface RecentPlaceProps {
   recentplace: PlaceData[];
@@ -45,7 +45,6 @@ const RecentPlace: React.FC<RecentPlaceProps> = ({
               rating={placeInfo.rating}
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
-              place_region={placeInfo.place_region}
               locationName={getLocationName(placeInfo.place_region)}
             />
           ))

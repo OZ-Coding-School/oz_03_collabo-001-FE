@@ -1,4 +1,4 @@
-import MoreTitle from '../../components/layout/MoreTitle';
+import MoreTitle from '../../../components/layout/MoreTitle';
 import MyReviewListItem from './MyReviewListItem';
 
 interface MyReviewListProps {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import axios from 'axios';
-import MyReviewListItem from '../../page/MyPage/MyReviewListItem';
+import MyReviewListItem from '../../page/MyPage/Review/MyReviewListItem';
 
 interface CommentModalProps {
   title: string;
@@ -33,6 +33,11 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
           'http://127.0.0.1:8000/users/mypage/my-comment/',
           { withCredentials: true }
         );
+
+        if (response.status === 200) {
+          console.log('서버 연결 성공');
+        }
+
         setReviews(response.data);
         setLoading(false);
       } catch (error) {
@@ -65,11 +70,8 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
         </div>
         <div className='p-4'>
           {loading && <p className='text-[14px] text-caption'>로딩 중...</p>}
-          {!loading && !error && reviews.length === 0 && (
-            <p className='text-[14px] text-caption'>작성한 후기가 없습니다.</p>
-          )}
-          {!loading &&
-            !error &&
+          {error && <p className='text-[14px] text-caption'>{error}</p>}
+          {reviews.length > 0 ? (
             reviews.map((review, index) => (
               <MyReviewListItem
                 key={review.id}
@@ -80,7 +82,12 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
                 createDate={review.create_date}
                 commentImages={review.comments_images}
               />
-            ))}
+            ))
+          ) : (
+            <div className='text-[14px] text-caption'>
+              작성한 후기가 없습니다.
+            </div>
+          )}
         </div>
       </div>
     </div>,

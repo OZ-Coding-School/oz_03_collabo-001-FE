@@ -72,6 +72,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     axios
       .post(`http://127.0.0.1:8000/places/${placeId}/comments/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        withCredentials: true,
       })
       .then((response) => console.log('Upload success:', response.data))
       .catch((error) => {

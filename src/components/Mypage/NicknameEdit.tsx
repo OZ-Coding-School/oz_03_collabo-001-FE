@@ -20,8 +20,13 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         return;
       }
 
+      if (inputValue === '') {
+        setIsEditing(false);
+        return;
+      }
+
       try {
-        await axios.post(
+        const response = await axios.post(
           `http://127.0.0.1:8000/users/mypage/update-name/?name=${inputValue}`,
           {},
           {
@@ -29,8 +34,21 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
           }
         );
 
-        setName(inputValue);
-        setIsEditing(false);
+        if (response.status === 200) {
+          setName(inputValue);
+          setIsEditing(false);
+        } else if (response.status === 212) {
+          toast.error('중복된 닉네임 입니다!', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+        }
       } catch (error) {
         console.error('서버에 닉네임 변경 실패:', error);
         toast.error('닉네임 변경 실패!', {

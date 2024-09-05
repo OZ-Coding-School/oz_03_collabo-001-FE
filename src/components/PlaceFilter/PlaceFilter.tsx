@@ -150,7 +150,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
           <FilterDistance onDistanceFilterChange={handleDistanceFilterChange} />
         </div>
         <div>
-          <PlaceList selectPlace={selectPlace} place_regions={regions} />
+          <PlaceList selectPlace={selectPlace} tapRegions={regions} />
         </div>
       </div>
     </div>,

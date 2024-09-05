@@ -1,5 +1,5 @@
 import WritingListItem from './WritingListItem';
-import MoreTitle from '../../components/layout/MoreTitle';
+import MoreTitle from '../../../components/layout/MoreTitle';
 
 const WritingList = () => {
   const reviewItemCount = 2;

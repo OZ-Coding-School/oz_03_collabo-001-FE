@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+import React from 'react';
 import useModalWithURL from '../../hooks/useModalWithURL';
 import DetailModal from '../modal/DetailModal';
 import BookmarkButton from '../BookmarkButton';
@@ -8,36 +10,26 @@ interface PlaceItem {
   placeId: number;
   store_image: string;
   isBookmarked: boolean;
-  place_region: number;
   locationName: string;
   name: string;
   address: string;
   rating: number;
   comments_count: number;
-  onBookmarkChange?: (placeId: number) => void;
 }
 
 const PlaceItem: React.FC<PlaceItem> = ({
   placeId,
   store_image,
-  isBookmarked,
-  // place_region,
+  // isBookmarked,
   locationName,
   name,
   address,
   rating,
   comments_count,
-  onBookmarkChange,
 }) => {
   const { isOpen, openSubModal, closeModal } = useModalWithURL(
     `detailModal_${placeId}`
   );
-
-  const handleBookmarkChange = (placeId: number) => {
-    if (onBookmarkChange) {
-      onBookmarkChange(placeId);
-    }
-  };
 
   return (
     <>
@@ -57,11 +49,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
             <li className='relative mb-[4px] truncate text-nowrap text-[14px] font-semibold'>
               <p className='w-[200px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
               <div className='absolute right-0 top-0'>
-                <BookmarkButton
-                  placeId={placeId}
-                  isBookmarkedInitially={isBookmarked}
-                  onBookmarkChange={() => handleBookmarkChange(placeId)}
-                />
+                <BookmarkButton placeId={placeId} />
               </div>
             </li>
             <li className='mb-[4px] flex'>

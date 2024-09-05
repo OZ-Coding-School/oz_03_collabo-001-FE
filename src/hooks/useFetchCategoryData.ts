@@ -53,7 +53,8 @@ const useFetchCategoryData = (category: string) => {
     const fetchPlaces = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${category}/main/`
+          `http://127.0.0.1:8000/places/${category}/main/`,
+          { withCredentials: true }
         );
 
         // 배열에서 랜덤으로 선택하는 함수

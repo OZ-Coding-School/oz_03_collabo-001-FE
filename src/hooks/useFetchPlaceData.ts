@@ -36,7 +36,8 @@ const useFetchPlaceData = (placeId: number) => {
     const fetchPlaces = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/`
+          `http://127.0.0.1:8000/places/${placeId}/`,
+          { withCredentials: true }
         );
 
         const fetchedData: PlaceData = {
