@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
-import PlaceList from '../PlaceFilter/PlaceList';
+import RecentList from '../../page/MyPage/Recent/RecentList';
 
 interface RecoPlaceModalProps {
   title: string;
@@ -32,7 +32,7 @@ const RecoPlaceModal: React.FC<RecoPlaceModalProps> = ({
             <p className='py-[18px] font-semibold'>{title}</p>
           </div>
         </div>
-        <PlaceList uri={'view_history'} />
+        <RecentList />
       </div>
     </div>,
     document.getElementById('modal-root')!

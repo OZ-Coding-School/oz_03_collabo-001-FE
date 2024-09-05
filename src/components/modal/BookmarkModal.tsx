@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
-import PlaceList from '../PlaceFilter/PlaceList';
+import BookmarkList from '../../page/MyPage/Bookmark/BookmarkList';
 
 interface BookMarkModalProps {
   title: string;
@@ -29,7 +29,7 @@ const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
             <p className='py-[18px] font-semibold'>{title}</p>
           </div>
         </div>
-        <PlaceList uri={'bookmark'} />
+        <BookmarkList />
       </div>
     </div>,
     document.getElementById('modal-root')!

@@ -1,5 +1,9 @@
-import MoreTitle from '../../components/layout/MoreTitle';
+import MoreTitle from '../../../components/layout/MoreTitle';
 import MyReviewListItem from './MyReviewListItem';
+
+interface MyReviewListProps {
+  reviews: Comment[];
+}
 
 interface Comment {
   id: number;
@@ -9,10 +13,6 @@ interface Comment {
   create_date: string;
   content: string;
   comments_images: string[];
-}
-
-interface MyReviewListProps {
-  reviews: Comment[];
 }
 
 const MyReviewList: React.FC<MyReviewListProps> = ({ reviews }) => {

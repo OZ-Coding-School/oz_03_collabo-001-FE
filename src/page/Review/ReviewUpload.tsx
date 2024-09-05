@@ -3,16 +3,20 @@ import axios from 'axios';
 import { twMerge } from 'tailwind-merge';
 import ReviewWriter from './ReviewWriter';
 import { GoChevronLeft } from 'react-icons/go';
+
 import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../../components/CustomScrollbar/renderThumbVertical';
+import { toast } from 'react-toastify';
+
 
 const MAX_IMAGES = 5;
 
 interface PhotoUploadProps {
   closeModal: () => void;
+  placeId: number;
 }
 
-const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
+const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   const [images, setImages] = useState<(File | null)[]>(
     Array(MAX_IMAGES).fill(null)
   );
@@ -55,16 +59,39 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
       alert('최소 1개의 이미지를 업로드해야 합니다.');
       return;
     }
+    const reviewText = (
+      document.querySelector('textarea') as HTMLTextAreaElement
+    ).value;
+
+    if (reviewText.length < 10) {
+      alert('후기는 최소 10자 이상 작성해야 합니다.');
+      return;
+    }
 
     const formData = new FormData();
+    formData.append('rating', checkedRate.toString());
+    formData.append('review', reviewText);
     filesToUpload.forEach((file) => formData.append('images', file));
 
     axios
-      .post('/api/upload', formData, {
+      .post(`http://127.0.0.1:8000/places/${placeId}/comments/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
+        withCredentials: true,
       })
       .then((response) => console.log('Upload success:', response.data))
-      .catch((error) => console.error('Upload error:', error));
+      .catch((error) => {
+        console.error('Upload error:', error);
+        toast.error('후기 등록 실패', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      });
   };
 
   const handleDelete = (index: number) => {

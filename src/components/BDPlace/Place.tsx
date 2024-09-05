@@ -1,5 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import React from 'react';
 import useModalWithURL from '../../hooks/useModalWithURL';
 import BookmarkButton from '../BookmarkButton';
 import DetailModal from '../modal/DetailModal';
@@ -11,20 +13,16 @@ interface PlaceProps {
   rating: number;
   reviewCount: number;
   isBookmarked: boolean;
-  place_region: number;
-  place_subcategory: number;
   locationName: string;
 }
 
 const Place: React.FC<PlaceProps> = ({
   placeId,
   store_image,
-  // place_region,
-  // place_subcategory,
   name,
   rating,
   reviewCount,
-  isBookmarked,
+  // isBookmarked,
   locationName,
 }) => {
   const { isOpen, openModal, closeModal } = useModalWithURL(
@@ -46,10 +44,7 @@ const Place: React.FC<PlaceProps> = ({
           />
         </button>
         <div className='absolute right-1 top-1'>
-          <BookmarkButton
-            placeId={placeId}
-            isBookmarkedInitially={isBookmarked}
-          />
+          <BookmarkButton placeId={placeId} />
         </div>
         <div
           className='flex h-[50px] flex-col justify-between p-1.5'

@@ -1,7 +1,12 @@
-import MoreTitle from '../../components/layout/MoreTitle';
-import Place from '../../components/BDPlace/Place';
+import MoreTitle from '../../../components/layout/MoreTitle';
+import Place from '../../../components/BDPlace/Place';
 
-interface Bookmark {
+interface RecentPlaceProps {
+  recentplace: PlaceData[];
+  tapRegions: RegionListType[];
+}
+
+interface PlaceData {
   id: number;
   store_image: string;
   is_bookmarked: boolean;
@@ -13,17 +18,25 @@ interface Bookmark {
   comments_count: number;
 }
 
-interface MyBookmarkProps {
-  bookmarks: Bookmark[];
+interface RegionListType {
+  id: number;
+  region: string;
 }
 
-const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
+const RecentPlace: React.FC<RecentPlaceProps> = ({
+  recentplace,
+  tapRegions,
+}) => {
+  const getLocationName = (id: number) => {
+    return tapRegions?.find((region) => region.id === id)?.region || '';
+  };
+
   return (
     <div className='col'>
-      <MoreTitle title='나만의 북마크' />
+      <MoreTitle title='최근 본 장소' />
       <div className='flex flex-wrap gap-[8px] pb-[20px]'>
-        {bookmarks.length > 0 ? (
-          bookmarks.map((placeInfo) => (
+        {recentplace.length > 0 ? (
+          recentplace.map((placeInfo) => (
             <Place
               key={placeInfo.id}
               placeId={placeInfo.id}
@@ -32,14 +45,12 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
               rating={placeInfo.rating}
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
-              place_region={placeInfo.place_region}
-              place_subcategory={placeInfo.place_subcategory}
-              locationName={''}
+              locationName={getLocationName(placeInfo.place_region)}
             />
           ))
         ) : (
           <div className='text-[14px] text-caption'>
-            북마크된 장소가 없습니다.
+            최근 본 장소가 없습니다.
           </div>
         )}
       </div>
@@ -47,4 +58,4 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks }) => {
   );
 };
 
-export default MyBookmark;
+export default RecentPlace;

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import useTruncatedText from '../../hooks/useTruncatedText';
+import useTruncatedText from '../../../hooks/useTruncatedText';
 
 interface WritingListItemProps {
   className?: string;
