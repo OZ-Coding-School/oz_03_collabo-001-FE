@@ -10,7 +10,7 @@ const Logout = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/users/logout/',
+        'https://api.dogandbaby.co.kr/users/logout/',
         {},
         { withCredentials: true }
       );
