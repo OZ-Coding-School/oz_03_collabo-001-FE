@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import DetailRating from './DetailRating';
 import useTruncatedText from '../../hooks/useTruncatedText';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 interface Images {
   url: string;
@@ -43,7 +44,10 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({
       <div>
         <p className='py-[10px] text-[12px]'>{truncatedText}</p>
         {images.length !== 0 ? (
-          <div className='mb-[20px] overflow-x-auto'>
+          <Scrollbars
+            style={{ width: '100%', height: '115px', marginBottom: '20px' }}
+            autoHide
+          >
             <div className='flex gap-[7px]'>
               {images.map((_, i) => {
                 return (
@@ -61,7 +65,7 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({
                 );
               })}
             </div>
-          </div>
+          </Scrollbars>
         ) : null}
       </div>
     </div>

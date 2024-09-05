@@ -73,7 +73,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
             })}
 
           {reviewCount > 3 ? (
-            <button className='mb-[30px] h-[35px] w-full rounded-[5px] border-2 border-border text-center text-[14px]'>
+            <button className='h-[35px] w-full rounded-[5px] border-2 border-border text-center text-[14px]'>
               후기 {reviewCount}개 모두보기
             </button>
           ) : null}
