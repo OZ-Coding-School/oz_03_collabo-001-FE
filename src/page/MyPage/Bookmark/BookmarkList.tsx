@@ -30,7 +30,7 @@ interface PlaceData {
 }
 
 const fetchPlaces = async (page: number) => {
-  const params: any = {
+  const params: { page: number; page_size: number } = {
     page,
     page_size: 10,
   };
@@ -53,7 +53,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { bookmarks } = useBookmarkStore();
+  const { bookmarks, setBookmarks } = useBookmarkStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const loadMorePlaces = async (initialLoad: boolean = false) => {
@@ -63,7 +63,6 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
     setError(null);
     try {
       const response = await fetchPlaces(initialLoad ? 1 : page);
-
       const newPlaces = response?.results?.results || [];
 
       if (initialLoad) {
@@ -75,6 +74,11 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           setPlaces(newPlaces);
           setPage(2);
           setHasMore(!!response.next);
+
+          const bookmarkIds = newPlaces
+            .filter((place: PlaceData) => place.is_bookmarked)
+            .map((place: PlaceData) => place.id);
+          setBookmarks(bookmarkIds);
         }
       } else {
         if (newPlaces.length === 0) {
@@ -83,6 +87,11 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           setPlaces((prevPlaces) => [...prevPlaces, ...newPlaces]);
           setPage((prevPage) => prevPage + 1);
           setHasMore(!!response.next);
+
+          const newBookmarkIds = newPlaces
+            .filter((place: PlaceData) => place.is_bookmarked)
+            .map((place: PlaceData) => place.id);
+          setBookmarks(Array.from(new Set([...bookmarks, ...newBookmarkIds])));
         }
       }
     } catch (error) {
@@ -102,16 +111,6 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   useEffect(() => {
     loadMorePlaces(true);
   }, []);
-
-  useEffect(() => {
-    const updatePlaces = async () => {
-      const response = await fetchPlaces(1);
-      const newPlaces = response?.results?.results || [];
-      setPlaces(newPlaces);
-    };
-
-    updatePlaces();
-  }, [bookmarks]);
 
   const getLocationName = (placeRegionId: number) => {
     const region = tapRegions?.find((region) => region.id === placeRegionId);
