@@ -8,10 +8,24 @@ import Naver from '../../assets/Icon/SocialLogin/Naver.svg';
 import Google from '../../assets/Icon/SocialLogin/Google.svg';
 import Main_Logo from '../../assets/Icon/Main/OR_Main_TextLogo.svg';
 import useAuthStore from '../../store/authStore';
+import { useBookmarkStore } from '../../store/bookmarkStore';
+
+interface PlaceData {
+  id: number;
+  store_image: string;
+  is_bookmarked: boolean;
+  place_region: number;
+  place_subcategory: number;
+  name: string;
+  address: string;
+  rating: number;
+  comments_count: number;
+}
 
 const AuthProvider = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
+  const { setBookmarks } = useBookmarkStore();
 
   useEffect(() => {
     const handleAuth = async () => {
@@ -26,7 +40,7 @@ const AuthProvider = () => {
 
       try {
         const response = await axios.post(
-          `https://api.dogandbaby.co.kr/users/${state}/login/callback/`,
+          `http://127.0.0.1:8000/users/${state}/login/callback/`,
           { code },
           { withCredentials: true }
         );
@@ -34,6 +48,17 @@ const AuthProvider = () => {
         if (response.status === 200) {
           console.log(`${state} 로그인 성공`);
           login();
+
+          const bookmarkResponse = await axios.get(
+            'http://127.0.0.1:8000/users/mypage/bookmark',
+            { withCredentials: true }
+          );
+
+          const bookmarks: number[] = bookmarkResponse.data.results.results
+            .filter((place: PlaceData) => place.is_bookmarked)
+            .map((place: PlaceData) => place.id);
+
+          setBookmarks(bookmarks);
 
           navigate('/');
         }
