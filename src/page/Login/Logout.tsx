@@ -10,12 +10,15 @@ const Logout = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        'https://api.dogandbaby.co.kr/users/logout/',
+        'http://127.0.0.1:8000/users/logout/',
         {},
         { withCredentials: true }
       );
       console.log('로그아웃 성공:', response);
+
       logout();
+      sessionStorage.removeItem('bookmarks');
+
       navigate('/');
     } catch (error) {
       console.error('로그아웃 실패:', error);
