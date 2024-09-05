@@ -39,7 +39,7 @@ const RecoPlaceItem: React.FC<RecoPlaceItemProps> = ({
         className='flex cursor-pointer items-center rounded-[10px] border-2 border-background p-[10px]'
         onClick={openModal}
       >
-        <div className='imgWrap h-[80px] w-[80px] overflow-hidden rounded-[10px] bg-background'>
+        <div className='imgWrap h-[80px] w-[80px] flex-shrink-0 overflow-hidden rounded-[10px] bg-background'>
           <img
             src={placeImage}
             alt={name}

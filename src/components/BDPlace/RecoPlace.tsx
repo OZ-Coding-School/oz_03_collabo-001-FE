@@ -79,7 +79,7 @@ const RecoPlace: React.FC<RecoPlaceProps> = ({ recoTags, recoPlaces }) => {
                 name={item.places.name}
                 content={item.content}
                 placeImage={item.places.store_image}
-                tags={item.tags}
+                tags={item.tags.slice(0, 3)} // 태그를 3개만 전달
               />
             </SwiperSlide>
           );
