@@ -81,7 +81,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
         <img
           src={copy}
           alt='복사아이콘'
-          className='mx-[5px] h-[14px] w-[14px]'
+          className='mx-[5px] h-[14px] w-[14px] cursor-pointer'
           onClick={handleCopy}
         />
         <button className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'>
