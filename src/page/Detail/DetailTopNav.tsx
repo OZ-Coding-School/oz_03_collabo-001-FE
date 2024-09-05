@@ -7,9 +7,6 @@ interface DetailTopNavProps {
   guideScrollTop: number;
   containerRef: React.RefObject<HTMLDivElement>;
   reviewCount: number;
-  scrollbarRef: any;
-  currentScrollTop: number;
-  navStartRefTop: number;
 }
 
 const DetailTopNav: React.FC<DetailTopNavProps> = ({
@@ -18,15 +15,11 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
   guideScrollTop,
   containerRef,
   reviewCount,
-  scrollbarRef,
-  currentScrollTop,
-  navStartRefTop,
 }) => {
   const [placeTopNavBtn, setPlaceTopNavBtn] = useState<number>(0);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
   const [scrollOnClick, setScrollOnClick] = useState<boolean>(false);
-  const [isFixed, setIsFixed] = useState<boolean>(false);
 
   const placeNavMenu = [
     { name: '상세내용' },
@@ -47,13 +40,13 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
   }, [placeTopNavBtn]);
 
   useEffect(() => {
-    if (scrollOnClick && scrollbarRef.current) {
+    if (scrollOnClick && containerRef.current) {
       const scrollPositions = [
         contentScrollTop,
         reviewScrollTop,
         guideScrollTop,
       ];
-      scrollbarRef.current.view.scrollTo({
+      containerRef.current.scrollTo({
         top: scrollPositions[placeTopNavBtn],
         behavior: 'smooth',
       });
@@ -65,7 +58,7 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
     reviewScrollTop,
     guideScrollTop,
     scrollOnClick,
-    scrollbarRef,
+    containerRef,
   ]);
 
   const handleClick = (index: number) => {
@@ -73,64 +66,31 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
     setScrollOnClick(true); // Set flag to trigger scrolling
   };
 
-  // 스크롤 영역 감지
   const handleScroll = useCallback(() => {
-    if (scrollbarRef.current) {
-      const view = scrollbarRef.current.view;
-      if (!view) return;
-
-      const scrollHeight = view.scrollHeight;
-      const clientHeight = view.clientHeight;
-      const isAtBottom = currentScrollTop + clientHeight >= scrollHeight - 2; // 거의 맨 아래 도달시
-
-      // 스크롤이 맨 아래일 때
-      if (isAtBottom) {
-        setPlaceTopNavBtn(2); // "이용안내" 버튼 활성화
-        // console.log('이용안내');
-      } else if (currentScrollTop >= reviewScrollTop - 50) {
-        setPlaceTopNavBtn(1); // "후기" 버튼 활성화
-        // console.log('후기');
-      } else if (currentScrollTop < reviewScrollTop) {
+    if (containerRef.current) {
+      const scrollTop = containerRef.current.scrollTop;
+      if (scrollTop >= contentScrollTop && scrollTop < reviewScrollTop) {
         setPlaceTopNavBtn(0); // "상세내용" 버튼 활성화
-        // console.log('상세내용');
+      } else if (scrollTop >= reviewScrollTop && scrollTop < guideScrollTop) {
+        setPlaceTopNavBtn(1); // "후기" 버튼 활성화
+      } else if (scrollTop >= guideScrollTop) {
+        setPlaceTopNavBtn(2); // "이용안내" 버튼 활성화
       }
-
-      // nav sticky 처리
-      setIsFixed(currentScrollTop >= navStartRefTop);
     }
-  }, [
-    currentScrollTop,
-    contentScrollTop,
-    reviewScrollTop,
-    guideScrollTop,
-    navStartRefTop,
-    scrollbarRef,
-  ]);
+  }, [contentScrollTop, reviewScrollTop, guideScrollTop, containerRef]);
 
   useEffect(() => {
-    const currentScrollbar = scrollbarRef.current?.view;
-    if (currentScrollbar) {
-      currentScrollbar.addEventListener('scroll', handleScroll);
+    const element = containerRef.current;
+    if (element) {
+      element.addEventListener('scroll', handleScroll);
       return () => {
-        currentScrollbar.removeEventListener('scroll', handleScroll);
+        element.removeEventListener('scroll', handleScroll);
       };
     }
-  }, [handleScroll, scrollbarRef]);
+  }, [handleScroll, containerRef]);
 
   return (
-    // <div className='sticky top-[0px] z-10 flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
-    <div
-      className={classNames(
-        'flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav',
-        {
-          'fixed top-0 z-10': isFixed,
-          relative: !isFixed,
-        }
-      )}
-      style={{
-        transition: 'position 0.3s ease',
-      }}
-    >
+    <div className='sticky top-[0px] z-10 flex h-[48px] w-[400px] items-center justify-between bg-[#ffffff] text-center text-[14px] text-nav'>
       {placeNavMenu.map((item, index) => (
         <button
           key={item.name}
