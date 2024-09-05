@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import BookmarkList from '../../page/MyPage/Bookmark/BookmarkList';
+import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 
 interface BookMarkModalProps {
   title: string;
@@ -9,6 +10,9 @@ interface BookMarkModalProps {
 }
 
 const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
+  const { categoryData } = useFetchCategoryData('main');
+  const tapRegions = categoryData?.tapRegions ?? [];
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -29,7 +33,7 @@ const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
             <p className='py-[18px] font-semibold'>{title}</p>
           </div>
         </div>
-        <BookmarkList />
+        <BookmarkList tapRegions={tapRegions} />
       </div>
     </div>,
     document.getElementById('modal-root')!
