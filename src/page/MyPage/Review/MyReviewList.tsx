@@ -33,7 +33,7 @@ const MyReviewList: React.FC<MyReviewListProps> = ({ reviews }) => {
             />
           ))
         ) : (
-          <div className='text-[14px] text-caption'>
+          <div className='py-4 text-center text-[14px] text-caption'>
             작성된 후기가 없습니다.
           </div>
         )}

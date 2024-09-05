@@ -54,7 +54,7 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
             />
           ))
         ) : (
-          <div className='text-[14px] text-caption'>
+          <div className='py-4 text-center text-[14px] text-caption'>
             북마크된 장소가 없습니다.
           </div>
         )}
