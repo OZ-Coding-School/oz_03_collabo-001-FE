@@ -92,3 +92,8 @@ ol {
 address {
   font-style: normal;
 }
+
+/* custom scroll */
+#root::-webkit-scrollbar {
+  display: none;
+}

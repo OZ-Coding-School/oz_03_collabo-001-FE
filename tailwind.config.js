@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'breakPoint': '398px',
+      },
+    },
     colors: {
       'transparent': 'transparent',
       'white': '#ffffff',
