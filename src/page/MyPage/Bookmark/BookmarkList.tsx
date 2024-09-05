@@ -118,9 +118,11 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   };
 
   return (
-    <div className='h-[100vh]' ref={scrollContainerRef}>
+    <div ref={scrollContainerRef}>
       {error && !isLoading && !places.length && (
-        <div className='text-red-500 py-4 text-center'>{error}</div>
+        <div className='text-red-500 py-4 text-center text-[14px] text-caption'>
+          {error}
+        </div>
       )}
       <div className='gap-[10px] py-2'>
         {places.map((place: PlaceData) => (

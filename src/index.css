@@ -17,7 +17,7 @@
   z-index: 50;
   width: 400px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 :root,
