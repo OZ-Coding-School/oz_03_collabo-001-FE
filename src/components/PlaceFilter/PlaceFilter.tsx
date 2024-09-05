@@ -166,9 +166,8 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
             />
           </div>
           <div>
-            <PlaceList selectPlace={selectPlace} />
+            <PlaceList selectPlace={selectPlace} tapRegions={regions} />
           </div>
-
         </div>
         <ScrollToTopBtn scrollbarRef={scrollbarRef} />
       </Scrollbars>
