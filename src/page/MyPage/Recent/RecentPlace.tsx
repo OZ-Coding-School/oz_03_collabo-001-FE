@@ -49,7 +49,7 @@ const RecentPlace: React.FC<RecentPlaceProps> = ({
             />
           ))
         ) : (
-          <div className='text-[14px] text-caption'>
+          <div className='py-4 text-center text-[14px] text-caption'>
             최근 본 장소가 없습니다.
           </div>
         )}

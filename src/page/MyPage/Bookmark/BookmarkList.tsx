@@ -66,7 +66,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
 
       if (initialLoad) {
         if (newPlaces.length === 0) {
-          setError('해당하는 장소가 없습니다.');
+          setError('북마크된 장소가 없습니다.');
           setHasMore(false);
           setPlaces([]);
         } else {
@@ -125,9 +125,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   return (
     <div ref={scrollContainerRef}>
       {error && !isLoading && !places.length && (
-        <div className='text-red-500 py-4 text-center text-[14px] text-caption'>
-          {error}
-        </div>
+        <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
       )}
       <div className='gap-[10px] py-2'>
         {places.map((place: PlaceData) => (
@@ -144,7 +142,11 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           />
         ))}
       </div>
-      {isLoading && <div className='py-4 text-center'>가져오는 중...</div>}
+      {isLoading && (
+        <div className='py-4 text-center text-[14px] text-caption'>
+          가져오는 중...
+        </div>
+      )}
       {hasMore && <div ref={observerElem} className='h-1' />}
     </div>
   );
