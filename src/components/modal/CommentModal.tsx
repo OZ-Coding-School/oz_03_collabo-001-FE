@@ -84,7 +84,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ title, closeModal }) => {
               />
             ))
           ) : (
-            <div className='text-[14px] text-caption'>
+            <div className='py-4 text-[14px] text-caption'>
               작성한 후기가 없습니다.
             </div>
           )}
