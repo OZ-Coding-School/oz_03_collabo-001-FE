@@ -8,7 +8,6 @@ import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../../components/CustomScrollbar/renderThumbVertical';
 import { toast } from 'react-toastify';
 
-
 const MAX_IMAGES = 5;
 
 interface PhotoUploadProps {
