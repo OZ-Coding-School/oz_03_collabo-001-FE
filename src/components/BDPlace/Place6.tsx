@@ -53,22 +53,24 @@ const Place6: React.FC<Props> = ({
   };
 
   return (
-    <div className='breakPoint:grid-cols-3 grid grid-cols-2 gap-[8px]'>
+    <div>
       {places && places.length > 0 ? (
-        places.map((place) => (
-          <Place
-            key={place.id}
-            placeId={place.id}
-            store_image={place.store_image}
-            name={place.name}
-            rating={place.rating}
-            reviewCount={place.comments_count}
-            isBookmarked={place.is_bookmarked}
-            locationName={getLocationName(place.place_region)}
-          />
-        ))
+        <div className='grid grid-cols-2 gap-[8px] breakPoint:grid-cols-3'>
+          {places.map((place) => (
+            <Place
+              key={place.id}
+              placeId={place.id}
+              store_image={place.store_image}
+              name={place.name}
+              rating={place.rating}
+              reviewCount={place.comments_count}
+              isBookmarked={place.is_bookmarked}
+              locationName={getLocationName(place.place_region)}
+            />
+          ))}
+        </div>
       ) : (
-        <div className='w-[100%] text-center text-[14px] text-caption'>
+        <div className='w-[100%] py-[20px] text-center text-[14px] text-caption'>
           해당하는 장소가 없습니다.
         </div>
       )}
