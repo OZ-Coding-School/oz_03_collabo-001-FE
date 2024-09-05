@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import ReviewListItem from './ReviewListItem';
+import useModalWithURL from '../../hooks/useModalWithURL';
+import MoreReviewModal from '../../components/modal/MoreReviewModal';
 
 interface ReviewListProps {
   placeId: string | number;
@@ -25,6 +27,9 @@ interface ReviewData {
 }
 
 const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
+  // 후기작성 모달
+  const { isOpen, openThirdModal, closeModal } = useModalWithURL(`TestModal`);
+
   const [reviewData, setReviewData] = useState<ReviewData[] | null>(null);
 
   useEffect(() => {
@@ -73,10 +78,18 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
             })}
 
           {reviewCount > 3 ? (
-            <button className='h-[35px] w-full rounded-[5px] border-2 border-border text-center text-[14px]'>
+            <button
+              className='h-[35px] w-full rounded-[5px] border-2 border-border text-center text-[14px]'
+              onClick={() => {
+                openThirdModal();
+              }}
+            >
               후기 {reviewCount}개 모두보기
             </button>
           ) : null}
+          {isOpen && (
+            <MoreReviewModal reviewData={reviewData} closeModal={closeModal} />
+          )}
         </>
       )}
     </div>
