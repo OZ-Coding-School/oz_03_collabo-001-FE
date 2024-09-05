@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import FilterOptions from './FilterOptions';
 import PlaceList from './PlaceList';
 import FilterDistance from './FilterDistance';
 import { useFilterStore } from '../../store/filterStore';
+import ScrollToTopBtn from '../CustomScrollbar/ScrollToTopBtn';
 
 interface PlaceFilterProps {
   closeModal: () => void;
@@ -139,6 +140,8 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
     );
   }
 
+  const scrollbarRef = useRef<Scrollbars>(null);
+
   return ReactDOM.createPortal(
     <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
       <Scrollbars
@@ -146,6 +149,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
           width: '400px',
           height: '100%',
         }}
+        ref={scrollbarRef}
         renderThumbVertical={renderThumbVertical}
         autoHide
       >
@@ -170,6 +174,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
             <PlaceList selectPlace={selectPlace} />
           </div>
         </div>
+        <ScrollToTopBtn scrollbarRef={scrollbarRef} />
       </Scrollbars>
     </div>,
     document.getElementById('modal-root')!
