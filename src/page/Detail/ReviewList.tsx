@@ -85,9 +85,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
 
 const NoReview = () => {
   return (
-    <div className='p-[30px] text-center text-[14px] text-caption'>
-      작성된 후기가 없습니다.
-    </div>
+    <div className='py-4 text-[14px] text-caption'>작성한 후기가 없습니다.</div>
   );
 };
 

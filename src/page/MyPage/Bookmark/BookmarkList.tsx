@@ -14,7 +14,7 @@ interface RegionType {
 
 interface PlaceListProps {
   selectPlace?: string;
-  tapRegions?: RegionType[];
+  tapRegions: RegionType[];
 }
 
 interface PlaceData {

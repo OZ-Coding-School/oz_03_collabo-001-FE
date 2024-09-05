@@ -66,7 +66,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
 
       if (initialLoad) {
         if (newPlaces.length === 0) {
-          setError('해당하는 장소가 없습니다.');
+          setError('최근 본 장소가 없습니다.');
           setHasMore(false);
           setPlaces([]);
         } else {
@@ -109,7 +109,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   return (
     <div className='h-[100vh]' ref={scrollContainerRef}>
       {error && !isLoading && !places.length && (
-        <div className='text-red-500 py-4 text-center'>{error}</div>
+        <div className='py-4 text-[14px] text-caption'>{error}</div>
       )}
       <div className='gap-[10px] py-2'>
         {places.map((place: PlaceData) => (

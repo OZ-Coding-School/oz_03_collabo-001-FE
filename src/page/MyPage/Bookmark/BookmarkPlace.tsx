@@ -1,6 +1,5 @@
 import MoreTitle from '../../../components/layout/MoreTitle';
 import Place from '../../../components/BDPlace/Place';
-import { useEffect, useState } from 'react';
 import { useBookmarkStore } from '../../../store/bookmarkStore';
 
 interface MyBookmarkProps {
@@ -26,20 +25,11 @@ interface RegionListType {
 }
 
 const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
-  const [filteredBookmarks, setFilteredBookmarks] = useState<Bookmark[]>([]);
-
   const bookmarkIds = useBookmarkStore((state) => state.bookmarks);
 
-  useEffect(() => {
-    if (bookmarks.length > 0 && bookmarkIds.length > 0) {
-      const filtered = bookmarks.filter((bookmark) =>
-        bookmarkIds.includes(bookmark.id)
-      );
-      setFilteredBookmarks(filtered);
-    } else {
-      setFilteredBookmarks([]);
-    }
-  }, [bookmarks, bookmarkIds]);
+  const filteredBookmarks = bookmarks.filter((bookmark) =>
+    bookmarkIds.includes(bookmark.id)
+  );
 
   const getLocationName = (id: number) => {
     return tapRegions?.find((region) => region.id === id)?.region || '';
