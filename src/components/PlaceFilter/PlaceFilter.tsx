@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
 import axios from 'axios';
+import Scrollbars from 'react-custom-scrollbars-2';
+import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
 import FilterOptions from './FilterOptions';
 import PlaceList from './PlaceList';
 import FilterDistance from './FilterDistance';
@@ -139,25 +141,36 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
 
   return ReactDOM.createPortal(
     <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
-      <div className='flex h-[100%] w-[400px] flex-col overflow-y-scroll bg-white'>
-        <div className='flex h-[72px] items-center px-2 py-3'>
-          <button onClick={closeModal} className='mr-[8px] font-extrabold'>
-            <GoChevronLeft className='text-[24px] opacity-[70%]' />
-          </button>
-          <p className='py-[18px] font-semibold'>{extractLastPart(title)}</p>
+      <Scrollbars
+        style={{
+          width: '400px',
+          height: '100%',
+        }}
+        renderThumbVertical={renderThumbVertical}
+        autoHide
+      >
+        <div className='flex flex-col bg-white'>
+          <div className='flex h-[72px] items-center px-2 py-3'>
+            <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+              <GoChevronLeft className='text-[24px] opacity-[70%]' />
+            </button>
+            <p className='py-[18px] font-semibold'>{extractLastPart(title)}</p>
+          </div>
+          <div className='flex items-center gap-[10px] px-3 py-[15px]'>
+            <FilterOptions
+              regions={regions}
+              subCategories={subCategories}
+              onFilterChange={handleFilterChange}
+            />
+            <FilterDistance
+              onDistanceFilterChange={handleDistanceFilterChange}
+            />
+          </div>
+          <div>
+            <PlaceList selectPlace={selectPlace} />
+          </div>
         </div>
-        <div className='flex items-center gap-[10px] px-3 py-[15px]'>
-          <FilterOptions
-            regions={regions}
-            subCategories={subCategories}
-            onFilterChange={handleFilterChange}
-          />
-          <FilterDistance onDistanceFilterChange={handleDistanceFilterChange} />
-        </div>
-        <div>
-          <PlaceList selectPlace={selectPlace} />
-        </div>
-      </div>
+      </Scrollbars>
     </div>,
     document.getElementById('modal-root')!
   );

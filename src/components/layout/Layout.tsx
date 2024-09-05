@@ -2,6 +2,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import FooterGnb from './FooterGnb';
 import { ToastContainer } from 'react-toastify';
+import Scrollbars from 'react-custom-scrollbars-2';
+import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
 
 const Layout = () => {
   const location = useLocation();
@@ -18,9 +20,20 @@ const Layout = () => {
     <>
       <ToastContainer />
       {showHeader && <Header />}
-      <main>
-        <Outlet />
-      </main>
+
+      <Scrollbars
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        renderThumbVertical={renderThumbVertical}
+        autoHide
+      >
+        <main>
+          <Outlet />
+        </main>
+      </Scrollbars>
+
       {showFooter && <FooterGnb />}
     </>
   );

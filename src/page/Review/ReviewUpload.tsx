@@ -3,6 +3,8 @@ import axios from 'axios';
 import { twMerge } from 'tailwind-merge';
 import ReviewWriter from './ReviewWriter';
 import { GoChevronLeft } from 'react-icons/go';
+import Scrollbars from 'react-custom-scrollbars-2';
+import renderThumbVertical from '../../components/CustomScrollbar/renderThumbVertical';
 
 const MAX_IMAGES = 5;
 
@@ -110,81 +112,90 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal }) => {
   );
 
   return (
-    <div className='reviewModal absolute z-50 h-[100vh] w-[400px] overflow-x-hidden overflow-y-scroll bg-white'>
-      <div className='flex h-[48px] w-[400px] items-center bg-white px-2'>
-        <button onClick={closeModal} className='mr-[8px] font-extrabold'>
-          <GoChevronLeft className='text-[24px] opacity-[70%]' />
-        </button>
-        <p>후기 작성하기</p>
-      </div>
-      <ReviewWriter />
-      <div className='bg-white p-3'>
-        <p className='mb-[10px] text-sm font-semibold'>별점을 선택해주세요</p>
-        <div className='flex gap-[15px]'>
-          {[1, 2, 3, 4, 5].map((rate) => (
-            <label key={rate} className='flex'>
-              <input
-                type='radio'
-                name='rating'
-                value={rate}
-                onChange={() => setCheckedRate(rate)}
-                className='hidden'
-              />
-              <div
-                className={twMerge(
-                  'flex h-[36px] items-center rounded-md bg-border p-[8px] text-[#b8b7b7]',
-                  'hover:text-[#fddf02]',
-                  checkedRate === rate && 'text-[#fddf02]'
-                )}
-              >
-                {Array(rate).fill(<span className='text-sm'>★</span>)}
-              </div>
-            </label>
-          ))}
+    <div className='reviewModal absolute z-50 h-[100vh] w-[400px] overflow-x-hidden bg-white'>
+      <Scrollbars
+        style={{
+          width: '400px',
+          height: '100vh',
+        }}
+        renderThumbVertical={renderThumbVertical}
+        autoHide
+      >
+        <div className='flex h-[48px] w-[400px] items-center bg-white px-2'>
+          <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+            <GoChevronLeft className='text-[24px] opacity-[70%]' />
+          </button>
+          <p>후기 작성하기</p>
         </div>
-      </div>
-      <div className='flex flex-col gap-2 bg-white p-3'>
-        <p className='text-sm font-semibold'>후기를 남겨주세요</p>
-        <p className='text-xs text-caption'>최대 500자 까지 가능합니다.</p>
-        <textarea
-          className='h-[300px] w-full resize-none rounded-md border border-border p-2 text-xs'
-          placeholder='후기를 작성해주세요. (최소 10자 이상 작성하셔야 합니다)'
-        />
-      </div>
-      <div className='h-[334px] space-y-[8px] px-[12px] py-[15px]'>
-        <div className='h-[40px] content-end text-[14px] font-semibold'>
-          사진을 등록해주세요.
+        <ReviewWriter />
+        <div className='bg-white p-3'>
+          <p className='mb-[10px] text-sm font-semibold'>별점을 선택해주세요</p>
+          <div className='flex gap-[15px]'>
+            {[1, 2, 3, 4, 5].map((rate) => (
+              <label key={rate} className='flex'>
+                <input
+                  type='radio'
+                  name='rating'
+                  value={rate}
+                  onChange={() => setCheckedRate(rate)}
+                  className='hidden'
+                />
+                <div
+                  className={twMerge(
+                    'flex h-[36px] items-center rounded-md bg-border p-[8px] text-[#b8b7b7]',
+                    'hover:text-[#fddf02]',
+                    checkedRate === rate && 'text-[#fddf02]'
+                  )}
+                >
+                  {Array(rate).fill(<span className='text-sm'>★</span>)}
+                </div>
+              </label>
+            ))}
+          </div>
         </div>
-        <div className='flex h-[14px] items-center text-[12px] text-[#808080]'>
-          최대 5장까지 등록가능합니다.(*최소 1장 필수등록)
+        <div className='flex flex-col gap-2 bg-white p-3'>
+          <p className='text-sm font-semibold'>후기를 남겨주세요</p>
+          <p className='text-xs text-caption'>최대 500자 까지 가능합니다.</p>
+          <textarea
+            className='h-[300px] w-full resize-none rounded-md border border-border p-2 text-xs'
+            placeholder='후기를 작성해주세요. (최소 10자 이상 작성하셔야 합니다)'
+          />
+        </div>
+        <div className='h-[334px] space-y-[8px] px-[12px] py-[15px]'>
+          <div className='h-[40px] content-end text-[14px] font-semibold'>
+            사진을 등록해주세요.
+          </div>
+          <div className='flex h-[14px] items-center text-[12px] text-[#808080]'>
+            최대 5장까지 등록가능합니다.(*최소 1장 필수등록)
+          </div>
+
+          {/* 파일 입력 필드에 ref 연결 */}
+          <input
+            id='file-input'
+            type='file'
+            multiple
+            accept='image/*'
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+          />
+
+          {/* 사진 미리보기 */}
+          <div className='flex space-x-[19px]'>
+            {[0, 1, 2].map(renderPreview)}
+          </div>
+          <div className='flex space-x-[19px]'>{[3, 4].map(renderPreview)}</div>
         </div>
 
-        {/* 파일 입력 필드에 ref 연결 */}
-        <input
-          id='file-input'
-          type='file'
-          multiple
-          accept='image/*'
-          onChange={handleFileChange}
-          style={{ display: 'none' }}
-          ref={fileInputRef}
-        />
-
-        {/* 사진 미리보기 */}
-        <div className='flex space-x-[19px]'>
-          {[0, 1, 2].map(renderPreview)}
+        <div className='h-[72px] px-[12px] pb-[10px] pt-[20px]'>
+          <button
+            onClick={handleUpload}
+            className='h-[42px] w-[376px] rounded-[4px] bg-primary text-sm font-medium text-white'
+          >
+            등록
+          </button>
         </div>
-        <div className='flex space-x-[19px]'>{[3, 4].map(renderPreview)}</div>
-      </div>
-
-      <div className='h-[72px] px-[12px] pb-[10px] pt-[20px]'>
-        <button
-          onClick={handleUpload}
-          className='h-[42px] w-[376px] rounded-[4px] bg-primary text-sm font-medium text-white'
-        >
-          등록
-        </button>
-      </div>
+      </Scrollbars>
     </div>
   );
 };
