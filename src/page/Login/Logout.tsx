@@ -15,7 +15,10 @@ const Logout = () => {
         { withCredentials: true }
       );
       console.log('로그아웃 성공:', response);
+
       logout();
+      sessionStorage.removeItem('bookmarks');
+
       navigate('/');
     } catch (error) {
       console.error('로그아웃 실패:', error);

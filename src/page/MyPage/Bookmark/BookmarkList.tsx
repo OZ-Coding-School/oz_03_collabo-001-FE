@@ -5,7 +5,6 @@ import axios from 'axios';
 import PlaceItem from '../../../components/PlaceFilter/PlaceItem';
 import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
 import { useBookmarkStore } from '../../../store/bookmarkStore';
-// import ScrollToTopButton from './ScrollToTopButton';
 
 interface RegionType {
   id: number;
@@ -67,30 +66,36 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
 
       if (initialLoad) {
         if (newPlaces.length === 0) {
-          setError('해당하는 장소가 없습니다.');
+          setError('북마크된 장소가 없습니다.');
           setHasMore(false);
           setPlaces([]);
         } else {
-          setPlaces(newPlaces);
+          const bookmarkedPlaces = newPlaces.filter(
+            (place: PlaceData) => place.is_bookmarked
+          );
+          setPlaces(bookmarkedPlaces);
           setPage(2);
           setHasMore(!!response.next);
 
-          const bookmarkIds = newPlaces
-            .filter((place: PlaceData) => place.is_bookmarked)
-            .map((place: PlaceData) => place.id);
+          const bookmarkIds = bookmarkedPlaces.map(
+            (place: PlaceData) => place.id
+          );
           setBookmarks(bookmarkIds);
         }
       } else {
         if (newPlaces.length === 0) {
           setHasMore(false);
         } else {
-          setPlaces((prevPlaces) => [...prevPlaces, ...newPlaces]);
+          const filteredPlaces = newPlaces.filter(
+            (place: PlaceData) => place.is_bookmarked
+          );
+          setPlaces((prevPlaces) => [...prevPlaces, ...filteredPlaces]);
           setPage((prevPage) => prevPage + 1);
           setHasMore(!!response.next);
 
-          const newBookmarkIds = newPlaces
-            .filter((place: PlaceData) => place.is_bookmarked)
-            .map((place: PlaceData) => place.id);
+          const newBookmarkIds = filteredPlaces.map(
+            (place: PlaceData) => place.id
+          );
           setBookmarks(Array.from(new Set([...bookmarks, ...newBookmarkIds])));
         }
       }
@@ -110,7 +115,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
 
   useEffect(() => {
     loadMorePlaces(true);
-  }, []);
+  }, [bookmarks]);
 
   const getLocationName = (placeRegionId: number) => {
     const region = tapRegions?.find((region) => region.id === placeRegionId);
@@ -118,9 +123,9 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   };
 
   return (
-    <div className='h-[100vh]' ref={scrollContainerRef}>
+    <div ref={scrollContainerRef}>
       {error && !isLoading && !places.length && (
-        <div className='text-red-500 py-4 text-center'>{error}</div>
+        <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
       )}
       <div className='gap-[10px] py-2'>
         {places.map((place: PlaceData) => (
@@ -137,10 +142,12 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           />
         ))}
       </div>
-      {isLoading && <div className='py-4 text-center'>가져오는 중...</div>}
+      {isLoading && (
+        <div className='py-4 text-center text-[14px] text-caption'>
+          가져오는 중...
+        </div>
+      )}
       {hasMore && <div ref={observerElem} className='h-1' />}
-
-      {/* <ScrollToTopButton scrollContainerRef={scrollContainerRef} /> */}
     </div>
   );
 };

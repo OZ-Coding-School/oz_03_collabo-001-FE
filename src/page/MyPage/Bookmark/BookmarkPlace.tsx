@@ -32,7 +32,7 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
   );
 
   const getLocationName = (id: number) => {
-    return tapRegions?.find((region) => region.id === id)?.region || '';
+    return tapRegions?.find((region) => region.id === id)?.region || 'Unknown';
   };
 
   return (
@@ -49,12 +49,11 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
               rating={placeInfo.rating}
               reviewCount={placeInfo.comments_count}
               isBookmarked={placeInfo.is_bookmarked}
-              // isBookmarked={true}
               locationName={getLocationName(placeInfo.place_region)}
             />
           ))
         ) : (
-          <div className='text-[14px] text-caption'>
+          <div className='py-4 text-center text-[14px] text-caption'>
             북마크된 장소가 없습니다.
           </div>
         )}
