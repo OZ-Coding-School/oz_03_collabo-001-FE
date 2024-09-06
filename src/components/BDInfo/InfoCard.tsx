@@ -1,4 +1,4 @@
-import BgImage from '../../assets/images/starfield.png';
+import BgImage from '../../assets/Images/starfield.png';
 
 const InfoCard = () => {
   return (
