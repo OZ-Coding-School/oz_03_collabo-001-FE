@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MoreTitle from '../../components/layout/MoreTitle';
 import { FaPlus } from 'react-icons/fa6';
+import useModalWithURL from '../../hooks/useModalWithURL';
+import AllImagesModal from '../../components/modal/AllImagesModal';
 
 interface ReviewPicturesProps {
   placeId: string | number;
@@ -16,6 +18,9 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   // 사진모아보기 의 미리보기는 3개까지만 보이도록
   const numberOfItems = 3;
   const items = Array.from({ length: numberOfItems }, (_, index) => index);
+  const { isOpen, openSubModal, closeModal } = useModalWithURL(
+    `allImagesModal_${placeId}`
+  );
 
   useEffect(() => {
     const fetchReviewPictures = async () => {
@@ -30,7 +35,11 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
     };
 
     fetchReviewPictures();
-  }, []);
+  }, [placeId]);
+
+  const handleMoreImagesClick = () => {
+    openSubModal();
+  };
 
   return (
     <>
@@ -42,12 +51,18 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
             <div className='flex justify-between'>
               {items.map((_, i) => {
                 return (
-                  <div className='imgWrap relative flex h-[115px] w-[115px] overflow-hidden rounded-[10px] border-2 border-border bg-background'>
-                    {i == 2 ? (
-                      <div className='absolute bottom-0 left-0 right-0 top-0 flex cursor-pointer items-center justify-center bg-black-50 text-[14px] text-white'>
+                  <div
+                    key={i}
+                    className='imgWrap relative flex h-[115px] w-[115px] overflow-hidden rounded-[10px] border-2 border-border bg-background'
+                  >
+                    {i === 2 ? (
+                      <button
+                        onClick={handleMoreImagesClick}
+                        className='bg-black-50 absolute bottom-0 left-0 right-0 top-0 flex cursor-pointer items-center justify-center text-[14px] text-white'
+                      >
                         <FaPlus className='mr-[5px] text-[12px]' />
                         더보기
-                      </div>
+                      </button>
                     ) : null}
                     <img
                       src={`${reviewImages[i].image}`}
@@ -62,7 +77,10 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
             <div className='flex gap-[10px]'>
               {reviewImages.map((_, i) => {
                 return (
-                  <div className='imgWrap h-[115px] w-[115px] overflow-hidden rounded-[10px] border-2 border-border bg-background'>
+                  <div
+                    key={i}
+                    className='imgWrap h-[115px] w-[115px] overflow-hidden rounded-[10px] border-2 border-border bg-background'
+                  >
                     <img
                       src={`${reviewImages[i].image}`}
                       alt=''
@@ -75,6 +93,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
           )}
         </div>
       )}
+      {isOpen && <AllImagesModal placeId={placeId} closeModal={closeModal} />}
     </>
   );
 };
