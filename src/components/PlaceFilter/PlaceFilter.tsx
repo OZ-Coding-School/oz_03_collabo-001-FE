@@ -8,7 +8,7 @@ import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
 import FilterOptions from './FilterOptions';
 import PlaceList from './PlaceList';
 import FilterDistance from './FilterDistance';
-import { useFilterStore } from '../../store/filterStore';
+import { useFilterStore } from '../../store/useFilterStore';
 import ScrollToTopBtn from '../CustomScrollbar/ScrollToTopBtn';
 
 interface PlaceFilterProps {

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PlaceItem from './PlaceItem';
-import { useFilterStore } from '../../store/filterStore';
+import { useFilterStore } from '../../store/useFilterStore';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 // import ScrollToTopButton from './ScrollToTopButton';
 
