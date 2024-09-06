@@ -24,6 +24,20 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
     if (savedImg) {
       setUserImg(savedImg);
     } else if (profile_image) {
+      if (profile_image.length > 5000000) {
+        toast.error('프로필 용량 문제로 기본 이미지로 대체됩니다.', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          style: { fontSize: '10px' },
+        });
+        setUserImg(defaultProfile);
+      }
       setUserImg(profile_image);
     } else {
       setUserImg(defaultProfile);
@@ -43,7 +57,17 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
           const imgDataUrl = reader.result as string;
 
           if (imgDataUrl.length > 5000000) {
-            alert('이미지 크기가 너무 큽니다. 다른 이미지를 선택해 주세요.');
+            toast.error('이미지 용량이 큽니다. 다른 이미지를 등록해주세요.', {
+              position: 'top-center',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              style: { fontSize: '10px' },
+            });
             return;
           }
 
@@ -73,7 +97,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/users/mypage/update-image/',
+        'https://api.dogandbaby.co.kr/users/mypage/update-image/',
         formData,
         {
           headers: {
