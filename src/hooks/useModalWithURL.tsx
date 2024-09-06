@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useModalStore from '../store/useModalStore';
+import { toast } from 'react-toastify';
+import useAuthStore from '../store/useAuthStore';
 
 const useModalWithURL = (modalName: string) => {
   const { modals, openModal, closeModal, openSubModal, openThirdModal } =
     useModalStore();
+  const { isAuthenticated } = useAuthStore();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -74,6 +78,19 @@ const useModalWithURL = (modalName: string) => {
   };
 
   const handleOpenThirdModal = () => {
+    if (!isAuthenticated) {
+      toast.error('로그인 후 사용해 주세요!', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return;
+    }
     const params = new URLSearchParams(location.search);
 
     params.set('thirdmodal', modalName);

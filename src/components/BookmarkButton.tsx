@@ -4,6 +4,7 @@ import BookmarkFill from '../assets/Icon/BookMark/Bg_BookMark_Fill.svg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import useBookmarkStore from '../store/useBookmarkStore';
+import useAuthStore from '../store/useAuthStore';
 
 interface BookmarkButtonProps {
   placeId: number;
@@ -11,8 +12,23 @@ interface BookmarkButtonProps {
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarkStore();
+  const { isAuthenticated } = useAuthStore();
 
   const handleBookmarkToggle = async () => {
+    if (!isAuthenticated) {
+      toast.error('로그인 후 사용해 주세요!', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return;
+    }
+
     try {
       if (isBookmarked(placeId)) {
         await axios.delete(
@@ -39,9 +55,9 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
         addBookmark(placeId);
       }
     } catch (error) {
-      console.error('북마크 처리 실패:', error);
+      console.error('북마크 저장 실패:', error);
 
-      toast.error('로그인 후 사용해 주세요!', {
+      toast.error('북마크 저장에 실패했습니다.', {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
