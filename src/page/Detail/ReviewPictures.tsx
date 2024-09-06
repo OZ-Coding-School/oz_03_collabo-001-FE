@@ -58,7 +58,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
                     {i === 2 ? (
                       <button
                         onClick={handleMoreImagesClick}
-                        className='bg-black-50 absolute bottom-0 left-0 right-0 top-0 flex cursor-pointer items-center justify-center text-[14px] text-white'
+                        className='absolute bottom-0 left-0 right-0 top-0 flex cursor-pointer items-center justify-center bg-black-50 text-[14px] text-white'
                       >
                         <FaPlus className='mr-[5px] text-[12px]' />
                         더보기

@@ -8,7 +8,6 @@ import renderThumbVertical from '../../components/CustomScrollbar/renderThumbVer
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const MAX_IMAGES = 5;
 
 interface PhotoUploadProps {

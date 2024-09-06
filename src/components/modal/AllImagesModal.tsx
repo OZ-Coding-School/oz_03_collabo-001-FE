@@ -47,7 +47,7 @@ const AllImagesModal: React.FC<Props> = ({ placeId, closeModal }) => {
   }, [placeId]);
 
   return (
-    <div className='bg-black-50 fixed inset-0 z-20 flex h-screen items-start justify-center'>
+    <div className='fixed inset-0 z-20 flex h-screen items-start justify-center bg-black-50'>
       <div className='flex w-[400px] flex-col gap-2'>
         <div>
           <button onClick={closeModal} className='ml-2 text-white'>
