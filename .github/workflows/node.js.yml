@@ -15,6 +15,16 @@ jobs:
       - name: Checkout Github Action
         uses: actions/checkout@v4
 
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "VITE_REACT_APP_GOOGLE_AUTH_CLIENT_ID=${{ secrets.VITE_REACT_APP_GOOGLE_AUTH_CLIENT_ID }}" > .env
+          echo "VITE_REACT_APP_GOOGLE_AUTH_CLIENT_SECRET_ID=${{ secrets.VITE_REACT_APP_GOOGLE_AUTH_CLIENT_SECRET_ID }}" >> .env
+          echo "VITE_REACT_APP_KAKAO_API_KEY=${{ secrets.VITE_REACT_APP_KAKAO_API_KEY }}" >> .env
+          echo "VITE_REACT_APP_KAKAO_JS_KEY=${{ secrets.VITE_REACT_APP_KAKAO_JS_KEY }}" >> .env
+          echo "VITE_REACT_APP_NAVER_CLIENT_ID=${{ secrets.VITE_REACT_APP_NAVER_CLIENT_ID }}" >> .env
+          echo "VITE_REACT_APP_NAVER_CLIENT_SECRET_ID=${{ secrets.VITE_REACT_APP_NAVER_CLIENT_SECRET_ID }}" >> .env
+          echo "VITE_REACT_APP_REDIRECT_URI=${{ secrets.VITE_REACT_APP_REDIRECT_URI }}" >> .env
+
       - name: Install npm dependencies
         run: npm install
 
