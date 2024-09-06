@@ -10,14 +10,28 @@ import { toast } from 'react-toastify';
 interface ShopDetailDataProps {
   tags: string;
   price: string;
+  link: string;
   address: string;
 }
 
 const ShopDetailData: React.FC<ShopDetailDataProps> = ({
   tags,
   price,
+  link,
   address,
 }) => {
+  const handleLinkPlace = () => {
+    if (link !== null) {
+      location.href = link;
+    }
+  };
+
+  const handleMapPlace = () => {
+    if (address !== null) {
+      location.href = `https://map.naver.com/p/search/${address}`;
+    }
+  };
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(address);
@@ -64,7 +78,10 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
           className='ml-[10px] mr-[5px] h-[16px] w-[16px]'
         />
         <div className='mr-[5px] h-[18px] w-[300px] text-[13px]'>{price}</div>
-        <button className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'>
+        <button
+          onClick={handleLinkPlace}
+          className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
+        >
           가격더보기
         </button>
       </div>
@@ -84,7 +101,10 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
           className='mx-[5px] h-[14px] w-[14px] cursor-pointer'
           onClick={handleCopy}
         />
-        <button className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'>
+        <button
+          onClick={handleMapPlace}
+          className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
+        >
           지도보기
         </button>
       </div>
