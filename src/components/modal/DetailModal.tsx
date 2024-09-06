@@ -161,6 +161,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
               tags={placeData.tags}
               address={placeData.address}
               price={placeData.price}
+              link={placeData.link}
             />
             <ShopInfoData placeInfoMenu={placeData.serviceIcons} />
           </div>
