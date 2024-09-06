@@ -8,7 +8,6 @@ import renderThumbVertical from '../../components/CustomScrollbar/renderThumbVer
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const MAX_IMAGES = 5;
 
 interface PhotoUploadProps {
@@ -31,7 +30,17 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedIndex === null) {
-      toast.error('업로드할 위치를 선택하세요.');
+      toast.error('업로드할 위치를 선택하세요.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        style: { fontSize: '13px' },
+      });
       return;
     }
 
@@ -60,6 +69,14 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
 
     if (!reviewText || reviewText.length < 10) {
       toast.error('후기는 최소 10자 이상 작성해야 합니다.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
         style: { fontSize: '13px' },
       });
       return;
@@ -67,6 +84,14 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
 
     if (filesToUpload.length === 0) {
       toast.error('최소 1개의 이미지를 업로드해야 합니다.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
         style: { fontSize: '13px' },
       });
       return;
@@ -84,6 +109,14 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
       })
       .then(() => {
         toast.success('후기 등록 성공', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
           style: { fontSize: '13px' },
         });
         closeModal();
@@ -91,6 +124,14 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
       .catch((error) => {
         console.error('Upload error:', error);
         toast.error('후기 등록 실패', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
           style: { fontSize: '13px' },
         });
       });
