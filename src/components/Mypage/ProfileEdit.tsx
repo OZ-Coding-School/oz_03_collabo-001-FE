@@ -138,7 +138,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
   };
 
   return (
-    <div className='flex w-[70px] flex-col items-center justify-center'>
+    <div className='mr-[18px] flex w-[70px] flex-col items-center justify-center'>
       <div className='flex h-[66px] flex-col items-center justify-center'>
         <div className='relative h-[66px] w-[66px]'>
           <img
@@ -157,7 +157,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
         </div>
       </div>
       <button
-        className='mt-[10px] text-[10px] text-caption underline'
+        className='mt-[10px] text-[10px] text-caption hover:underline'
         onClick={handleButtonClick}
       >
         프로필변경

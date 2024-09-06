@@ -38,7 +38,7 @@ const Logout = () => {
 
   return (
     <button className='bg-white' onClick={handleLogout}>
-      <p className='text-[10px] text-caption underline'>로그아웃</p>
+      <p className='text-[10px] text-caption hover:underline'>로그아웃</p>
     </button>
   );
 };

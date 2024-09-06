@@ -15,7 +15,7 @@ interface UserProfile {
 const UserInfo: React.FC<UserInfoProps> = ({ profile }) => {
   return (
     <div className='col flex justify-center bg-white py-[20px]'>
-      <div className='flex h-[119px] w-full items-center rounded-[10px] border-[0.5px] border-[#b3b3b3]'>
+      <div className='flex h-[119px] w-full items-center rounded-[10px] border-[0.5px] border-[#b3b3b3] px-[15px]'>
         <ProfilePhotoEdit profile_image={profile.profile_image} />
         <div className='w-[100%]'>
           <NicknameEdit nickname={profile.nickname} />

@@ -139,7 +139,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         )}
       </div>
       <button
-        className='flex h-[24px] w-[45px] items-center justify-center text-[10px] text-caption underline'
+        className='flex h-[24px] w-[45px] items-center justify-center text-[10px] text-caption hover:underline'
         onClick={handleEditClick}
       >
         {isEditing ? '저장' : '이름변경'}
