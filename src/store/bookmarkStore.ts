@@ -10,18 +10,21 @@ interface BookmarkState {
 }
 
 export const useBookmarkStore = create<BookmarkState>((set, get) => ({
-  bookmarks: [],
+  bookmarks: JSON.parse(sessionStorage.getItem('bookmarks') || '[]'),
   setBookmarks: (ids: number[]) => {
+    sessionStorage.setItem('bookmarks', JSON.stringify(ids));
     set({ bookmarks: ids });
   },
   addBookmark: (id) => {
     const updatedBookmarks = [...get().bookmarks, id];
+    sessionStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
     set({ bookmarks: updatedBookmarks });
   },
   removeBookmark: (id) => {
     const updatedBookmarks = get().bookmarks.filter(
       (bookmarkId) => bookmarkId !== id
     );
+    sessionStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
     set({ bookmarks: updatedBookmarks });
   },
   isBookmarked: (id) => get().bookmarks.includes(id),
