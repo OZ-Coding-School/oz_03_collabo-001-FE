@@ -60,7 +60,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     setSelectedIndex(null);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     const filesToUpload = images.filter((file): file is File => file !== null);
 
     const reviewText = (
@@ -101,40 +101,41 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     formData.append('rating', checkedRate.toString());
     formData.append('review', reviewText);
     filesToUpload.forEach((file) => formData.append('images', file));
-
-    axios
-      .post(`http://127.0.0.1:8000/places/${placeId}/comments/`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        withCredentials: true,
-      })
-      .then(() => {
-        toast.success('후기 등록 성공', {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          style: { fontSize: '13px' },
-        });
-        closeModal();
-      })
-      .catch((error) => {
-        console.error('Upload error:', error);
-        toast.error('후기 등록 실패', {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          style: { fontSize: '13px' },
-        });
+    try {
+      await axios.post(
+        `http://127.0.0.1:8000/places/${placeId}/comments/`,
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          withCredentials: true,
+        }
+      );
+      toast.success('후기 등록 성공', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        style: { fontSize: '13px' },
       });
+      closeModal();
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast.error('후기 등록 실패', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        style: { fontSize: '13px' },
+      });
+    }
   };
 
   const handleDelete = (index: number) => {
