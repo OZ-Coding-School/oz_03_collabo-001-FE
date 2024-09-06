@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import locationStore from '../store/locationStore';
+import useLocationStore from '../store/locationStore';
 
 const useGeolocation = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-  const setAddress = locationStore((state) => state.setAddress);
-  const address = locationStore((state) => state.address);
+
+  const setAddress = useLocationStore((state) => state.setAddress);
+  const address = useLocationStore((state) => state.address);
 
   const getLocation = () => {
     setIsLoading(true);
