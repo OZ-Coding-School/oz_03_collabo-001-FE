@@ -46,10 +46,12 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
         reviewScrollTop,
         guideScrollTop,
       ];
+
       containerRef.current.scrollTo({
         top: scrollPositions[placeTopNavBtn],
         behavior: 'smooth',
       });
+
       setScrollOnClick(false);
     }
   }, [
@@ -69,6 +71,7 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
   const handleScroll = useCallback(() => {
     if (containerRef.current) {
       const scrollTop = containerRef.current.scrollTop;
+
       if (scrollTop >= contentScrollTop && scrollTop < reviewScrollTop) {
         setPlaceTopNavBtn(0);
       } else if (scrollTop >= reviewScrollTop && scrollTop < guideScrollTop) {
@@ -81,6 +84,7 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
 
   useEffect(() => {
     const element = containerRef.current;
+
     if (element) {
       element.addEventListener('scroll', handleScroll);
       return () => {

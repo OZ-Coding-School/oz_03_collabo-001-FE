@@ -64,10 +64,11 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
 
       if (initialLoad) {
         if (newPlaces.length === 0) {
-          setError('북마크된 장소가 없습니다.');
+          setError('최근 본 장소가 없습니다.');
           setHasMore(false);
           setPlaces([]);
         } else {
+          setPlaces(newPlaces);
           setPage(2);
           setHasMore(!!response.next);
         }
@@ -81,6 +82,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
       }
     } catch (error) {
       console.error('장소 더 가져오기 실패:', error);
+
       setError('장소를 가져오는데 실패했습니다.');
       setHasMore(false);
     } finally {
@@ -95,7 +97,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
 
   useEffect(() => {
     loadMorePlaces(true);
-  }, []);
+  }, [places]);
 
   const getLocationName = (placeRegionId: number) => {
     const region = tapRegions?.find((region) => region.id === placeRegionId);

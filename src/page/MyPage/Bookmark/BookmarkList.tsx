@@ -53,6 +53,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   const [error, setError] = useState<string | null>(null);
 
   const { bookmarks, setBookmarks } = useBookmarkStore();
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const loadMorePlaces = async (initialLoad: boolean = false) => {
@@ -73,6 +74,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           const bookmarkedPlaces = newPlaces.filter(
             (place: PlaceData) => place.is_bookmarked
           );
+
           setPlaces(bookmarkedPlaces);
           setPage(2);
           setHasMore(!!response.next);
@@ -80,6 +82,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           const bookmarkIds = bookmarkedPlaces.map(
             (place: PlaceData) => place.id
           );
+
           setBookmarks(bookmarkIds);
         }
       } else {
@@ -89,6 +92,7 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           const filteredPlaces = newPlaces.filter(
             (place: PlaceData) => place.is_bookmarked
           );
+
           setPlaces((prevPlaces) => [...prevPlaces, ...filteredPlaces]);
           setPage((prevPage) => prevPage + 1);
           setHasMore(!!response.next);
@@ -96,11 +100,13 @@ const BookmarkList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           const newBookmarkIds = filteredPlaces.map(
             (place: PlaceData) => place.id
           );
+
           setBookmarks(Array.from(new Set([...bookmarks, ...newBookmarkIds])));
         }
       }
     } catch (error) {
       console.error('장소 더 가져오기 실패:', error);
+
       setError('장소를 가져오는데 실패했습니다.');
       setHasMore(false);
     } finally {

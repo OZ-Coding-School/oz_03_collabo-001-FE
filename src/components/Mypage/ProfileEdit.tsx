@@ -36,6 +36,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
           theme: 'light',
           style: { fontSize: '10px' },
         });
+
         setUserImg(defaultProfile);
       }
       setUserImg(profile_image);

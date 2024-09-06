@@ -5,6 +5,7 @@ interface LocationState {
   latitude: number | null;
   longitude: number | null;
   address: string | null;
+
   setAddress: (address: string | null) => void;
   setCoordinates: (coords: {
     latitude: number | null;
@@ -18,7 +19,6 @@ const useLocationStore = create<LocationState>((set) => ({
   longitude: null,
 
   setAddress: (address) => set({ address }),
-
   setCoordinates: ({ latitude, longitude }) => set({ latitude, longitude }),
 }));
 

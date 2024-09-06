@@ -34,6 +34,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
       });
       return;
     }
+
     window.open(link, '_blank');
   };
 
@@ -51,6 +52,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
       });
       return;
     }
+
     window.open(`https://map.naver.com/p/search/${address}`, '_blank');
   };
 

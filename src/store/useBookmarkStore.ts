@@ -3,6 +3,7 @@ import { create } from 'zustand';
 
 interface BookmarkState {
   bookmarks: number[];
+
   setBookmarks: (ids: number[]) => void;
   addBookmark: (id: number) => void;
   removeBookmark: (id: number) => void;
@@ -11,6 +12,7 @@ interface BookmarkState {
 
 const useBookmarkStore = create<BookmarkState>((set, get) => ({
   bookmarks: JSON.parse(sessionStorage.getItem('bookmarks') || '[]'),
+
   setBookmarks: (ids: number[]) => {
     sessionStorage.setItem('bookmarks', JSON.stringify(ids));
     set({ bookmarks: ids });

@@ -59,11 +59,13 @@ const useFetchCategoryData = (category: string) => {
 
         const getRandomArrays = <T>(arr: T[], num: number): T[] => {
           const shuffled = [...arr].sort(() => 0.5 - Math.random());
+
           return shuffled.slice(0, num);
         };
 
         let bannerImages: Image[] = response.data.banners || [];
         let recoPlaces: RecoPlaceItem[] = response.data.recommandedplaces || [];
+
         const newPlaces: Place[] = response.data.new_places || [];
         const regionPlaces: Place[] = response.data.region_places || [];
         const subcategoryPlaces: Place[] = response.data.subcategory || [];

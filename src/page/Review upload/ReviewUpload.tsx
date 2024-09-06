@@ -99,13 +99,14 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     filesToUpload.forEach((file) => formData.append('images', file));
     try {
       await axios.post(
-        `http://127.0.0.1:8000/places/${placeId}/comments/`,
+        `https://dogandbaby.co.kr/places/${placeId}/comments/`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
           withCredentials: true,
         }
       );
+
       toast.success('후기 등록 성공', {
         position: 'top-center',
         autoClose: 5000,
@@ -117,9 +118,11 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
         theme: 'light',
         style: { fontSize: '13px' },
       });
+
       closeModal();
     } catch (error) {
       console.error('Upload error:', error);
+
       toast.error('후기 등록 실패', {
         position: 'top-center',
         autoClose: 5000,
@@ -139,6 +142,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     const newPreviews = previews.map((preview, i) =>
       i === index ? '' : preview
     );
+
     setImages(newImages);
     setPreviews(newPreviews);
   };

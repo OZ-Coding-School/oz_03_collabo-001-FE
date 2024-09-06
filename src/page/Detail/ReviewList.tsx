@@ -36,6 +36,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
         const response = await axios.get(
           `https://api.dogandbaby.co.kr/places/${placeId}/comments/`
         );
+
         setReviewData(response.data);
       } catch (error) {
         console.log('리뷰 데이터를 불러오는데 실패했습니다 :', error);

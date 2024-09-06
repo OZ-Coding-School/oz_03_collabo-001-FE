@@ -35,6 +35,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
         setIsLoading(false);
       } catch (error) {
         console.error('전체 후기 이미지를 불러오는데 실패했습니다.:', error);
+
         setError('후기 이미지를 불러오는데 실패했습니다.');
         setIsLoading(false);
       }

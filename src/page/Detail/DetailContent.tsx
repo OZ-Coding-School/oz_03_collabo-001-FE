@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -17,6 +18,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
 
   const handleToggleExpand = () => {
     const newExpandedState = !isExpanded;
+
     setIsExpanded(newExpandedState);
     onExpandChange(newExpandedState);
   };
@@ -24,6 +26,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
   const handleImageLoad = () => {
     if (imgRef.current) {
       const imgHeight = imgRef.current.scrollHeight;
+
       setShowButton(imgHeight >= 500);
     }
   };

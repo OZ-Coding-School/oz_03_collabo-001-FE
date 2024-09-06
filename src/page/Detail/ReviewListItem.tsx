@@ -28,6 +28,7 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({
     'border-border border-b': className !== 'noBorder',
     '': true,
   });
+
   return (
     <div className={borderClass}>
       <div className='flex items-center pt-[10px]'>

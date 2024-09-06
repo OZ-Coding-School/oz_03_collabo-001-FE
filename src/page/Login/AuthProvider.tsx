@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable tailwindcss/classnames-order */
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -47,6 +48,7 @@ const AuthProvider = () => {
 
         if (response.status === 200) {
           console.log(`${state} 로그인 성공`);
+
           login();
 
           const bookmarkResponse = await axios.get(

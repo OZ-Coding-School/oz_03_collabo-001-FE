@@ -21,7 +21,9 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
             withCredentials: true,
           }
         );
+
         console.log('북마크 삭제 완료');
+
         removeBookmark(placeId);
       } else {
         await axios.post(
@@ -31,11 +33,14 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
             withCredentials: true,
           }
         );
+
         console.log('북마크 추가 완료');
+
         addBookmark(placeId);
       }
     } catch (error) {
       console.error('북마크 처리 실패:', error);
+
       toast.error('로그인 후 사용해 주세요!', {
         position: 'top-center',
         autoClose: 5000,

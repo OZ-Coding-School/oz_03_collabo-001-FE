@@ -84,7 +84,6 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
     fetchRegionsAndSubCategories();
   }, [selectPlace]);
 
-  // 모달이 열릴 때 필터 상태 초기화
   useEffect(() => {
     setRegionId(null);
     setSubCategoryId(null);

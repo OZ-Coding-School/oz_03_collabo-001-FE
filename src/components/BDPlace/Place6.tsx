@@ -40,7 +40,6 @@ const Place6: React.FC<Props> = ({
   regionPlaces = [],
   subcategoryPlaces = [],
   tapRegions = [],
-  // tapSubcategories = [],
 }) => {
   const places =
     section === 'new'
@@ -56,7 +55,7 @@ const Place6: React.FC<Props> = ({
   return (
     <div>
       {places && places.length > 0 ? (
-        <div className='breakPoint:grid-cols-3 grid grid-cols-2 gap-[8px]'>
+        <div className='grid grid-cols-2 gap-[8px] breakPoint:grid-cols-3'>
           {places.map((place) => (
             <Place
               key={place.id}

@@ -7,6 +7,7 @@ interface FilterState {
   latitude: number | null;
   longitude: number | null;
   isActive: boolean;
+
   setRegionId: (id: number | null) => void;
   setSubCategoryId: (id: number | null) => void;
   setLatitude: (lat: number | null) => void;
@@ -20,6 +21,7 @@ const useFilterStore = create<FilterState>((set) => ({
   latitude: null,
   longitude: null,
   isActive: false,
+
   setRegionId: (id) => set({ regionId: id }),
   setSubCategoryId: (id) => set({ subCategoryId: id }),
   setLatitude: (lat) => set({ latitude: lat }),

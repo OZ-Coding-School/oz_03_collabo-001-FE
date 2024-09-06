@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useModalStore from '../store/useModalStore'; // 적절한 경로로 수정
+import useModalStore from '../store/useModalStore';
 
 const useModalWithURL = (modalName: string) => {
   const { modals, openModal, closeModal, openSubModal, openThirdModal } =
@@ -14,7 +14,6 @@ const useModalWithURL = (modalName: string) => {
     const openSubModalName = params.get('submodal');
     const openThirdModalName = params.get('thirdmodal');
 
-    // 모달 상태 동기화
     if (openModalName === modalName) {
       openModal(modalName);
     } else if (openSubModalName === modalName) {
@@ -33,21 +32,24 @@ const useModalWithURL = (modalName: string) => {
     modalName,
   ]);
 
-  // 모달 열기 함수
   const handleOpenModal = () => {
     if (modalName === '') return;
+
     openModal(modalName);
+
     const params = new URLSearchParams(location.search);
+
     params.set('modal', modalName);
-    params.delete('submodal'); // 모달 열 때 서브모달 제거
+    params.delete('submodal');
+
     navigate({ search: params.toString() }, { replace: true });
   };
 
-  // 모달 닫기 함수
   const handleCloseModal = () => {
     const params = new URLSearchParams(location.search);
     const hasSubmodalParam = params.has('submodal');
     const hasThirdmodalParam = params.has('thirdmodal');
+
     if (hasThirdmodalParam) {
       closeModal(modalName);
       params.delete('thirdmodal');
@@ -63,20 +65,20 @@ const useModalWithURL = (modalName: string) => {
     }
   };
 
-  // 서브 모달 열기 함수
   const handleOpenSubModal = () => {
     const params = new URLSearchParams(location.search);
+
     params.set('submodal', modalName);
     navigate({ search: params.toString() }, { replace: true });
-    openSubModal(modalName); // 서브모달 열기
+    openSubModal(modalName);
   };
 
-  // 서브 모달2 열기 함수
   const handleOpenThirdModal = () => {
     const params = new URLSearchParams(location.search);
+
     params.set('thirdmodal', modalName);
     navigate({ search: params.toString() }, { replace: true });
-    openThirdModal(modalName); // 서브모달2 열기
+    openThirdModal(modalName);
   };
 
   return {

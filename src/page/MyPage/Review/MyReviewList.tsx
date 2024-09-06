@@ -20,9 +20,11 @@ const fetchPlaces = async () => {
       'https://api.dogandbaby.co.kr/users/mypage/my-comment/',
       { withCredentials: true }
     );
+
     return response.data;
   } catch (error) {
     console.error('정보 가져오기 실패:', error);
+
     return { results: [] };
   }
 };
@@ -36,9 +38,11 @@ const MyReviewList: React.FC = () => {
     const loadPlaces = async () => {
       setIsLoading(true);
       setError(null);
+
       try {
         const response = await fetchPlaces();
         const newPlaces = response?.results || [];
+
         if (newPlaces.length === 0) {
           setError('작성한 후기가 없습니다.');
         } else {
@@ -46,6 +50,7 @@ const MyReviewList: React.FC = () => {
         }
       } catch (error) {
         console.error('후기 가져오기 실패:', error);
+
         setError('후기를 가져오는데 실패했습니다.');
       } finally {
         setIsLoading(false);

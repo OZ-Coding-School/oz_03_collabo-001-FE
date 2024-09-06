@@ -19,6 +19,7 @@ const ReviewWriter = () => {
         if (response.data.profile_image) {
           setProfileImage(response.data.profile_image);
         }
+
         if (response.data.name) {
           setUserName(response.data.name);
         }

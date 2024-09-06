@@ -20,7 +20,6 @@ interface PlaceItem {
 const PlaceItem: React.FC<PlaceItem> = ({
   placeId,
   store_image,
-  // isBookmarked,
   locationName,
   name,
   address,

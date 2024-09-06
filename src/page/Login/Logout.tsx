@@ -17,6 +17,7 @@ const Logout = () => {
       console.log('로그아웃 성공:', response);
 
       logout();
+
       sessionStorage.removeItem('bookmarks');
 
       navigate('/');

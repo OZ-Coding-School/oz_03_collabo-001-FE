@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import Logout from '../../page/Login/Logout';
 import ProfilePhotoEdit from './ProfileEdit';
 import NicknameEdit from './NicknameEdit';

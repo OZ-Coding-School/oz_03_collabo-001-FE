@@ -18,7 +18,7 @@ import DetailGuide from '../../page/Detail/DetailGuide';
 import ReviewUpload from '../../page/Review upload/ReviewUpload';
 import ShareBtn from '../ShareBtn';
 
-const NAV_HEIGHT = 48; // 고정 NAV의 높이
+const NAV_HEIGHT = 48;
 
 interface DetailModalProps {
   closeModal: () => void;
@@ -26,10 +26,7 @@ interface DetailModalProps {
 }
 
 const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
-  // 데이터 가져오기
   const { placeData, loading, error } = useFetchPlaceData(placeId);
-
-  // 후기작성 모달
   const { isOpen, openThirdModal } = useModalWithURL(`ReviewUpload`);
 
   useEffect(() => {
@@ -41,9 +38,8 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
   }, []);
 
   const modalRoot = document.getElementById('modal-root');
-  if (!modalRoot) return null; // modal-root가 존재하지 않으면 렌더링하지 않음
+  if (!modalRoot) return null;
 
-  // 스크롤할 컨테이너에 대한 ref
   const modalContentRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
@@ -82,7 +78,6 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
   //
   useEffect(() => {
     if (placeData) {
-      // 데이터가 로드된 후에만 실행
       updateScrollPositions();
       window.addEventListener('resize', updateScrollPositions);
 

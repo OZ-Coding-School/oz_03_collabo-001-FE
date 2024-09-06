@@ -19,6 +19,7 @@ const PlaceTopNav: React.FC = () => {
       const buttonTextWidth =
         currentButton.querySelector('span')?.offsetWidth ||
         currentButton.offsetWidth;
+
       indicatorRef.current.style.width = `${buttonTextWidth}px`;
       indicatorRef.current.style.left = `${currentButton.offsetLeft + (currentButton.offsetWidth - buttonTextWidth) / 2}px`;
       indicatorRef.current.style.backgroundColor = 'primary';

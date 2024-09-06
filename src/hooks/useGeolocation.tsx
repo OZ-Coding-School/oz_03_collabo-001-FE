@@ -19,6 +19,7 @@ const useGeolocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude: lat, longitude: lon } = position.coords;
+
         setLatitude(lat);
         setLongitude(lon);
         setCoordinates({ latitude: lat, longitude: lon });

@@ -33,6 +33,7 @@ const AllImages: React.FC<Props> = ({ review, imageUrl, unique }) => {
 
   const handleImageClick = () => {
     console.log(`imageDetailModal_${review.id}_${unique}`);
+
     setViewImage(true);
   };
 
@@ -47,7 +48,6 @@ const AllImages: React.FC<Props> = ({ review, imageUrl, unique }) => {
           review={review}
           imageUrl={imageUrl}
           setViewImage={setViewImage}
-          // closeModal={closeModal}
         />
       )}
     </>

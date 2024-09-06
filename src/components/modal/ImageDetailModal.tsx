@@ -51,7 +51,7 @@ const ImageDetailModal: React.FC<Props> = ({
             className='max-h-[350px] w-full'
           />
         </div>
-        <div className='bg-white-50 absolute bottom-0 flex flex-col gap-2 p-[20px]'>
+        <div className='absolute bottom-0 flex flex-col gap-2 bg-white-50 p-[20px]'>
           <div className='flex items-center gap-1'>
             {review.user.profile_image ? (
               <img
