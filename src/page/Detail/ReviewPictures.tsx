@@ -15,6 +15,9 @@ interface reviewImages {
 
 const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   const [reviewImages, setReviewImages] = useState<reviewImages[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   // 사진모아보기 의 미리보기는 3개까지만 보이도록
   const numberOfItems = 3;
   const items = Array.from({ length: numberOfItems }, (_, index) => index);
@@ -28,9 +31,13 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
         const response = await axios.get(
           `http://127.0.0.1:8000/places/${placeId}/comments/iamges/`
         );
+
         setReviewImages(response.data);
+        setIsLoading(false);
       } catch (error) {
-        console.log('전체 후기이미지를 불러오는데 실패했습니다. : ', error);
+        console.error('전체 후기 이미지를 불러오는데 실패했습니다.:', error);
+        setError('후기 이미지를 불러오는데 실패했습니다.');
+        setIsLoading(false);
       }
     };
 
@@ -40,6 +47,20 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   const handleMoreImagesClick = () => {
     openSubModal();
   };
+
+  if (isLoading) {
+    return (
+      <div className='py-4 text-center text-[14px] text-caption'>
+        로딩 중...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
+    );
+  }
 
   return (
     <>
