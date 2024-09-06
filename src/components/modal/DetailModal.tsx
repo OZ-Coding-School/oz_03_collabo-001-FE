@@ -13,7 +13,7 @@ import DetailContent from '../../page/Detail/DetailContent';
 import ReviewPictures from '../../page/Detail/ReviewPictures';
 import ReviewList from '../../page/Detail/ReviewList';
 import DetailGuide from '../../page/Detail/DetailGuide';
-import ReviewUpload from '../../page/Review/ReviewUpload';
+import ReviewUpload from '../../page/Review upload/ReviewUpload';
 import ShareBtn from '../ShareBtn';
 
 const NAV_HEIGHT = 48; // 고정 NAV의 높이

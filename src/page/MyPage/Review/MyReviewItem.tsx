@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import useTruncatedText from '../../../hooks/useTruncatedText';
 import DetailRating from '../../Detail/DetailRating';
 
-interface MyReviewListItemProps {
+interface MyReviewItemProps {
   className?: string;
   reviewText: string;
   placeName: string;
@@ -11,7 +11,7 @@ interface MyReviewListItemProps {
   commentImages: string[];
 }
 
-const MyReviewListItem: React.FC<MyReviewListItemProps> = ({
+const MyReviewItem: React.FC<MyReviewItemProps> = ({
   className,
   reviewText,
   placeName,
@@ -53,4 +53,4 @@ const MyReviewListItem: React.FC<MyReviewListItemProps> = ({
   );
 };
 
-export default MyReviewListItem;
+export default MyReviewItem;
