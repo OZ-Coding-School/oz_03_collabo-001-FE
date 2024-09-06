@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 import Scrollbars from 'react-custom-scrollbars-2';
 import axios from 'axios';
