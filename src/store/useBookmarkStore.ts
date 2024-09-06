@@ -9,7 +9,7 @@ interface BookmarkState {
   isBookmarked: (id: number) => boolean;
 }
 
-export const useBookmarkStore = create<BookmarkState>((set, get) => ({
+const useBookmarkStore = create<BookmarkState>((set, get) => ({
   bookmarks: JSON.parse(sessionStorage.getItem('bookmarks') || '[]'),
   setBookmarks: (ids: number[]) => {
     sessionStorage.setItem('bookmarks', JSON.stringify(ids));
@@ -29,3 +29,5 @@ export const useBookmarkStore = create<BookmarkState>((set, get) => ({
   },
   isBookmarked: (id) => get().bookmarks.includes(id),
 }));
+
+export default useBookmarkStore;
