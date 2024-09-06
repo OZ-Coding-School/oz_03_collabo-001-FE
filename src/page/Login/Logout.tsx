@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import useAuthStore from '../../store/authStore';
+import useAuthStore from '../../store/useAuthStore';
 import { toast } from 'react-toastify';
 
 const Logout = () => {

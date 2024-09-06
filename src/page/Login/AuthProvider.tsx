@@ -7,8 +7,8 @@ import Kakao from '../../assets/Icon/SocialLogin/Kakao.svg';
 import Naver from '../../assets/Icon/SocialLogin/Naver.svg';
 import Google from '../../assets/Icon/SocialLogin/Google.svg';
 import Main_Logo from '../../assets/Icon/Main/OR_Main_TextLogo.svg';
-import useAuthStore from '../../store/authStore';
-import { useBookmarkStore } from '../../store/bookmarkStore';
+import useAuthStore from '../../store/useAuthStore';
+import { useBookmarkStore } from '../../store/useBookmarkStore';
 
 interface PlaceData {
   id: number;

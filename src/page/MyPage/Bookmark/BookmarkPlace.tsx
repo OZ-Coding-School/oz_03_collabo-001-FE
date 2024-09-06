@@ -1,6 +1,6 @@
 import MoreTitle from '../../../components/layout/MoreTitle';
 import Place from '../../../components/BDPlace/Place';
-import { useBookmarkStore } from '../../../store/bookmarkStore';
+import { useBookmarkStore } from '../../../store/useBookmarkStore';
 
 interface MyBookmarkProps {
   bookmarks: Bookmark[];

@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import PlaceItem from '../../../components/PlaceFilter/PlaceItem';
 import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
-import { useBookmarkStore } from '../../../store/bookmarkStore';
+import { useBookmarkStore } from '../../../store/useBookmarkStore';
 
 interface RegionType {
   id: number;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import useLocationStore from '../store/locationStore';
+import useLocationStore from '../store/useLocationStore';
 
 const useGeolocation = () => {
   const [error, setError] = useState<string | null>(null);
@@ -8,8 +8,9 @@ const useGeolocation = () => {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
 
-  const setAddress = useLocationStore((state) => state.setAddress);
   const address = useLocationStore((state) => state.address);
+  const setAddress = useLocationStore((state) => state.setAddress);
+  const setCoordinates = useLocationStore((state) => state.setCoordinates);
 
   const getLocation = () => {
     setIsLoading(true);
@@ -20,6 +21,7 @@ const useGeolocation = () => {
         const { latitude: lat, longitude: lon } = position.coords;
         setLatitude(lat);
         setLongitude(lon);
+        setCoordinates({ latitude: lat, longitude: lon });
 
         try {
           const response = await axios.get(
