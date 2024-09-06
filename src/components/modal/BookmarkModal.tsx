@@ -27,6 +27,7 @@ const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
 
   const modalRoot = document.getElementById('modal-root');
   if (!modalRoot) return null;
+
   return ReactDOM.createPortal(
     <div className='flex items-start justify-center overflow-x-hidden bg-white'>
       <Scrollbars

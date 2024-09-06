@@ -5,16 +5,20 @@ import RecentList from '../../page/MyPage/Recent/RecentList';
 import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
 import ScrollToTopBtn from '../CustomScrollbar/ScrollToTopBtn';
+import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 
-interface RecoPlaceModalProps {
+interface RecePlaceModalProps {
   title: string;
   closeModal: () => void;
 }
 
-const RecoPlaceModal: React.FC<RecoPlaceModalProps> = ({
+const RecePlaceModal: React.FC<RecePlaceModalProps> = ({
   title,
   closeModal,
 }) => {
+  const { categoryData } = useFetchCategoryData('main');
+  const tapRegions = categoryData?.tapRegions ?? [];
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -26,6 +30,7 @@ const RecoPlaceModal: React.FC<RecoPlaceModalProps> = ({
 
   const modalRoot = document.getElementById('modal-root');
   if (!modalRoot) return null;
+
   return ReactDOM.createPortal(
     <div className='flex h-[100vh] items-start justify-center overflow-x-hidden bg-white'>
       <Scrollbars
@@ -45,7 +50,7 @@ const RecoPlaceModal: React.FC<RecoPlaceModalProps> = ({
               </button>
               <p className='py-[18px] font-semibold'>{title}</p>
             </div>
-            <RecentList />
+            <RecentList tapRegions={tapRegions} />
           </div>
         </div>
         <ScrollToTopBtn scrollbarRef={scrollbarRef} />
@@ -55,4 +60,4 @@ const RecoPlaceModal: React.FC<RecoPlaceModalProps> = ({
   );
 };
 
-export default RecoPlaceModal;
+export default RecePlaceModal;

@@ -62,7 +62,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
     try {
       const response = await fetchPlaces(initialLoad ? 1 : page);
 
-      const newPlaces = response?.results?.results || [];
+      const newPlaces = response?.results || [];
 
       if (initialLoad) {
         if (newPlaces.length === 0) {

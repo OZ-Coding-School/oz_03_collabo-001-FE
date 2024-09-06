@@ -2,7 +2,7 @@ import UserInfo from '../../components/Mypage/UserInfo';
 import MyBookmark from './Bookmark/BookmarkPlace';
 import RecentPlace from './Recent/RecentPlace';
 import BackwardsHeader from '../../components/BackwardsHeader';
-import MyReviewList from './Review/MyReviewList';
+import MyReviewPlace from './Review/MyReviewPlace';
 import WritingList from './WritingList/WritingList';
 import FeaturedBanner from './FeaturedBanner';
 import { useEffect, useState } from 'react';
@@ -146,7 +146,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
           tapRegions={tapRegions}
         />
         {/* 작성 후기 */}
-        <MyReviewList reviews={recentComments} />
+        <MyReviewPlace reviews={recentComments} />
         {/* 내가 작성한 글 */}
         <WritingList />
       </div>
