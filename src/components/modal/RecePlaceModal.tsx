@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
-import RecentList from '../../page/MyPage/Recent/RecentList';
 import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
 import ScrollToTopBtn from '../CustomScrollbar/ScrollToTopBtn';
+import RecentList from '../../page/MyPage/Recent/RecentList';
 import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 
 interface RecePlaceModalProps {

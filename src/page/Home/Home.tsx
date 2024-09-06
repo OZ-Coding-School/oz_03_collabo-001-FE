@@ -7,7 +7,6 @@ import BDMag from './BDMag';
 import BDStory from './BDStory';
 
 const Home = () => {
-  // 데이터 가져오기
   const { categoryData, loading, error } = useFetchCategoryData('main');
 
   if (!categoryData) {

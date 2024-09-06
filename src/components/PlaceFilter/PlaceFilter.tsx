@@ -64,7 +64,7 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
     const fetchRegionsAndSubCategories = async () => {
       try {
         const response = await axios.get<FetchResponse>(
-          'http://127.0.0.1:8000/places/',
+          'https://api.dogandbaby.co.kr/places/',
           {
             params: { main_category: selectPlace, page: 1, page_size: 10 },
             withCredentials: true,

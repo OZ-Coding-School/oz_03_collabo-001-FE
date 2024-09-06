@@ -50,7 +50,7 @@ const fetchPlaces = async (
   };
 
   try {
-    const response = await axios.get('http://127.0.0.1:8000/places/', {
+    const response = await axios.get('https://api.dogandbaby.co.kr/places/', {
       params,
       withCredentials: true,
     });

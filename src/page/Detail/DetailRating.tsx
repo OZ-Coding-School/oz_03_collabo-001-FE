@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 
 interface RatingProps {
-  initialRating: number; // 초기 별점 점수 (0 ~ 5)
+  initialRating: number;
 }
 
 const DetailRating: React.FC<RatingProps> = ({ initialRating }) => {
@@ -11,7 +11,6 @@ const DetailRating: React.FC<RatingProps> = ({ initialRating }) => {
   const ARRAY = [0, 1, 2, 3, 4];
 
   useEffect(() => {
-    // 초기 별점 점수를 반영하여 상태 업데이트
     setScore(initialRating);
   }, [initialRating]);
 

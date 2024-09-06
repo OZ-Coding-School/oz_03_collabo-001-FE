@@ -25,7 +25,6 @@ interface Props {
   review: review;
   imageUrl: string;
   unique: number;
-  // closeModal: () => void;
   setViewImage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -33,7 +32,6 @@ const ImageDetailModal: React.FC<Props> = ({
   review,
   imageUrl,
   unique,
-  // closeModal,
   setViewImage,
 }) => {
   return (

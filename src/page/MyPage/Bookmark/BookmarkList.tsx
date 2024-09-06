@@ -35,7 +35,7 @@ const fetchPlaces = async (page: number) => {
   };
   try {
     const response = await axios.get(
-      'http://127.0.0.1:8000/users/mypage/bookmark',
+      'https://api.dogandbaby.co.kr/users/mypage/bookmark/',
       { params, withCredentials: true }
     );
     return response.data;

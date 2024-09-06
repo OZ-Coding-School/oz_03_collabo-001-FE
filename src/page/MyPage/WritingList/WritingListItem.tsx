@@ -10,13 +10,11 @@ const WritingListItem: React.FC<WritingListItemProps> = ({
   className,
   boardText,
 }) => {
-  // 첫번째 아이템의 경우 상단 border 없앰
   const borderClass = classNames({
     'border-t border-border': className !== 'first',
     'items-center py-[10px] flex': true,
   });
 
-  // useTruncatedText 훅 사용
   const truncatedText = useTruncatedText(boardText, 210);
 
   return (

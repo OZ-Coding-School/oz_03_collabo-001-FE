@@ -27,7 +27,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
 
       try {
         const response = await axios.post(
-          `http://127.0.0.1:8000/users/mypage/update-name/?name=${inputValue}`,
+          `https://api.dogandbaby.co.kr/users/mypage/update-name/?name=${inputValue}`,
           {},
           {
             withCredentials: true,
@@ -80,7 +80,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
 
       try {
         await axios.post(
-          `http://127.0.0.1:8000/users/mypage/update-name/?name=${inputValue}`,
+          `https://api.dogandbaby.co.kr/users/mypage/update-name/?name=${inputValue}`,
           {},
           {
             withCredentials: true,

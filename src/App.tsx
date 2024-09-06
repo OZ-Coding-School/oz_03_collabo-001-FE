@@ -8,8 +8,8 @@ import AuthProvider from './page/Login/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/layout/Layout';
-import BDInfo from './page/BDInfo/BDInfo';
-import BDMag from './page/BDMag/BDMag';
+import BDInfo from './components/BDInfo/BDInfo';
+import BDMag from './components/BDMag/BDMag';
 
 function App() {
   return (

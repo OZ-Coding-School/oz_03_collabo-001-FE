@@ -1,5 +1,5 @@
 import InfoPost from '../../components/BDInfo/InfoPost';
-import Banner from '../Home/Banner';
+import Banner from '../../page/Home/Banner';
 import more from '../../assets/More.svg';
 import InfoCard from '../../components/BDInfo/InfoCard';
 

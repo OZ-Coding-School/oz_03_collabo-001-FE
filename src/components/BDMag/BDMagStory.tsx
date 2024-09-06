@@ -1,5 +1,5 @@
 import image from '../../assets/Images/starfield.png';
-import InfoTab from '../../components/BDInfo/InfoTab';
+import InfoTab from '../BDInfo/InfoTab';
 import BDMagStoryItem from './BDMagStoryItem';
 
 const BDMagStory = () => {

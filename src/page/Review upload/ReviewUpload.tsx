@@ -24,8 +24,8 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   );
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [checkedRate, setCheckedRate] = useState<number>(5);
+  const [reviewText, setReviewText] = useState<string>('');
 
-  // input 요소의 ref를 생성합니다.
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,10 +63,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   const handleUpload = async () => {
     const filesToUpload = images.filter((file): file is File => file !== null);
 
-    const reviewText = (
-      document.querySelector('textarea') as HTMLTextAreaElement
-    )?.value;
-
     if (!reviewText || reviewText.length < 10) {
       toast.error('후기는 최소 10자 이상 작성해야 합니다.', {
         position: 'top-center',
@@ -99,7 +95,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
 
     const formData = new FormData();
     formData.append('rating', checkedRate.toString());
-    formData.append('review', reviewText);
+    formData.append('content', reviewText);
     filesToUpload.forEach((file) => formData.append('images', file));
     try {
       await axios.post(
@@ -226,6 +222,8 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
           <textarea
             className='h-[300px] w-full resize-none rounded-md border border-border p-2 text-xs'
             placeholder='후기를 작성해주세요. (최소 10자 이상 작성하셔야 합니다)'
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
           />
         </div>
         <div className='h-[334px] space-y-[8px] px-[12px] py-[15px]'>

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface DetailContentProps {
-  onExpandChange: (expanded: boolean) => void; // 상태 변경 콜백
+  onExpandChange: (expanded: boolean) => void;
   contentImgs: string[];
 }
 
@@ -18,7 +18,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
   const handleToggleExpand = () => {
     const newExpandedState = !isExpanded;
     setIsExpanded(newExpandedState);
-    onExpandChange(newExpandedState); // 상태 변경 시 부모에게 알림
+    onExpandChange(newExpandedState);
   };
 
   const handleImageLoad = () => {

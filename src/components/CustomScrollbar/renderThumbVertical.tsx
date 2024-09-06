@@ -1,4 +1,3 @@
-// 세로 스크롤바의 thumb 스타일 커스터마이징
 const renderThumbVertical = ({
   style,
   ...props

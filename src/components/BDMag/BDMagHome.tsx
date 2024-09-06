@@ -1,6 +1,6 @@
-import Banner from '../Home/Banner';
-import BDMag from '../Home/BDMag';
-import BDStory from '../Home/BDStory';
+import Banner from '../../page/Home/Banner';
+import BDMag from '../../page/Home/BDMag';
+import BDStory from '../../page/Home/BDStory';
 
 const BDMagHome = () => {
   return (

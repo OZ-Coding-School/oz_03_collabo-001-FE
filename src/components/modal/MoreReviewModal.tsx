@@ -12,7 +12,6 @@ interface Images {
 
 interface user {
   nickname: string;
-  // profile: string;
 }
 
 interface ReviewData {

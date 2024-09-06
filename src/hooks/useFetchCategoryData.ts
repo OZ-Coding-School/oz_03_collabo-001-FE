@@ -53,17 +53,15 @@ const useFetchCategoryData = (category: string) => {
     const fetchPlaces = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${category}/main/`,
+          `https://api.dogandbaby.co.kr/places/${category}/main/`,
           { withCredentials: true }
         );
 
-        // 배열에서 랜덤으로 선택하는 함수
         const getRandomArrays = <T>(arr: T[], num: number): T[] => {
           const shuffled = [...arr].sort(() => 0.5 - Math.random());
           return shuffled.slice(0, num);
         };
 
-        // 초기 데이터
         let bannerImages: Image[] = response.data.banners || [];
         let recoPlaces: RecoPlaceItem[] = response.data.recommandedplaces || [];
         const newPlaces: Place[] = response.data.new_places || [];
@@ -73,17 +71,14 @@ const useFetchCategoryData = (category: string) => {
         const placeSubcategories: PlaceSubcategory[] =
           response.data.place_subcategories || [];
 
-        // 배너의 개수가 8개보다 많을 경우 랜덤으로 8개 선택
         if (bannerImages.length > 8) {
           bannerImages = getRandomArrays(bannerImages, 8);
         }
 
-        // 추천 장소의 개수가 4개보다 많을 경우 랜덤으로 4개 선택
         if (recoPlaces.length > 4) {
           recoPlaces = getRandomArrays(recoPlaces, 4);
         }
 
-        // fetchedData 설정
         const fetchedData: CategoryData = {
           bannerImgs: bannerImages,
           recoPlaces: recoPlaces,
@@ -94,7 +89,6 @@ const useFetchCategoryData = (category: string) => {
           tapSubcategories: placeSubcategories,
         };
 
-        // 상태 설정
         setCategoryData(fetchedData);
         setLoading(false);
       } catch (error) {
