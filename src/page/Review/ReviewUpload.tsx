@@ -3,11 +3,10 @@ import axios from 'axios';
 import { twMerge } from 'tailwind-merge';
 import ReviewWriter from './ReviewWriter';
 import { GoChevronLeft } from 'react-icons/go';
-
 import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../../components/CustomScrollbar/renderThumbVertical';
-import { toast } from 'react-toastify';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MAX_IMAGES = 5;
 
@@ -24,7 +23,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     Array(MAX_IMAGES).fill('')
   );
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-
   const [checkedRate, setCheckedRate] = useState<number>(5);
 
   // input 요소의 ref를 생성합니다.
@@ -32,7 +30,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedIndex === null) {
-      alert('업로드할 위치를 선택하세요.');
+      toast.error('업로드할 위치를 선택하세요.');
       return;
     }
 
@@ -55,16 +53,21 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   const handleUpload = () => {
     const filesToUpload = images.filter((file): file is File => file !== null);
 
-    if (filesToUpload.length === 0) {
-      alert('최소 1개의 이미지를 업로드해야 합니다.');
-      return;
-    }
     const reviewText = (
       document.querySelector('textarea') as HTMLTextAreaElement
-    ).value;
+    )?.value;
 
-    if (reviewText.length < 10) {
-      alert('후기는 최소 10자 이상 작성해야 합니다.');
+    if (!reviewText || reviewText.length < 10) {
+      toast.error('후기는 최소 10자 이상 작성해야 합니다.', {
+        style: { fontSize: '13px' },
+      });
+      return;
+    }
+
+    if (filesToUpload.length === 0) {
+      toast.error('최소 1개의 이미지를 업로드해야 합니다.', {
+        style: { fontSize: '13px' },
+      });
       return;
     }
 
@@ -78,18 +81,16 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
         headers: { 'Content-Type': 'multipart/form-data' },
         withCredentials: true,
       })
-      .then((response) => console.log('Upload success:', response.data))
+      .then(() => {
+        toast.success('후기 등록 성공', {
+          style: { fontSize: '13px' },
+        });
+        closeModal();
+      })
       .catch((error) => {
         console.error('Upload error:', error);
         toast.error('후기 등록 실패', {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
+          style: { fontSize: '13px' },
         });
       });
   };
@@ -128,7 +129,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
           className='flex h-[113px] w-[113px] cursor-pointer items-center justify-center text-[20px] text-[#afafaf]'
           onClick={() => {
             setSelectedIndex(index);
-            // 파일 선택 창을 열어줍니다.
             fileInputRef.current?.click();
           }}
         >
@@ -139,12 +139,9 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   );
 
   return (
-    <div className='reviewModal absolute z-50 h-[100vh] w-[400px] overflow-x-hidden bg-white'>
+    <div className='reviewModal absolute z-50 h-[100vh] w-[400px] overflow-hidden bg-white'>
       <Scrollbars
-        style={{
-          width: '400px',
-          height: '100vh',
-        }}
+        style={{ width: '400px', height: '100vh' }}
         renderThumbVertical={renderThumbVertical}
         autoHide
       >
@@ -223,6 +220,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
           </button>
         </div>
       </Scrollbars>
+      <ToastContainer />
     </div>
   );
 };
