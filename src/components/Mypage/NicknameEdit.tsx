@@ -117,8 +117,8 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
   }, [nickname]);
 
   return (
-    <div className='flex justify-center'>
-      <div className='h-[24px] w-[201px] text-[18px] font-bold'>
+    <div className='flex items-center justify-between'>
+      <div className='h-[24px] text-[18px] font-bold'>
         {isEditing ? (
           <input
             type='text'

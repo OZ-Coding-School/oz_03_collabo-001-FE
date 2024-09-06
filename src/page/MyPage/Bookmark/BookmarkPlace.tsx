@@ -31,7 +31,7 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
   return (
     <div className='col'>
       <MoreTitle title='나만의 북마크' />
-      <div className='flex flex-wrap gap-[8px] pb-[20px]'>
+      <div className='flex flex-wrap gap-[8px] pb-[15px]'>
         {bookmarks.length > 0 ? (
           bookmarks.map((placeInfo) => (
             <Place

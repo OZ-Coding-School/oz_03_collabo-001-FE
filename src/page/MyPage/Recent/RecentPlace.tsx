@@ -34,7 +34,7 @@ const RecentPlace: React.FC<RecentPlaceProps> = ({
   return (
     <div className='col'>
       <MoreTitle title='최근 본 장소' />
-      <div className='flex flex-wrap gap-[8px] pb-[20px]'>
+      <div className='flex flex-wrap gap-[8px] pb-[15px]'>
         {recentplace.length > 0 ? (
           recentplace.map((placeInfo) => (
             <Place

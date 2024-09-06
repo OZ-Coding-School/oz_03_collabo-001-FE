@@ -44,7 +44,7 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
           <Banner bannerImgs={bannerImgs} />
           <RecoPlace recoTags={recoTags[current]} recoPlaces={recoPlaces} />
         </div>
-        <div className='flex flex-col bg-white p-[10px] pt-0'>
+        <div className='col flex flex-col bg-white pb-[15px] pt-0'>
           <p className='py-[18px] font-semibold'>
             {current === 'bd'
               ? '새로생긴 애개플레이스'
