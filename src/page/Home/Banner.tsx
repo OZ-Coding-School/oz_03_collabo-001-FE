@@ -1,5 +1,5 @@
 // Import Swiper React components
-import image from '../../assets/images/starfield.png';
+import image from '../../assets/Images/starfield.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
