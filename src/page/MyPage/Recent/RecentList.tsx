@@ -97,7 +97,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
 
   useEffect(() => {
     loadMorePlaces(true);
-  }, [places]);
+  }, []);
 
   const getLocationName = (placeRegionId: number) => {
     const region = tapRegions?.find((region) => region.id === placeRegionId);
