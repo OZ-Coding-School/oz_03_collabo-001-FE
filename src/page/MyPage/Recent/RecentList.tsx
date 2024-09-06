@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PlaceItem from '../../../components/PlaceFilter/PlaceItem';
-import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
-// import ScrollToTopButton from './ScrollToTopButton';
 
 interface RegionType {
   id: number;
@@ -28,77 +26,45 @@ interface PlaceData {
   comments_count: number;
 }
 
-const fetchPlaces = async (page: number) => {
-  const params: any = {
-    page,
-    page_size: 10,
-  };
+const fetchPlaces = async () => {
   try {
     const response = await axios.get(
       'http://127.0.0.1:8000/users/mypage/view-history/',
-      { params, withCredentials: true }
+      { withCredentials: true }
     );
     return response.data;
   } catch (error) {
     console.error('정보 가져오기 실패:', error);
-    return { results: [], next: null };
+    return { results: [] };
   }
 };
 
 const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   const [places, setPlaces] = useState<PlaceData[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const loadMorePlaces = async (initialLoad: boolean = false) => {
-    if (isLoading) return;
-
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetchPlaces(initialLoad ? 1 : page);
-
-      const newPlaces = response?.results || [];
-
-      if (initialLoad) {
+  useEffect(() => {
+    const loadPlaces = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetchPlaces();
+        const newPlaces = response?.results || [];
         if (newPlaces.length === 0) {
           setError('최근 본 장소가 없습니다.');
-          setHasMore(false);
-          setPlaces([]);
         } else {
           setPlaces(newPlaces);
-          setPage(2);
-          setHasMore(!!response.next);
         }
-      } else {
-        if (newPlaces.length === 0) {
-          setHasMore(false);
-        } else {
-          setPlaces((prevPlaces) => [...prevPlaces, ...newPlaces]);
-          setPage((prevPage) => prevPage + 1);
-          setHasMore(!!response.next);
-        }
+      } catch (error) {
+        console.error('장소 가져오기 실패:', error);
+        setError('장소를 가져오는데 실패했습니다.');
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('장소 더 가져오기 실패:', error);
-      setError('장소를 가져오는데 실패했습니다.');
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
 
-  const { observerElem } = useInfiniteScroll(
-    () => loadMorePlaces(false),
-    hasMore && !isLoading
-  );
-
-  useEffect(() => {
-    loadMorePlaces(true);
+    loadPlaces();
   }, []);
 
   const getLocationName = (placeRegionId: number) => {
@@ -107,7 +73,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
   };
 
   return (
-    <div ref={scrollContainerRef}>
+    <>
       {error && !isLoading && !places.length && (
         <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
       )}
@@ -131,10 +97,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           가져오는 중...
         </div>
       )}
-      {hasMore && <div ref={observerElem} className='h-1' />}
-
-      {/* <ScrollToTopButton scrollContainerRef={scrollContainerRef} /> */}
-    </div>
+    </>
   );
 };
 

@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
 import MyReviewItem from './MyReviewItem';
-// import ScrollToTopButton from './ScrollToTopButton';
 
 interface ReviewData {
   id: number;
@@ -16,81 +14,49 @@ interface ReviewData {
   comments_images: string[];
 }
 
-const fetchPlaces = async (page: number) => {
-  const params: any = {
-    page,
-    page_size: 10,
-  };
+const fetchPlaces = async () => {
   try {
     const response = await axios.get(
       'http://127.0.0.1:8000/users/mypage/my-comment/',
-      { params, withCredentials: true }
+      { withCredentials: true }
     );
     return response.data;
   } catch (error) {
     console.error('정보 가져오기 실패:', error);
-    return { results: [], next: null };
+    return { results: [] };
   }
 };
 
 const MyReviewList: React.FC = () => {
   const [reviews, setReviews] = useState<ReviewData[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const loadMorePlaces = async (initialLoad: boolean = false) => {
-    if (isLoading) return;
-
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetchPlaces(initialLoad ? 1 : page);
-
-      const newReview = response?.results || [];
-
-      if (initialLoad) {
-        if (newReview.length === 0) {
-          setError('최근 본 장소가 없습니다.');
-          setHasMore(false);
-          setReviews([]);
-        } else {
-          setReviews(newReview);
-          setPage(2);
-          setHasMore(!!response.next);
-        }
-      } else {
-        if (newReview.length === 0) {
-          setHasMore(false);
-        } else {
-          setReviews((prevPlaces) => [...prevPlaces, ...newReview]);
-          setPage((prevPage) => prevPage + 1);
-          setHasMore(!!response.next);
-        }
-      }
-    } catch (error) {
-      console.error('장소 더 가져오기 실패:', error);
-      setError('장소를 가져오는데 실패했습니다.');
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const { observerElem } = useInfiniteScroll(
-    () => loadMorePlaces(false),
-    hasMore && !isLoading
-  );
-
   useEffect(() => {
-    loadMorePlaces(true);
+    const loadPlaces = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetchPlaces();
+        const newPlaces = response?.results || [];
+        if (newPlaces.length === 0) {
+          setError('작성한 후기가 없습니다.');
+        } else {
+          setReviews(newPlaces);
+        }
+      } catch (error) {
+        console.error('후기 가져오기 실패:', error);
+        setError('후기를 가져오는데 실패했습니다.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPlaces();
   }, []);
 
   return (
-    <div ref={scrollContainerRef}>
+    <>
       {error && !isLoading && !reviews.length && (
         <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
       )}
@@ -112,10 +78,7 @@ const MyReviewList: React.FC = () => {
           가져오는 중...
         </div>
       )}
-      {hasMore && <div ref={observerElem} className='h-1' />}
-
-      {/* <ScrollToTopButton scrollContainerRef={scrollContainerRef} /> */}
-    </div>
+    </>
   );
 };
 

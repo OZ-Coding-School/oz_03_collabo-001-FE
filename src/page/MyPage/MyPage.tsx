@@ -132,9 +132,6 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
   const { categoryData } = useFetchCategoryData('main');
   const tapRegions = categoryData?.tapRegions ?? [];
 
-  console.log(recentViewHistories);
-  console.log(recentComments);
-
   return (
     <>
       <div className='flex flex-col gap-[15px]'>
