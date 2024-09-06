@@ -18,7 +18,6 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 사진모아보기 의 미리보기는 3개까지만 보이도록
   const numberOfItems = 3;
   const items = Array.from({ length: numberOfItems }, (_, index) => index);
   const { isOpen, openSubModal, closeModal } = useModalWithURL(
@@ -29,7 +28,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
     const fetchReviewPictures = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/comments/iamges/`
+          `https://api.dogandbaby.co.kr/places/${placeId}/comments/images/`
         );
 
         setReviewImages(response.data);
@@ -67,7 +66,6 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
       {reviewImages.length > 0 && (
         <div className='col'>
           <MoreTitle title='사진모아보기' />
-          {/* {reviewImages && reviewImages.length > 3 ? {reviewImages.map((),{})} : null} */}
           {reviewImages.length > 3 ? (
             <div className='flex justify-between'>
               {items.map((_, i) => {

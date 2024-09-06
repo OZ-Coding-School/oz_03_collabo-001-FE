@@ -22,10 +22,8 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({
   rating,
   nickname,
 }) => {
-  // useTruncatedText 훅 사용
   const truncatedText = useTruncatedText(reviewText, 100);
 
-  //첫번째, 마지막 아이템의 경우 하단 border 없앰
   const borderClass = classNames({
     'border-border border-b': className !== 'noBorder',
     '': true,
@@ -55,7 +53,6 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({
                     className='imgWrap h-[115px] w-[115px] flex-shrink-0 overflow-hidden rounded-[10px] border-2 border-border bg-background'
                     key={i}
                   >
-                    {/* <p>{images[i].url}</p> */}
                     <img
                       src={`${images[i].url}`}
                       alt=''

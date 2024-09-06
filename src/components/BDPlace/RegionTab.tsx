@@ -63,7 +63,7 @@ const RegionTab: React.FC<TabProps> = ({
     if (!selectedTab || !tabs.includes(selectedTab)) {
       setSelectedTab('전체');
     }
-  }, [tapRegions, tapSubcategories]);
+  }, [selectedTab, tapRegions, tapSubcategories]);
 
   useEffect(() => {
     let placesToFilter: PlaceData[] = [];

@@ -15,7 +15,6 @@ interface Images {
 
 interface user {
   nickname: string;
-  // profile: string;
 }
 
 interface ReviewData {
@@ -27,7 +26,6 @@ interface ReviewData {
 }
 
 const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
-  // 후기작성 모달
   const { isOpen, openThirdModal, closeModal } = useModalWithURL(`TestModal`);
 
   const [reviewData, setReviewData] = useState<ReviewData[] | null>(null);
@@ -36,7 +34,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
     const fecthReviews = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/comments/`
+          `https://api.dogandbaby.co.kr/places/${placeId}/comments/`
         );
         setReviewData(response.data);
       } catch (error) {
@@ -47,7 +45,6 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
     fecthReviews();
   }, [placeId]);
 
-  // 리뷰는 3개만 우선 보이도록
   const reviewItemCount = 3;
   const reviewItems = Array.from({ length: reviewItemCount });
 

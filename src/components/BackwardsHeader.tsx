@@ -12,7 +12,6 @@ const BackwardsHeader = ({ title }: { title?: string }) => {
       const url = new URL(referrerUrl);
       const cleanedUrl = `${url.origin}${url.pathname}`;
 
-      // 도메인 및 경로 확인
       if (url.origin === 'https://dogandbaby.co.kr') {
         if (importantPaths.includes(url.pathname)) {
           navigate(url.pathname);

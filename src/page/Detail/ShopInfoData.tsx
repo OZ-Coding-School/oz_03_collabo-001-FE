@@ -1,11 +1,5 @@
 import React, { useRef } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars-2';
-// import parkingIcon from '../../assets/Icon/Detail_Icon/Parking.svg';
-// import wifi from '../../assets/Icon/Detail_Icon/Wifi.svg';
-// import babyBottle from '../../assets/Icon/Detail_Icon/Baby_Bottle.svg';
-// import diaper from '../../assets/Icon/Detail_Icon/Diaper.svg';
-// import babyChair from '../../assets/Icon/Detail_Icon/Baby_Chair.svg';
-// import withPet from '../../assets/Icon/Detail_Icon/With_Pet.svg';
 
 interface ServiceIcon {
   image: string;
@@ -18,20 +12,6 @@ interface ShopInfoDataProps {
 
 const ShopInfoData: React.FC<ShopInfoDataProps> = ({ placeInfoMenu }) => {
   const buttonRefs = useRef<HTMLDivElement[]>([]);
-  // const placeInfoMenu = [
-  //   { image: parkingIcon, name: '주차가능' },
-  //   { image: wifi, name: '와이파이' },
-  //   { image: babyBottle, name: '수유실' },
-  //   { image: diaper, name: '기저귀교환대' },
-  //   { image: babyChair, name: '아기의자' },
-  //   { image: withPet, name: '반려동물동반' },
-  //   { image: withPet, name: '반려동물동반' },
-  //   { image: withPet, name: '반려동물동반' },
-  //   { image: withPet, name: '반려동물동반' },
-  //   { image: withPet, name: '반려동물동반' },
-  // ];
-
-  // console.log(placeInfoMenu);
 
   return (
     <div className='h-[60px] overflow-x-auto overflow-y-hidden bg-white'>

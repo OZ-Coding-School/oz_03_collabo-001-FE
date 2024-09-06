@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { GoChevronLeft } from 'react-icons/go';
-import BookmarkList from '../../page/MyPage/Bookmark/BookmarkList';
-import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
 import ScrollToTopBtn from '../CustomScrollbar/ScrollToTopBtn';
+import BookmarkList from '../../page/MyPage/Bookmark/BookmarkList';
+import useFetchCategoryData from '../../hooks/useFetchCategoryData';
 
 interface BookMarkModalProps {
   title: string;

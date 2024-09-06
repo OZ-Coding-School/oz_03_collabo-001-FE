@@ -33,8 +33,8 @@ const ImageDetailModal: React.FC<Props> = ({
   closeModal,
 }) => {
   return (
-    <div className='bg-black-50 fixed inset-0 z-30 flex h-screen items-start justify-center'>
-      <div className='bg-black-50 flex w-[400px] flex-col gap-2'>
+    <div className='fixed inset-0 z-30 flex h-screen items-start justify-center bg-black-50'>
+      <div className='flex w-[400px] flex-col gap-2 bg-black-50'>
         <div>
           <button onClick={closeModal} className='ml-2 text-white'>
             x

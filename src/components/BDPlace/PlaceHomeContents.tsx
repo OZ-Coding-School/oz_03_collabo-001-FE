@@ -11,7 +11,6 @@ interface CurrentProps {
 }
 
 const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
-  // 훅 사용
   const { categoryData, loading, error } = useFetchCategoryData(current);
 
   const recoTags: { [key: string]: string[] } = {

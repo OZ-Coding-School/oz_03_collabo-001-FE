@@ -1,6 +1,5 @@
 import DetailRating from './DetailRating';
 import BookmarkButton from '../../components/BookmarkButton';
-// import placeview from '../../assets/Icon/Detail_Icon/placeview.svg';
 
 interface ShopSimpleDataProps {
   placeId: number;
@@ -16,7 +15,6 @@ const ShopSimpleData: React.FC<ShopSimpleDataProps> = ({
   name,
   address,
   rating,
-  // is_bookmarked,
   storeImage,
 }) => {
   return (

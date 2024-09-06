@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 import React from 'react';
 import Place from './Place';
 

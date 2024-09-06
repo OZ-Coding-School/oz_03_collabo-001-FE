@@ -10,13 +10,13 @@ interface BookmarkButtonProps {
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
-  const { isBookmarked, addBookmark, removeBookmark } = useBookmarkStore(); // 전역 상태 사용
+  const { isBookmarked, addBookmark, removeBookmark } = useBookmarkStore();
 
   const handleBookmarkToggle = async () => {
     try {
       if (isBookmarked(placeId)) {
         await axios.delete(
-          `http://127.0.0.1:8000/places/${placeId}/bookmark/`,
+          `https://api.dogandbaby.co.kr/places/${placeId}/bookmark/`,
           {
             withCredentials: true,
           }
@@ -25,7 +25,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ placeId }) => {
         removeBookmark(placeId);
       } else {
         await axios.post(
-          `http://127.0.0.1:8000/places/${placeId}/bookmark/`,
+          `https://api.dogandbaby.co.kr/places/${placeId}/bookmark/`,
           {},
           {
             withCredentials: true,

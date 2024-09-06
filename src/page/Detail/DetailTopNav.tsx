@@ -50,7 +50,7 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
         top: scrollPositions[placeTopNavBtn],
         behavior: 'smooth',
       });
-      setScrollOnClick(false); // Reset the flag after scrolling
+      setScrollOnClick(false);
     }
   }, [
     placeTopNavBtn,
@@ -63,18 +63,18 @@ const DetailTopNav: React.FC<DetailTopNavProps> = ({
 
   const handleClick = (index: number) => {
     setPlaceTopNavBtn(index);
-    setScrollOnClick(true); // Set flag to trigger scrolling
+    setScrollOnClick(true);
   };
 
   const handleScroll = useCallback(() => {
     if (containerRef.current) {
       const scrollTop = containerRef.current.scrollTop;
       if (scrollTop >= contentScrollTop && scrollTop < reviewScrollTop) {
-        setPlaceTopNavBtn(0); // "상세내용" 버튼 활성화
+        setPlaceTopNavBtn(0);
       } else if (scrollTop >= reviewScrollTop && scrollTop < guideScrollTop) {
-        setPlaceTopNavBtn(1); // "후기" 버튼 활성화
+        setPlaceTopNavBtn(1);
       } else if (scrollTop >= guideScrollTop) {
-        setPlaceTopNavBtn(2); // "이용안내" 버튼 활성화
+        setPlaceTopNavBtn(2);
       }
     }
   }, [contentScrollTop, reviewScrollTop, guideScrollTop, containerRef]);

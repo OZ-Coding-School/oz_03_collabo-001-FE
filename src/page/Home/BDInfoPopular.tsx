@@ -1,18 +1,16 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import MoreTitle from '../../components/layout/MoreTitle';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-// import required modules
 import { Pagination, Navigation } from 'swiper/modules';
 import BDInfoPopularItem from './BDInfoPopularItem';
 
 export default function BDInfoPopular() {
-  const swiperSlides = Array(4).fill(null); // 4개의 SwiperSlide 생성
-  const items = Array(2).fill(null); // 2개의 BDInfoPopularItem 생성
+  const swiperSlides = Array(4).fill(null);
+  const items = Array(2).fill(null);
 
   return (
     <div className='col'>
@@ -29,12 +27,6 @@ export default function BDInfoPopular() {
         modules={[Pagination, Navigation]}
         className='recoSwiper m-0 w-full'
       >
-        {/* <SwiperSlide>
-          <BDInfoPopularItem />
-          <BDInfoPopularItem />
-          <BDInfoPopularItem className='last' />
-        </SwiperSlide> */}
-
         {swiperSlides.map((_, index) => (
           <SwiperSlide key={index}>
             {items.map((_, idx) => (

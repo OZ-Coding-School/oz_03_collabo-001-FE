@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
 import ReactDOM from 'react-dom';
 import { useRef, useEffect, useState, useCallback } from 'react';
 import useModalWithURL from '../../hooks/useModalWithURL';

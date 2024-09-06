@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -22,7 +23,6 @@ const Place: React.FC<PlaceProps> = ({
   name,
   rating,
   reviewCount,
-  // isBookmarked,
   locationName,
 }) => {
   const { isOpen, openModal, closeModal } = useModalWithURL(
