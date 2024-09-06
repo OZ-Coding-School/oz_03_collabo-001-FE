@@ -35,7 +35,7 @@ const AllImagesModal: React.FC<Props> = ({ placeId, closeModal }) => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/comments/`
+          `https://api.dogandbaby.co.kr/places/${placeId}/comments/`
         );
         setReviews(response.data);
       } catch (error) {

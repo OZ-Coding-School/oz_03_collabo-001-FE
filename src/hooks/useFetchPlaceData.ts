@@ -37,7 +37,7 @@ const useFetchPlaceData = (placeId: number) => {
     const fetchPlaces = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/places/${placeId}/`,
+          `https://api.dogandbaby.co.kr/places/${placeId}/`,
           { withCredentials: true }
         );
 

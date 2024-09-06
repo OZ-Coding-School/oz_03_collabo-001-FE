@@ -17,7 +17,7 @@ interface ReviewData {
 const fetchPlaces = async () => {
   try {
     const response = await axios.get(
-      'http://127.0.0.1:8000/users/mypage/my-comment/',
+      'https://api.dogandbaby.co.kr/users/mypage/my-comment/',
       { withCredentials: true }
     );
     return response.data;

@@ -40,7 +40,7 @@ const AuthProvider = () => {
 
       try {
         const response = await axios.post(
-          `http://127.0.0.1:8000/users/${state}/login/callback/`,
+          `https://api.dogandbaby.co.kr/users/${state}/login/callback/`,
           { code },
           { withCredentials: true }
         );
@@ -50,7 +50,7 @@ const AuthProvider = () => {
           login();
 
           const bookmarkResponse = await axios.get(
-            'http://127.0.0.1:8000/users/mypage/bookmark',
+            'https://api.dogandbaby.co.kr/users/mypage/bookmark',
             { withCredentials: true }
           );
 

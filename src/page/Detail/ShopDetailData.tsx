@@ -21,15 +21,37 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
   address,
 }) => {
   const handleLinkPlace = () => {
-    if (link !== null) {
-      location.href = link;
+    if (link === null) {
+      toast.error('해당 장소의 링크가 없습니다.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return;
     }
+    window.open(link, '_blank');
   };
 
   const handleMapPlace = () => {
-    if (address !== null) {
-      location.href = `https://map.naver.com/p/search/${address}`;
+    if (address === null) {
+      toast.error('해당 장소의 주소가 없습니다.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return;
     }
+    window.open(`https://map.naver.com/p/search/${address}`, '_blank');
   };
 
   const handleCopy = async () => {
