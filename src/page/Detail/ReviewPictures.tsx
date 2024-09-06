@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import MoreTitle from '../../components/layout/MoreTitle';
+import more from '../../assets/More.svg';
 import { FaPlus } from 'react-icons/fa6';
 import useModalWithURL from '../../hooks/useModalWithURL';
 import AllImagesModal from '../../components/modal/AllImagesModal';
@@ -20,7 +20,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
 
   const numberOfItems = 3;
   const items = Array.from({ length: numberOfItems }, (_, index) => index);
-  const { isOpen, openSubModal, closeModal } = useModalWithURL(
+  const { isOpen, openThirdModal, closeModal } = useModalWithURL(
     `allImagesModal_${placeId}`
   );
 
@@ -44,7 +44,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   }, [placeId]);
 
   const handleMoreImagesClick = () => {
-    openSubModal();
+    openThirdModal();
   };
 
   if (isLoading) {
@@ -62,10 +62,21 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   }
 
   return (
-    <>
+    <div>
       {reviewImages.length > 0 && (
         <div className='col'>
-          <MoreTitle title='사진모아보기' />
+          <div className='colTitle flex items-center justify-between'>
+            <div className='flex items-center gap-2'>
+              <p className='font-semibold'>사진모아보기</p>
+            </div>
+            <button
+              type='button'
+              aria-label='사진모아보기'
+              onClick={handleMoreImagesClick}
+            >
+              <img src={more} alt='더보기 아이콘' aria-hidden />
+            </button>
+          </div>
           {reviewImages.length > 3 ? (
             <div className='flex justify-between'>
               {items.map((_, i) => {
@@ -113,7 +124,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
         </div>
       )}
       {isOpen && <AllImagesModal placeId={placeId} closeModal={closeModal} />}
-    </>
+    </div>
   );
 };
 

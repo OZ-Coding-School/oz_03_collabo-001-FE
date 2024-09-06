@@ -1,11 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useEffect } from 'react';
 import { GoChevronUp } from 'react-icons/go';
 
-interface scrollToPosition {
-  scrollbarRef: any;
+interface ScrollToPosition {
+  scrollbarRef: React.RefObject<any>;
 }
 
-const ScrollToTopBtn: React.FC<scrollToPosition> = ({ scrollbarRef }) => {
+const ScrollToTopBtn: React.FC<ScrollToPosition> = ({ scrollbarRef }) => {
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollbarRef.current) {
+        const isScrollable =
+          scrollbarRef.current.getScrollHeight() >
+          scrollbarRef.current.getClientHeight();
+        setShowButton(isScrollable);
+      }
+    };
+
+    handleScroll();
+  }, [scrollbarRef]);
+
   const scrollToPosition = () => {
     if (scrollbarRef.current) {
       scrollbarRef.current.view.scrollTo({
@@ -14,6 +30,8 @@ const ScrollToTopBtn: React.FC<scrollToPosition> = ({ scrollbarRef }) => {
       });
     }
   };
+
+  if (!showButton) return null;
 
   return (
     <button
