@@ -14,7 +14,7 @@ interface FilterState {
   setIsActive: (active: boolean) => void;
 }
 
-export const useFilterStore = create<FilterState>((set) => ({
+const useFilterStore = create<FilterState>((set) => ({
   regionId: null,
   subCategoryId: null,
   latitude: null,
@@ -26,3 +26,5 @@ export const useFilterStore = create<FilterState>((set) => ({
   setLongitude: (long) => set({ longitude: long }),
   setIsActive: (active) => set({ isActive: active }),
 }));
+
+export default useFilterStore;

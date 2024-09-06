@@ -9,7 +9,7 @@ interface ModalState {
   openThirdModal: (thirdModalName: string) => void;
 }
 
-export const useModalStore = create<ModalState>((set) => ({
+const useModalStore = create<ModalState>((set) => ({
   modals: {},
 
   openModal: (modalName) =>
@@ -32,3 +32,5 @@ export const useModalStore = create<ModalState>((set) => ({
       modals: { ...state.modals, [thirdModalName]: true },
     })),
 }));
+
+export default useModalStore;

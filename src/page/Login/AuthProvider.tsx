@@ -8,7 +8,7 @@ import Naver from '../../assets/Icon/SocialLogin/Naver.svg';
 import Google from '../../assets/Icon/SocialLogin/Google.svg';
 import Main_Logo from '../../assets/Icon/Main/OR_Main_TextLogo.svg';
 import useAuthStore from '../../store/useAuthStore';
-import { useBookmarkStore } from '../../store/useBookmarkStore';
+import useBookmarkStore from '../../store/useBookmarkStore';
 
 interface PlaceData {
   id: number;

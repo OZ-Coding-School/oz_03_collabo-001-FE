@@ -3,7 +3,7 @@ import BookmarkLine from '../assets/Icon/BookMark/Bg_BookMark_Line.svg';
 import BookmarkFill from '../assets/Icon/BookMark/Bg_BookMark_Fill.svg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useBookmarkStore } from '../store/useBookmarkStore';
+import useBookmarkStore from '../store/useBookmarkStore';
 
 interface BookmarkButtonProps {
   placeId: number;

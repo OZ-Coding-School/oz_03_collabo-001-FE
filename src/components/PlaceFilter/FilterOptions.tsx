@@ -4,7 +4,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Filter from '../../assets/Icon/Detail_Icon/Filter.svg';
 import { twMerge } from 'tailwind-merge';
-import { useFilterStore } from '../../store/useFilterStore';
+import useFilterStore from '../../store/useFilterStore';
 
 type Option = {
   value: number;

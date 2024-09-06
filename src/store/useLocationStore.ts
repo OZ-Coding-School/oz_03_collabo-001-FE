@@ -12,7 +12,7 @@ interface LocationState {
   }) => void;
 }
 
-export const useLocationStore = create<LocationState>((set) => ({
+const useLocationStore = create<LocationState>((set) => ({
   address: null,
   latitude: null,
   longitude: null,
@@ -21,3 +21,5 @@ export const useLocationStore = create<LocationState>((set) => ({
 
   setCoordinates: ({ latitude, longitude }) => set({ latitude, longitude }),
 }));
+
+export default useLocationStore;
