@@ -18,6 +18,7 @@ interface PlaceData {
   storeImage: string;
   reviewCount: number;
   price: string;
+  link: string;
   instruction: string;
   tags: string;
   bannerImgs: images[];
@@ -48,6 +49,7 @@ const useFetchPlaceData = (placeId: number) => {
           reviewCount: response.data.comments_count,
           storeImage: response.data.store_image,
           price: response.data.price_text,
+          link: response.data.price_link,
           tags: response.data.description_tags,
           instruction: response.data.instruction,
           bannerImgs: response.data.images,
