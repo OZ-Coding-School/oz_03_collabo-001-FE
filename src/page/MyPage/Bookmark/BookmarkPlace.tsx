@@ -1,6 +1,5 @@
 import MoreTitle from '../../../components/layout/MoreTitle';
 import Place from '../../../components/BDPlace/Place';
-import useBookmarkStore from '../../../store/useBookmarkStore';
 
 interface MyBookmarkProps {
   bookmarks: Bookmark[];
@@ -25,12 +24,6 @@ interface RegionListType {
 }
 
 const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
-  const bookmarkIds = useBookmarkStore((state) => state.bookmarks);
-
-  const filteredBookmarks = bookmarks.filter((bookmark) =>
-    bookmarkIds.includes(bookmark.id)
-  );
-
   const getLocationName = (id: number) => {
     return tapRegions?.find((region) => region.id === id)?.region || 'Unknown';
   };
@@ -39,8 +32,8 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
     <div className='col'>
       <MoreTitle title='나만의 북마크' />
       <div className='flex flex-wrap gap-[8px] pb-[20px]'>
-        {filteredBookmarks.length > 0 ? (
-          filteredBookmarks.map((placeInfo) => (
+        {bookmarks.length > 0 ? (
+          bookmarks.map((placeInfo) => (
             <Place
               key={placeInfo.id}
               placeId={placeInfo.id}

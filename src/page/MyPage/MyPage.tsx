@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import useFetchCategoryData from '../../hooks/useFetchCategoryData';
+import useBookmarkStore from '../../store/useBookmarkStore';
 
 interface UserProfile {
   profile_image: string | null;
@@ -65,6 +66,7 @@ interface MyPageData {
 
 const MyPage = () => {
   const [data, setData] = useState<MyPageData | null>(null);
+  const { bookmarks } = useBookmarkStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,9 +77,11 @@ const MyPage = () => {
             withCredentials: true,
           }
         );
+
         setData(response.data);
       } catch (error) {
         console.error('데이터 가져오기 실패:', error);
+
         toast.error('데이터 가져오기 실패', {
           position: 'top-center',
           autoClose: 5000,
@@ -92,7 +96,7 @@ const MyPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [bookmarks]);
 
   return (
     <>
