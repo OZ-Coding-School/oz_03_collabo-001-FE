@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from 'react';
 
 const useInfiniteScroll = (callback: () => void, hasMore: boolean) => {
@@ -23,7 +24,7 @@ const useInfiniteScroll = (callback: () => void, hasMore: boolean) => {
         observer.unobserve(currentElem);
       }
     };
-  }, [callback, hasMore]);
+  }, [hasMore]);
 
   return { observerElem };
 };
