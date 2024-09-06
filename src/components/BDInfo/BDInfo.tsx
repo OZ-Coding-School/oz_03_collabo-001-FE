@@ -16,7 +16,6 @@ const BDInfo: React.FC = () => {
     { name: '자유게시판', component: <BDFreeBoard /> },
     { name: '애개육아상식', component: <BDInfoBoard /> },
     { name: '애개IN', component: <BDQna /> },
-    // ex: 컴포넌트 연결시 이렇게 사용 { name: '애개플레이스', component: <MiddleNav /> },
   ];
 
   useEffect(() => {
@@ -62,7 +61,6 @@ const BDInfo: React.FC = () => {
           )}
         />
       </div>
-      {/* 여기에 선택된 메뉴를 표시하는 부분을 추가 */}
       <div>{placeNavMenu[placeTopNavBtn].component}</div>
     </div>
   );

@@ -13,7 +13,6 @@ const BDMag = () => {
     { name: '홈', component: <BDMagHome /> },
     { name: '애개매거진', component: <BDMagMag /> },
     { name: '애개스토리', component: <BDMagStory /> },
-    // ex: 컴포넌트 연결시 이렇게 사용 { name: '애개플레이스', component: <MiddleNav /> },
   ];
 
   useEffect(() => {
@@ -58,7 +57,6 @@ const BDMag = () => {
           )}
         />
       </div>
-      {/* 여기에 선택된 메뉴를 표시하는 부분을 추가 */}
       <div>{placeNavMenu[placeTopNavBtn].component}</div>
     </div>
   );
