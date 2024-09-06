@@ -19,7 +19,8 @@ export default {
       'main': '#000000',
       'caption': '#666666',
       'nav': '#b1b1b1',
-      'black-50': 'rgba(0,0,0,0.5)'
+      'black-50': 'rgba(0,0,0,0.5)',
+      'white-50': 'rgba(255,255,255,0.5)'
     },
     backgroundImage: {
       'checkBox': "url('/src/assets/Icon/Detail_Icon/Check.svg')",

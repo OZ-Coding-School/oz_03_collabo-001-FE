@@ -1,4 +1,4 @@
-import useModalWithURL from '../../hooks/useModalWithURL';
+import { useState } from 'react';
 import ImageDetailModal from '../../components/modal/ImageDetailModal';
 
 interface user {
@@ -29,11 +29,11 @@ interface Props {
 }
 
 const AllImages: React.FC<Props> = ({ review, imageUrl, unique }) => {
-  const { isOpen, openThirdModal, closeModal } = useModalWithURL(
-    `imageDetailModal_${review.id}_${unique}`
-  );
+  const [viewImage, setViewImage] = useState<boolean>(false);
+
   const handleImageClick = () => {
-    openThirdModal();
+    console.log(`imageDetailModal_${review.id}_${unique}`);
+    setViewImage(true);
   };
 
   return (
@@ -41,12 +41,13 @@ const AllImages: React.FC<Props> = ({ review, imageUrl, unique }) => {
       <button className='cursor-pointer' onClick={handleImageClick}>
         <img src={imageUrl} alt='' className='h-[128px] object-cover' />
       </button>
-      {isOpen && (
+      {viewImage && (
         <ImageDetailModal
           unique={unique}
           review={review}
           imageUrl={imageUrl}
-          closeModal={closeModal}
+          setViewImage={setViewImage}
+          // closeModal={closeModal}
         />
       )}
     </>
