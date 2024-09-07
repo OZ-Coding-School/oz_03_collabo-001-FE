@@ -79,7 +79,7 @@ const useModalWithURL = (modalName: string) => {
 
   const handleOpenThirdModal = () => {
     if (!isAuthenticated) {
-      toast.error('로그인 후 사용해 주세요!', {
+      toast.error('로그인이 필요합니다.', {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
