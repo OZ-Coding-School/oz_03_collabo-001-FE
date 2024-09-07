@@ -32,7 +32,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
 
   return (
     <>
-      <div className='flex items-center justify-between border-b border-border bg-white p-[10px]'>
+      <div className='flex items-center justify-between border-b border-border bg-white py-[10px] pl-[10px] pr-[15px]'>
         <button onClick={openSubModal}>
           <div className='h-[70px] w-[120px]'>
             <img
@@ -43,9 +43,9 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </div>
         </button>
 
-        <ul className='flex w-[220px] flex-grow flex-col gap-1 py-[8px]'>
+        <ul className='flex w-[220px] flex-col gap-1 py-[8px]'>
           <li className='relative flex justify-between truncate text-nowrap text-[14px] font-semibold'>
-            <p className='w-[180px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
+            <p className='w-[200px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
             <div className='absolute right-0 top-0'>
               <BookmarkButton placeId={placeId} />
             </div>
@@ -56,7 +56,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
               {address}
             </span>
           </li>
-          <li className='flex items-center justify-start gap-1'>
+          <li className='flex items-center justify-start'>
             <img src={Star} alt='별점' aria-hidden />
             <span aria-label='별점' className='ml-[4px] text-[12px]'>
               {(rating ?? 0).toFixed(1)}
@@ -65,7 +65,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
               aria-label='후기 갯수'
               className='ml-[4px] text-[12px] text-caption'
             >
-              {comments_count}
+              {`(${comments_count})`}
             </span>
           </li>
         </ul>

@@ -85,23 +85,19 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
   };
 
   return (
-    <div className='flex h-[90px] flex-col justify-center border-b-[0.5px] border-t-[0.5px] border-border bg-white text-[#808080]'>
-      <div className='flex h-[18px] items-center pr-[12px]'>
-        <img
-          src={sharp}
-          alt='#아이콘'
-          className='ml-[10px] mr-[5px] h-[15px] w-[15px]'
-        />
-        <div className='mr-[5px] h-[18px] w-[354px] text-[13px]'>{tags}</div>
+    <div className='flex h-[90px] flex-col items-center justify-center gap-1 border-b-[0.5px] border-t-[0.5px] border-border bg-white px-[12px] text-[#808080]'>
+      <div className='flex h-[15px] items-center'>
+        <img src={sharp} alt='#아이콘' className='mr-[5px] h-[15px] w-[15px]' />
+        <div className='w-[354px] text-[13px]'>{tags}</div>
       </div>
 
-      <div className='my-[5px] flex h-[18px] items-center pr-[12px]'>
+      <div className='flex h-[15px] items-center'>
         <img
           src={tag}
           alt='태그아이콘'
-          className='ml-[10px] mr-[5px] h-[16px] w-[16px]'
+          className='mr-[5px] h-[15px] w-[15px]'
         />
-        <div className='mr-[5px] h-[18px] w-[300px] text-[13px]'>{price}</div>
+        <div className='h-[15px] w-[300px] text-[13px]'>{price}</div>
         <button
           onClick={handleLinkPlace}
           className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
@@ -110,12 +106,8 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
         </button>
       </div>
 
-      <div className='flex h-[18px] items-center pr-[12px]'>
-        <img
-          src={mapMark}
-          alt='맵마크아이콘'
-          className='ml-[10px] mr-[5px] h-[16px] w-[16px]'
-        />
+      <div className='flex h-[18px] items-center'>
+        <img src={mapMark} alt='맵마크아이콘' className='h-[16px] w-[16px]' />
         <div className='h-[18px] w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
           {address}
         </div>
