@@ -32,7 +32,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
 
   return (
     <>
-      <div className='flex items-center border-b border-border bg-white p-[10px]'>
+      <div className='flex items-center justify-between border-b border-border bg-white p-[10px]'>
         <button onClick={openSubModal}>
           <div className='h-[70px] w-[120px]'>
             <img
@@ -43,7 +43,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </div>
         </button>
 
-        <div className='ml-[12px] w-[230px] grow p-[8px]'>
+        <div className='w-[230px] grow p-[8px]'>
           <ul>
             <li className='relative mb-[4px] truncate text-nowrap text-[14px] font-semibold'>
               <p className='w-[170px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
