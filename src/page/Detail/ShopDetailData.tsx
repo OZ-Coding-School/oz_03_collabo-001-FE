@@ -85,7 +85,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
   };
 
   return (
-    <div className='flex h-[90px] flex-col items-center justify-center gap-1 border-b-[0.5px] border-t-[0.5px] border-border bg-white px-[12px] text-[#808080]'>
+    <div className='flex h-[90px] flex-col justify-center gap-1 border-b-[0.5px] border-t-[0.5px] border-border bg-white px-[12px] text-[#808080]'>
       <div className='flex h-[15px] items-center'>
         <img src={sharp} alt='#아이콘' className='mr-[5px] h-[15px] w-[15px]' />
         <span className='text-[13px]'>{tags}</span>
@@ -113,7 +113,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
             alt='맵마크아이콘'
             className='mr-[5px] h-[15px] w-[15px]'
           />
-          <div className='w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
+          <div className='overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
             {address}
           </div>
         </div>
