@@ -38,7 +38,7 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
             <div></div>
           ) : (
             <img
-              src={`https://api.dogandbaby.co.kr/media/${place_image}`}
+              src={`https://dogandbaby-backend.s3.amazonaws.com/media/${place_image}`}
               alt={placeName}
               className='h-full w-full object-cover'
             />
