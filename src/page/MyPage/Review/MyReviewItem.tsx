@@ -33,7 +33,7 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
   console.log(commentImages);
 
   return (
-    <div>
+    <div className='pb-[10px]'>
       <div className={borderClass} id={id}>
         <div className='imgWrap h-[50px] w-[50px] overflow-hidden rounded-[10px] bg-background'>
           {place_image === null ? (
@@ -53,7 +53,7 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
         <span className='ml-[8px] text-[12px] text-caption'>{update_at}</span>
       </div>
       <p className='pb-[15px] text-[12px]'>{truncatedText}</p>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between overflow-hidden rounded-[10px]'>
         {commentImages.map((image, index) => (
           <img
             key={index}

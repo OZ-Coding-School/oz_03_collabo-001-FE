@@ -9,6 +9,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MAX_IMAGES = 5;
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 
 interface PhotoUploadProps {
   closeModal: () => void;
@@ -49,9 +50,21 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     const newPreviews = [...previews];
 
     files.forEach((file, index) => {
-      if (selectedIndex + index < MAX_IMAGES) {
+      if (selectedIndex + index < MAX_IMAGES && file.size <= MAX_IMAGE_SIZE) {
         newImages[selectedIndex + index] = file;
         newPreviews[selectedIndex + index] = URL.createObjectURL(file);
+      } else {
+        toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          style: { fontSize: '13px' },
+        });
       }
     });
 
