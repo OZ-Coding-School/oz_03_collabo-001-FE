@@ -1,10 +1,11 @@
 import useModalWithURL from '../../hooks/useModalWithURL';
 import more from '../../assets/More.svg';
-import PlaceFilter from '../PlaceFilter/PlaceFilter';
+import RegionPlaceFilter from '../modal/RegionPlaceFilterModal';
 import BookMarkModal from '../modal/BookmarkModal';
 import MyGPS from '../MyGPS';
 import RecePlaceModal from '../modal/RecePlaceModal';
 import CommentModal from '../modal/CommentModal';
+import SubCategoryPlaceFilter from '../modal/SubCategoryPlaceFilterModal';
 
 interface MoreTitleProps {
   title: string;
@@ -16,9 +17,12 @@ const MoreTitle: React.FC<MoreTitleProps> = ({ title, gps = false }) => {
   let ModalComponent = null;
   let selectPlace = '';
 
-  if (title.includes('지역별') || title.includes('장소별')) {
-    modalName = 'placefilter';
-    ModalComponent = PlaceFilter;
+  if (title.includes('지역별')) {
+    modalName = 'RegionPlaceFilter';
+    ModalComponent = RegionPlaceFilter;
+  } else if (title.includes('장소별')) {
+    modalName = 'SubCategoryPlaceFilter';
+    ModalComponent = SubCategoryPlaceFilter;
 
     if (title.includes('애개플레이스')) {
       selectPlace = 'bd';

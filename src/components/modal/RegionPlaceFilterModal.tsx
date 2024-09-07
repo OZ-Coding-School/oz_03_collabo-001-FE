@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
@@ -5,9 +6,9 @@ import { GoChevronLeft } from 'react-icons/go';
 import axios from 'axios';
 import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
-import FilterOptions from './FilterOptions';
-import PlaceList from './PlaceList';
-import FilterDistance from './FilterDistance';
+import FilterOptions from '../PlaceFilter/FilterOptions';
+import PlaceList from '../PlaceFilter/PlaceList';
+import FilterDistance from '../PlaceFilter/FilterDistance';
 import useFilterStore from '../../store/useFilterStore';
 import ScrollToTopBtn from '../CustomScrollbar/ScrollToTopBtn';
 
@@ -34,7 +35,7 @@ interface SubCategoryType {
   subcategory: string;
 }
 
-const PlaceFilter: React.FC<PlaceFilterProps> = ({
+const RegionPlaceFilter: React.FC<PlaceFilterProps> = ({
   selectPlace,
   title,
   closeModal,
@@ -175,4 +176,4 @@ const PlaceFilter: React.FC<PlaceFilterProps> = ({
   );
 };
 
-export default PlaceFilter;
+export default RegionPlaceFilter;
