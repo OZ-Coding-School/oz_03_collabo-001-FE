@@ -7,8 +7,8 @@ interface MyReviewPlaceProps {
 
 interface Comment {
   id: string;
-  place_name: string;
   place_image: string;
+  place_name: string;
   rating_point: number;
   create_date: string;
   content: string;
