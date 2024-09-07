@@ -66,6 +66,7 @@ interface MyPageData {
 
 const MyPage = () => {
   const [data, setData] = useState<MyPageData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { bookmarks } = useBookmarkStore();
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const MyPage = () => {
         );
 
         setData(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.error('데이터 가져오기 실패:', error);
 
@@ -101,7 +103,7 @@ const MyPage = () => {
   return (
     <>
       <BackwardsHeader title='마이페이지' />
-      {data ? (
+      {data && !isLoading ? (
         <>
           <UserInfo profile={data.profile} />
           <UserDashboard
@@ -112,8 +114,8 @@ const MyPage = () => {
           />
         </>
       ) : (
-        <div className='flex items-center gap-[10px] px-3 py-[15px]'>
-          데이터를 가져오는데 실패하였습니다.
+        <div className='py-4 text-center text-[14px] text-caption'>
+          데이터 가져오는 중...
         </div>
       )}
     </>
