@@ -97,29 +97,33 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
           alt='태그아이콘'
           className='mr-[5px] h-[15px] w-[15px]'
         />
-        <div className='h-[15px] w-[300px] text-[13px]'>{price}</div>
+        <div className='w-[300px] text-[13px]'>{price}</div>
         <button
           onClick={handleLinkPlace}
-          className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
+          className='w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
         >
           가격더보기
         </button>
       </div>
 
-      <div className='flex h-[18px] items-center'>
-        <img src={mapMark} alt='맵마크아이콘' className='h-[16px] w-[16px]' />
-        <div className='h-[18px] w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
+      <div className='flex h-[15px] items-center'>
+        <img
+          src={mapMark}
+          alt='맵마크아이콘'
+          className='mr-[5px] h-[15px] w-[15px]'
+        />
+        <div className='w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
           {address}
         </div>
         <img
           src={copy}
           alt='복사아이콘'
-          className='mx-[5px] h-[14px] w-[14px] cursor-pointer'
+          className='mx-[5px] h-[15px] w-[15px] cursor-pointer'
           onClick={handleCopy}
         />
         <button
           onClick={handleMapPlace}
-          className='h-[18px] w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
+          className='w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
         >
           지도보기
         </button>

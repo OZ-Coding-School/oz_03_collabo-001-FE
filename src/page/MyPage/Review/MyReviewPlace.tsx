@@ -7,10 +7,10 @@ interface MyReviewPlaceProps {
 
 interface Comment {
   id: string;
-  place_image: string;
   place_name: string;
+  place_image: string;
   rating_point: number;
-  update_at: string;
+  create_date: string;
   content: string;
   comments_images: string[];
 }
@@ -27,9 +27,10 @@ const MyReviewPlace: React.FC<MyReviewPlaceProps> = ({ reviews }) => {
               id={review.id}
               className={index === 0 ? 'first' : ''}
               reviewText={review.content}
+              place_image={review.place_image}
               placeName={review.place_name}
               ratingPoint={review.rating_point}
-              update_at={review.update_at}
+              update_at={review.create_date}
               commentImages={review.comments_images}
             />
           ))

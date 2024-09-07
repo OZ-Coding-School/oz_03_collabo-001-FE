@@ -31,9 +31,9 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
   return (
     <div className='col'>
       <MoreTitle title='나만의 북마크' />
-      <div className='grid grid-cols-1 gap-[8px] pb-[15px] breakPoint:grid-cols-3'>
-        {bookmarks.length > 0 ? (
-          bookmarks.map((placeInfo) => (
+      {bookmarks.length > 0 ? (
+        <div className='grid grid-cols-1 gap-[8px] pb-[15px] breakPoint:grid-cols-3'>
+          {bookmarks.map((placeInfo) => (
             <Place
               key={placeInfo.id}
               placeId={placeInfo.id}
@@ -44,13 +44,13 @@ const MyBookmark: React.FC<MyBookmarkProps> = ({ bookmarks, tapRegions }) => {
               isBookmarked={placeInfo.is_bookmarked}
               locationName={getLocationName(placeInfo.place_region)}
             />
-          ))
-        ) : (
-          <div className='w-[100%] py-4 text-center text-[14px] text-caption'>
-            북마크된 장소가 없습니다.
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className='w-[100%] py-4 text-center text-[14px] text-caption'>
+          북마크된 장소가 없습니다.
+        </div>
+      )}
     </div>
   );
 };

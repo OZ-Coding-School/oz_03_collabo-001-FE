@@ -7,6 +7,7 @@ interface MyReviewItemProps {
   id: string;
   reviewText: string;
   placeName: string;
+  place_image: string;
   ratingPoint: number;
   update_at: string;
   commentImages: string[];
@@ -17,6 +18,7 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
   id,
   reviewText,
   placeName,
+  place_image,
   ratingPoint,
   update_at,
   commentImages,
@@ -32,11 +34,11 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
     <div>
       <div className={borderClass} id={id}>
         <div className='imgWrap h-[50px] w-[50px] overflow-hidden rounded-[10px] bg-background'>
-          {commentImages === null ? (
+          {place_image === null ? (
             <div></div>
           ) : (
             <img
-              src={commentImages[0]}
+              src={place_image}
               alt={placeName}
               className='h-full w-full object-cover'
             />
@@ -49,6 +51,16 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
         <span className='ml-[8px] text-[12px] text-caption'>{update_at}</span>
       </div>
       <p className='pb-[15px] text-[12px]'>{truncatedText}</p>
+      <div className='flex items-center justify-between'>
+        {commentImages.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt=''
+            className='mr-[5px] h-[50px] w-[50px]'
+          />
+        ))}
+      </div>
     </div>
   );
 };

@@ -72,6 +72,7 @@ const MyReviewList: React.FC = () => {
             className={index === 0 ? 'first' : ''}
             reviewText={review.content}
             placeName={review.place_name}
+            place_image={review.place_image}
             ratingPoint={review.rating_point}
             update_at={review.update_at}
             commentImages={review.comments_images}

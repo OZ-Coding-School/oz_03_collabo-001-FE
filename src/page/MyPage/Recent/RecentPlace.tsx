@@ -34,9 +34,9 @@ const RecentPlace: React.FC<RecentPlaceProps> = ({
   return (
     <div className='col'>
       <MoreTitle title='최근 본 장소' />
-      <div className='grid grid-cols-1 gap-[8px] pb-[15px] breakPoint:grid-cols-3'>
-        {recentplace.length > 0 ? (
-          recentplace.map((placeInfo) => (
+      {recentplace.length > 0 ? (
+        <div className='grid grid-cols-1 gap-[8px] pb-[15px] breakPoint:grid-cols-3'>
+          {recentplace.map((placeInfo) => (
             <Place
               key={placeInfo.id}
               placeId={placeInfo.id}
@@ -47,13 +47,13 @@ const RecentPlace: React.FC<RecentPlaceProps> = ({
               isBookmarked={placeInfo.is_bookmarked}
               locationName={getLocationName(placeInfo.place_region)}
             />
-          ))
-        ) : (
-          <div className='w-[100%] py-4 text-center text-[14px] text-caption'>
-            최근 본 장소가 없습니다.
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className='w-[100%] py-4 text-center text-[14px] text-caption'>
+          최근 본 장소가 없습니다.
+        </div>
+      )}
     </div>
   );
 };
