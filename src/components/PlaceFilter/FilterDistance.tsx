@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { twMerge } from 'tailwind-merge';
 import useGeolocation from '../../hooks/useGeolocation';
+import { toast } from 'react-toastify';
 
 interface FilterDistanceProps {
   onDistanceFilterChange: (
@@ -26,6 +27,16 @@ const FilterDistance: React.FC<FilterDistanceProps> = ({
         if (latitude && longitude) {
           onDistanceFilterChange(latitude, longitude, true);
         } else {
+          toast.info('위치 정보를 가져오는 중 입니다.', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
           getLocation();
         }
       }
