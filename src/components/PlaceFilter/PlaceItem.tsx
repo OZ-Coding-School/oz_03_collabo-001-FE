@@ -43,20 +43,20 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </div>
         </button>
 
-        <ul className='flex w-[220px] flex-col gap-2 py-[8px]'>
-          <li className='relative mb-[4px] flex justify-between truncate text-nowrap text-[14px] font-semibold'>
+        <ul className='flex w-[220px] flex-grow flex-col gap-1 py-[8px]'>
+          <li className='relative flex justify-between truncate text-nowrap text-[14px] font-semibold'>
             <p className='w-[180px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
             <div className='absolute right-0 top-0'>
               <BookmarkButton placeId={placeId} />
             </div>
           </li>
-          <li className='flex items-center justify-start'>
+          <li className='flex items-center justify-start gap-1'>
             <img src={Location} alt='' aria-hidden />
             <span className='truncate text-nowrap text-[12px] font-medium text-caption'>
               {address}
             </span>
           </li>
-          <li className='flex items-center justify-start'>
+          <li className='flex items-center justify-start gap-1'>
             <img src={Star} alt='별점' aria-hidden />
             <span aria-label='별점' className='ml-[4px] text-[12px]'>
               {(rating ?? 0).toFixed(1)}

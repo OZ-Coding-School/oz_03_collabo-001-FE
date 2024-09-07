@@ -17,11 +17,11 @@ const ReviewWriter = () => {
         );
 
         if (response.data.profile_image) {
-          setProfileImage(response.data.profile_image);
+          setProfileImage(response.data.profile.profile_image);
         }
 
         if (response.data.name) {
-          setUserName(response.data.name);
+          setUserName(response.data.profile.nickname);
         }
       } catch (error) {
         console.error('사용자 프로필을 가져오는 데 실패했습니다.', error);
