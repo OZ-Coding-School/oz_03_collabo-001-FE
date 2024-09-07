@@ -44,20 +44,20 @@ const PlaceItem: React.FC<PlaceItem> = ({
         </button>
 
         <div className='w-[220px] grow py-[8px]'>
-          <ul>
-            <li className='relative mb-[4px] flex justify-between truncate text-nowrap text-[14px] font-semibold'>
+          <div className='flex flex-col'>
+            <div className='relative mb-[4px] flex justify-between truncate text-nowrap text-[14px] font-semibold'>
               <p className='w-[180px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
               <div className='absolute right-0 top-0'>
                 <BookmarkButton placeId={placeId} />
               </div>
-            </li>
-            <li className='mb-[4px]'>
+            </div>
+            <div className='mb-[4px]'>
               <img src={Location} alt='' aria-hidden />
               <span className='ml-[4px] truncate text-nowrap text-[12px] font-medium text-caption'>
                 {address}
               </span>
-            </li>
-            <li>
+            </div>
+            <div>
               <img src={Star} alt='별점' aria-hidden />
               <span aria-label='별점' className='ml-[4px] text-[12px]'>
                 {(rating ?? 0).toFixed(1)}
@@ -68,8 +68,8 @@ const PlaceItem: React.FC<PlaceItem> = ({
               >
                 {comments_count}
               </span>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
       {isOpen && <DetailModal closeModal={closeModal} placeId={placeId} />}
