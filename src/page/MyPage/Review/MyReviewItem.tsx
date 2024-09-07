@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import useTruncatedText from '../../../hooks/useTruncatedText';
 import DetailRating from '../../Detail/DetailRating';
+import { twMerge } from 'tailwind-merge';
 
 interface MyReviewItemProps {
   className?: string;
@@ -52,7 +53,12 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
       </div>
       <p className='pb-[15px] text-[12px]'>{truncatedText}</p>
       {commentImages.length > 0 ? (
-        <div className='flex items-center justify-between'>
+        <div
+          className={twMerge(
+            'flex items-center',
+            commentImages.length === 5 ? 'justify-between' : 'gap-6'
+          )}
+        >
           {commentImages.map((image, index) => (
             <img
               key={index}
@@ -70,5 +76,4 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
     </div>
   );
 };
-
 export default MyReviewItem;

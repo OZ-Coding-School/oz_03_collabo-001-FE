@@ -88,15 +88,17 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
     <div className='flex h-[90px] flex-col items-center justify-center gap-1 border-b-[0.5px] border-t-[0.5px] border-border bg-white px-[12px] text-[#808080]'>
       <div className='flex h-[15px] items-center'>
         <img src={sharp} alt='#아이콘' className='mr-[5px] h-[15px] w-[15px]' />
-        <div className='w-[354px] text-[13px]'>{tags}</div>
+        <span className='text-[13px]'>{tags}</span>
       </div>
-      <div className='flex h-[15px] items-center'>
-        <img
-          src={tag}
-          alt='태그아이콘'
-          className='mr-[5px] h-[15px] w-[15px]'
-        />
-        <div className='w-[304px] text-[13px]'>{price}</div>
+      <div className='flex h-[15px] items-center justify-between'>
+        <div className='flex items-center'>
+          <img
+            src={tag}
+            alt='태그아이콘'
+            className='mr-[5px] h-[15px] w-[15px]'
+          />
+          <span className='text-[13px]'>{price}</span>
+        </div>
         <button
           onClick={handleLinkPlace}
           className='w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
@@ -104,27 +106,31 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
           가격더보기
         </button>
       </div>
-      <div className='flex h-[15px] items-center'>
-        <img
-          src={mapMark}
-          alt='맵마크아이콘'
-          className='mr-[5px] h-[15px] w-[15px]'
-        />
-        <div className='w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
-          {address}
+      <div className='flex h-[15px] items-center justify-between'>
+        <div className='flex items-center'>
+          <img
+            src={mapMark}
+            alt='맵마크아이콘'
+            className='mr-[5px] h-[15px] w-[15px]'
+          />
+          <div className='w-[280px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
+            {address}
+          </div>
         </div>
-        <img
-          src={copy}
-          alt='복사아이콘'
-          className='mx-[5px] h-[15px] w-[15px] cursor-pointer'
-          onClick={handleCopy}
-        />
-        <button
-          onClick={handleMapPlace}
-          className='w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
-        >
-          지도보기
-        </button>
+        <div className='flex items-center'>
+          <img
+            src={copy}
+            alt='복사아이콘'
+            className='mx-[5px] h-[15px] w-[15px] cursor-pointer'
+            onClick={handleCopy}
+          />
+          <button
+            onClick={handleMapPlace}
+            className='w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
+          >
+            지도보기
+          </button>
+        </div>
       </div>
     </div>
   );

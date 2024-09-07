@@ -79,7 +79,7 @@ const ReviewListItem: React.FC<ReviewListItemProps> = ({
           </Scrollbars>
         ) : (
           <div className='py-4 text-[10px] text-caption opacity-40'>
-            이미지를 불러오는데 실패하였습니다.
+            등록한 이미지가 없습니다.
           </div>
         )}
       </div>
