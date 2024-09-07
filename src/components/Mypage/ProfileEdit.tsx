@@ -123,8 +123,8 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
       }
     } catch (error) {
       console.error('업로드 실패', error);
-      toast.error('프로필 변경 실패!', {
-        position: 'top-right',
+      toast.error('이미지 용량이 너무 큽니다.', {
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

@@ -9,7 +9,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MAX_IMAGES = 5;
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+const MAX_IMAGE_SIZE = 5000000;
 
 interface PhotoUploadProps {
   closeModal: () => void;
@@ -51,34 +51,45 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
 
     files.forEach((file, index) => {
       if (selectedIndex + index < MAX_IMAGES && file.size <= MAX_IMAGE_SIZE) {
-        newImages[selectedIndex + index] = file;
-        newPreviews[selectedIndex + index] = URL.createObjectURL(file);
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          if (e.target && typeof e.target.result === 'string') {
+            const dataUrl = e.target.result as string;
+
+            if (dataUrl.length > MAX_IMAGE_SIZE) {
+              toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
+                position: 'top-center',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                style: { fontSize: '13px' },
+              });
+              return;
+            }
+            newImages[selectedIndex + index] = file;
+            newPreviews[selectedIndex + index] = dataUrl;
+          } else {
+            console.error('파일 읽기 오류 발생');
+          }
+        };
+        reader.readAsDataURL(file);
       } else {
-        if (file.size > 5000000) {
-          toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
-            position: 'top-center',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-            style: { fontSize: '13px' },
-          });
-        } else {
-          toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
-            position: 'top-center',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-            style: { fontSize: '13px' },
-          });
-        }
+        toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          style: { fontSize: '13px' },
+        });
       }
     });
 
@@ -152,7 +163,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     } catch (error) {
       console.error('Upload error:', error);
 
-      toast.error('후기 등록 실패', {
+      toast.error('이미지가 너무 큽니다.', {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
