@@ -99,7 +99,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     filesToUpload.forEach((file) => formData.append('images', file));
     try {
       await axios.post(
-        `https://dogandbaby.co.kr/places/${placeId}/comments/`,
+        `https://api.dogandbaby.co.kr/places/${placeId}/comments/`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
