@@ -53,13 +53,13 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
         <span className='ml-[8px] text-[12px] text-caption'>{update_at}</span>
       </div>
       <p className='pb-[15px] text-[12px]'>{truncatedText}</p>
-      <div className='flex items-center justify-between overflow-hidden rounded-[10px]'>
+      <div className='flex items-center justify-between'>
         {commentImages.map((image, index) => (
           <img
             key={index}
             src={image}
             alt=''
-            className='mr-[5px] h-[50px] w-[50px]'
+            className='h-[70px] w-[70px] overflow-hidden rounded-[10px]'
           />
         ))}
       </div>
