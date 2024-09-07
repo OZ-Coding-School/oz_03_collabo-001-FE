@@ -43,34 +43,32 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </div>
         </button>
 
-        <div className='w-[220px] grow py-[8px]'>
-          <div className='flex flex-col'>
-            <div className='relative mb-[4px] flex justify-between truncate text-nowrap text-[14px] font-semibold'>
-              <p className='w-[180px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
-              <div className='absolute right-0 top-0'>
-                <BookmarkButton placeId={placeId} />
-              </div>
+        <ul className='flex w-[220px] flex-col gap-2 py-[8px]'>
+          <li className='relative mb-[4px] flex justify-between truncate text-nowrap text-[14px] font-semibold'>
+            <p className='w-[180px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
+            <div className='absolute right-0 top-0'>
+              <BookmarkButton placeId={placeId} />
             </div>
-            <div className='mb-[4px]'>
-              <img src={Location} alt='' aria-hidden />
-              <span className='ml-[4px] truncate text-nowrap text-[12px] font-medium text-caption'>
-                {address}
-              </span>
-            </div>
-            <div>
-              <img src={Star} alt='별점' aria-hidden />
-              <span aria-label='별점' className='ml-[4px] text-[12px]'>
-                {(rating ?? 0).toFixed(1)}
-              </span>
-              <span
-                aria-label='후기 갯수'
-                className='ml-[4px] text-[12px] text-caption'
-              >
-                {comments_count}
-              </span>
-            </div>
-          </div>
-        </div>
+          </li>
+          <li className='flex items-center justify-start'>
+            <img src={Location} alt='' aria-hidden />
+            <span className='truncate text-nowrap text-[12px] font-medium text-caption'>
+              {address}
+            </span>
+          </li>
+          <li className='flex items-center justify-start'>
+            <img src={Star} alt='별점' aria-hidden />
+            <span aria-label='별점' className='ml-[4px] text-[12px]'>
+              {(rating ?? 0).toFixed(1)}
+            </span>
+            <span
+              aria-label='후기 갯수'
+              className='ml-[4px] text-[12px] text-caption'
+            >
+              {comments_count}
+            </span>
+          </li>
+        </ul>
       </div>
       {isOpen && <DetailModal closeModal={closeModal} placeId={placeId} />}
     </>
