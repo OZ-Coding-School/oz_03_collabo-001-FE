@@ -8,7 +8,7 @@ import renderThumbVertical from '../CustomScrollbar/renderThumbVertical';
 const Layout = () => {
   const location = useLocation();
 
-  const noHeaderPaths = ['/placefilter', '/mypage', '/login', '/auth/provider'];
+  const noHeaderPaths = ['/mypage', '/login', '/auth/provider'];
   const noFooterPaths = ['/login', '/auth/provider'];
 
   const showHeader = !noHeaderPaths.includes(location.pathname);
