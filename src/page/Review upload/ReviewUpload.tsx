@@ -30,6 +30,23 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+
+    if (files.length > MAX_IMAGES) {
+      toast.error('이미지는 5개 이하만 등록 가능합니다.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        style: { fontSize: '13px' },
+      });
+      return;
+    }
+
     if (selectedIndex === null) {
       toast.error('업로드할 위치를 선택하세요.', {
         position: 'top-center',
@@ -45,12 +62,11 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
       return;
     }
 
-    const files = Array.from(event.target.files || []);
     const newImages = [...images];
     const newPreviews = [...previews];
 
     files.forEach((file, index) => {
-      if (selectedIndex + index < MAX_IMAGES && file.size <= MAX_IMAGE_SIZE) {
+      if (selectedIndex + index < MAX_IMAGES) {
         const reader = new FileReader();
 
         reader.onload = (e) => {
@@ -71,6 +87,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
               });
               return;
             }
+
             newImages[selectedIndex + index] = file;
             newPreviews[selectedIndex + index] = dataUrl;
           } else {
@@ -78,18 +95,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
           }
         };
         reader.readAsDataURL(file);
-      } else {
-        toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          style: { fontSize: '13px' },
-        });
       }
     });
 
