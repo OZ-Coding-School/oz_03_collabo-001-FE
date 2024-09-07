@@ -60,8 +60,6 @@ const useFetchPlaceData = (placeId: number) => {
         };
         setPlaceData(fetchedData);
         setLoading(false);
-
-        console.log(response.data.service_icons);
       } catch (error) {
         console.log('error : ', error);
         setError('failed to fetch data');
