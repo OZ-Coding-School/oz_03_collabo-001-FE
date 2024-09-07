@@ -43,10 +43,10 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </div>
         </button>
 
-        <div className='w-[230px] grow p-[8px]'>
+        <div className='w-[220px] grow p-[8px]'>
           <ul>
             <li className='relative mb-[4px] truncate text-nowrap text-[14px] font-semibold'>
-              <p className='w-[170px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
+              <p className='w-[180px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
               <div className='absolute right-0 top-0'>
                 <BookmarkButton placeId={placeId} />
               </div>
