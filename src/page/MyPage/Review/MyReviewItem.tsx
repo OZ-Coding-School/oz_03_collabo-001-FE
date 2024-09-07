@@ -30,6 +30,8 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
 
   const truncatedText = useTruncatedText(reviewText, 210);
 
+  console.log(commentImages);
+
   return (
     <div>
       <div className={borderClass} id={id}>
