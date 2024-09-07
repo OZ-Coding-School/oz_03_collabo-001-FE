@@ -5,11 +5,10 @@ import ReviewWriter from './ReviewWriter';
 import { GoChevronLeft } from 'react-icons/go';
 import Scrollbars from 'react-custom-scrollbars-2';
 import renderThumbVertical from '../../components/CustomScrollbar/renderThumbVertical';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const MAX_IMAGES = 5;
-const MAX_IMAGE_SIZE = 5000000;
+const MAX_IMAGE_SIZE = 1000000;
 
 interface PhotoUploadProps {
   closeModal: () => void;
@@ -30,7 +29,25 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (selectedIndex === null) {
+      toast.error('업로드할 위치를 선택하세요.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        style: { fontSize: '13px' },
+      });
+      return;
+    }
+
     const files = Array.from(event.target.files || []);
+    const newImages = [...images];
+    const newPreviews = [...previews];
+    let hasSizeError = false;
 
     if (files.length > MAX_IMAGES) {
       toast.error('이미지는 5개 이하만 등록 가능합니다.', {
@@ -47,59 +64,42 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
       return;
     }
 
-    if (selectedIndex === null) {
-      toast.error('업로드할 위치를 선택하세요.', {
-        position: 'top-center',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        style: { fontSize: '13px' },
-      });
-      return;
-    }
-
-    const newImages = [...images];
-    const newPreviews = [...previews];
-
-    files.forEach((file, index) => {
-      if (selectedIndex + index < MAX_IMAGES) {
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          if (e.target && typeof e.target.result === 'string') {
-            const dataUrl = e.target.result as string;
-
-            if (dataUrl.length > MAX_IMAGE_SIZE) {
-              toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
-                position: 'top-center',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'light',
-                style: { fontSize: '13px' },
-              });
-              return;
-            }
-
-            newImages[selectedIndex + index] = file;
-            newPreviews[selectedIndex + index] = dataUrl;
-          } else {
-            console.error('파일 읽기 오류 발생');
-          }
-        };
-        reader.readAsDataURL(file);
+    // 먼저 파일 크기 확인 후 필터링
+    const validFiles = files.filter((file) => {
+      if (file.size > MAX_IMAGE_SIZE) {
+        if (!hasSizeError) {
+          hasSizeError = true;
+          toast.error('이미지 크기는 1MB 이하만 등록 가능합니다.', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            style: { fontSize: '13px' },
+          });
+        }
+        return false;
       }
+      return true;
     });
 
-    setImages(newImages);
-    setPreviews(newPreviews);
+    validFiles.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target && typeof e.target.result === 'string') {
+          const dataUrl = e.target.result as string;
+          newImages[selectedIndex + index] = file;
+          newPreviews[selectedIndex + index] = dataUrl;
+          setImages(newImages);
+          setPreviews(newPreviews);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
     setSelectedIndex(null);
   };
 
@@ -152,7 +152,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
         }
       );
 
-      toast.success('후기 등록 성공', {
+      toast.success('후기 등록에 성공하였습니다.', {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -168,7 +168,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     } catch (error) {
       console.error('Upload error:', error);
 
-      toast.error('이미지가 너무 큽니다.', {
+      toast.error('후기 등록에 실패하였습니다.', {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -283,7 +283,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
             최대 5장까지 등록가능합니다.(*최소 1장 필수등록)
           </div>
 
-          {/* 파일 입력 필드에 ref 연결 */}
           <input
             id='file-input'
             type='file'
@@ -294,7 +293,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
             ref={fileInputRef}
           />
 
-          {/* 사진 미리보기 */}
           <div className='flex space-x-[19px]'>
             {[0, 1, 2].map(renderPreview)}
           </div>
@@ -310,7 +308,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
           </button>
         </div>
       </Scrollbars>
-      <ToastContainer />
     </div>
   );
 };
