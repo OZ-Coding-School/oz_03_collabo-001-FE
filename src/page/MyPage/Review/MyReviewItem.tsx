@@ -30,8 +30,6 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
 
   const truncatedText = useTruncatedText(reviewText, 210);
 
-  console.log(commentImages);
-
   return (
     <div className='pb-[10px]'>
       <div className={borderClass} id={id}>
@@ -53,16 +51,22 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
         <span className='ml-[8px] text-[12px] text-caption'>{update_at}</span>
       </div>
       <p className='pb-[15px] text-[12px]'>{truncatedText}</p>
-      <div className='flex items-center justify-between'>
-        {commentImages.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt=''
-            className='h-[70px] w-[70px] overflow-hidden rounded-[10px]'
-          />
-        ))}
-      </div>
+      {commentImages.length > 0 ? (
+        <div className='flex items-center justify-between'>
+          {commentImages.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt=''
+              className='h-[70px] w-[70px] overflow-hidden rounded-[10px]'
+            />
+          ))}
+        </div>
+      ) : (
+        <div className='py-4 text-[10px] text-caption opacity-40'>
+          이미지를 불러오는데 실패하였습니다.
+        </div>
+      )}
     </div>
   );
 };

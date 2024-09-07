@@ -54,17 +54,31 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
         newImages[selectedIndex + index] = file;
         newPreviews[selectedIndex + index] = URL.createObjectURL(file);
       } else {
-        toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
-          position: 'top-center',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          style: { fontSize: '13px' },
-        });
+        if (file.size > 5000000) {
+          toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            style: { fontSize: '13px' },
+          });
+        } else {
+          toast.error('이미지 크기는 5MB 이하만 등록 가능합니다.', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            style: { fontSize: '13px' },
+          });
+        }
       }
     });
 
@@ -109,7 +123,9 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ closeModal, placeId }) => {
     const formData = new FormData();
     formData.append('rating', checkedRate.toString());
     formData.append('content', reviewText);
-    filesToUpload.forEach((file) => formData.append('images', file));
+    filesToUpload.forEach((file, index) => {
+      formData.append(`profile_image_${index + 1}`, file);
+    });
     try {
       await axios.post(
         `https://api.dogandbaby.co.kr/places/${placeId}/comments/`,

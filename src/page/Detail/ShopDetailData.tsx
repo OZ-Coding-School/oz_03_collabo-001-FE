@@ -90,14 +90,13 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
         <img src={sharp} alt='#아이콘' className='mr-[5px] h-[15px] w-[15px]' />
         <div className='w-[354px] text-[13px]'>{tags}</div>
       </div>
-
       <div className='flex h-[15px] items-center'>
         <img
           src={tag}
           alt='태그아이콘'
           className='mr-[5px] h-[15px] w-[15px]'
         />
-        <div className='w-[300px] text-[13px]'>{price}</div>
+        <div className='w-[304px] text-[13px]'>{price}</div>
         <button
           onClick={handleLinkPlace}
           className='w-[52px] rounded-[5px] border-[0.5px] border-[#666666] text-[9px]'
@@ -105,7 +104,6 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
           가격더보기
         </button>
       </div>
-
       <div className='flex h-[15px] items-center'>
         <img
           src={mapMark}

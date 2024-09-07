@@ -91,7 +91,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
 
       if (initialLoad) {
         if (newPlaces.length === 0) {
-          setError('북마크된 장소가 없습니다.');
+          setError('해당하는 장소가 없습니다.');
           setHasMore(false);
           setPlaces([]);
         } else {
