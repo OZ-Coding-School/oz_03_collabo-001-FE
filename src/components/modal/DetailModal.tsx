@@ -107,7 +107,9 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
   if (loading) {
     return ReactDOM.createPortal(
       <div className='detailModal h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
-        <p>loading ...</p>
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          데이터 가져오는 중...
+        </div>
       </div>,
       modalRoot
     );
@@ -116,7 +118,9 @@ const DetailModal: React.FC<DetailModalProps> = ({ closeModal, placeId }) => {
   if (error) {
     return ReactDOM.createPortal(
       <div className='detailModal h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
-        <p>{error}</p>
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          데이터를 가져오던 중 에러가 발생했습니다.
+        </div>
       </div>,
       modalRoot
     );
