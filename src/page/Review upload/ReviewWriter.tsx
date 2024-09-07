@@ -4,7 +4,7 @@ import defaultProfile from '../../assets/DefaultProfile.svg';
 
 const ReviewWriter = () => {
   const [profileImage, setProfileImage] = useState(defaultProfile);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState('작성자');
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -16,11 +16,11 @@ const ReviewWriter = () => {
           }
         );
 
-        if (response.data.profile_image) {
+        if (response.data.profile.profile_image) {
           setProfileImage(response.data.profile.profile_image);
         }
 
-        if (response.data.name) {
+        if (response.data.profile.nickname) {
           setUserName(response.data.profile.nickname);
         }
       } catch (error) {
@@ -38,7 +38,7 @@ const ReviewWriter = () => {
         alt='프로필 이미지'
         className='h-[66px] w-[66px] rounded-full object-cover'
       />
-      <p className='ml-4'>{userName || '작성자 '}</p>
+      <p className='ml-4'>{userName}</p>
     </div>
   );
 };
