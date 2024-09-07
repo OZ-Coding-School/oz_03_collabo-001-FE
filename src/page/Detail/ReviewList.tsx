@@ -73,9 +73,13 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
       </div>
 
       {isLoading ? (
-        <div className='text-center'>리뷰 데이터를 불러오고 있습니다...</div>
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          데이터 가져오는 중...
+        </div>
       ) : error ? (
-        <div className='text-red-500 text-center'>{error}</div>
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          데이터를 가져오던 중 에러가 발생했습니다.
+        </div>
       ) : (
         <>
           {reviewData && (

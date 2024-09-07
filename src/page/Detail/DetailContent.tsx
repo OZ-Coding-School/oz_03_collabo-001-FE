@@ -77,7 +77,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
           )}
         </>
       ) : (
-        <div className='col p-[30px] text-center text-[14px] text-caption'>
+        <div className='col bg-white py-4 text-center text-[14px] text-caption'>
           상세내용이 없습니다.
         </div>
       )}

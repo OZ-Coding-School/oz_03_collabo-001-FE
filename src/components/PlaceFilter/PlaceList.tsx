@@ -134,7 +134,9 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
   return (
     <div className='h-[100vh]' ref={scrollContainerRef}>
       {error && !isLoading && !places.length && (
-        <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          {error}
+        </div>
       )}
       <div className='gap-[10px] py-2'>
         {places.map((place: PlaceData) => (
@@ -151,7 +153,11 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
           />
         ))}
       </div>
-      {isLoading && <div className='py-4 text-center'>가져오는 중...</div>}
+      {isLoading && (
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          데이터 가져오는 중...
+        </div>
+      )}
       {hasMore && <div ref={observerElem} className='h-1' />}
 
       {/* <ScrollToTopButton scrollContainerRef={scrollContainerRef} /> */}

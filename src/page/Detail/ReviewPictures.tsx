@@ -51,7 +51,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   if (isLoading) {
     return (
       <div className='bg-white py-4 text-center text-[14px] text-caption'>
-        로딩 중...
+        데이터 가져오는 중...
       </div>
     );
   }
@@ -59,7 +59,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
   if (error) {
     return (
       <div className='bg-white py-4 text-center text-[14px] text-caption'>
-        {error}
+        데이터를 가져오던 중 에러가 발생했습니다.
       </div>
     );
   }

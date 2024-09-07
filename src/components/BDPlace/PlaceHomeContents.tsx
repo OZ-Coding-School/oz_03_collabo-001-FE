@@ -20,11 +20,19 @@ const BDPlaceHome: React.FC<CurrentProps> = ({ current }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className='bg-white py-4 text-center text-[14px] text-caption'>
+        데이터 가져오는 중...
+      </div>
+    );
   }
 
   if (error || !categoryData) {
-    return <div>Error loading data.</div>;
+    return (
+      <div className='bg-white py-4 text-center text-[14px] text-caption'>
+        데이터를 가져오던 중 에러가 발생했습니다.
+      </div>
+    );
   }
 
   const {

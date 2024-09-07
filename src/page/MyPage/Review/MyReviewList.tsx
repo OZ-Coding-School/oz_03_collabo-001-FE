@@ -62,7 +62,9 @@ const MyReviewList: React.FC = () => {
   return (
     <>
       {error && !isLoading && !reviews.length && (
-        <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          {error}
+        </div>
       )}
       <div className='gap-[10px] py-2'>
         {reviews.map((review: ReviewData, index) => (
@@ -80,8 +82,8 @@ const MyReviewList: React.FC = () => {
         ))}
       </div>
       {isLoading && (
-        <div className='py-4 text-center text-[14px] text-caption'>
-          가져오는 중...
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          데이터 가져오는 중...
         </div>
       )}
     </>

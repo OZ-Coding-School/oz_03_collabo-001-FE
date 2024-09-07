@@ -70,7 +70,7 @@ const Place6: React.FC<Props> = ({
           ))}
         </div>
       ) : (
-        <div className='w-[100%] py-[20px] text-center text-[14px] text-caption'>
+        <div className='w-[100%] bg-white py-4 text-center text-[14px] text-caption'>
           해당하는 장소가 없습니다.
         </div>
       )}

@@ -39,8 +39,8 @@ const ShopInfoData: React.FC<ShopInfoDataProps> = ({ placeInfoMenu }) => {
           </div>
         </Scrollbars>
       ) : (
-        <div className='py-2 text-center text-[14px] text-caption'>
-          데이터를 가져오는데 실패하였습니다.
+        <div className='bg-white py-4 text-center text-[14px] text-caption'>
+          데이터를 가져오던 중 에러가 발생했습니다.
         </div>
       )}
     </div>
