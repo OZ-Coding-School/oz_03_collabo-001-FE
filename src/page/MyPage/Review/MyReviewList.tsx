@@ -5,11 +5,11 @@ import axios from 'axios';
 import MyReviewItem from './MyReviewItem';
 
 interface ReviewData {
-  id: number;
+  id: string;
   place_image: string;
   place_name: string;
   rating_point: number;
-  create_date: string;
+  update_at: string;
   content: string;
   comments_images: string[];
 }
@@ -20,7 +20,6 @@ const fetchPlaces = async () => {
       'https://api.dogandbaby.co.kr/users/mypage/my-comment/',
       { withCredentials: true }
     );
-
     return response.data;
   } catch (error) {
     console.error('정보 가져오기 실패:', error);
@@ -41,7 +40,7 @@ const MyReviewList: React.FC = () => {
 
       try {
         const response = await fetchPlaces();
-        const newPlaces = response?.results || [];
+        const newPlaces = response || [];
 
         if (newPlaces.length === 0) {
           setError('작성한 후기가 없습니다.');
@@ -69,11 +68,12 @@ const MyReviewList: React.FC = () => {
         {reviews.map((review: ReviewData, index) => (
           <MyReviewItem
             key={review.id}
+            id={review.id}
             className={index === 0 ? 'first' : ''}
             reviewText={review.content}
             placeName={review.place_name}
             ratingPoint={review.rating_point}
-            createDate={review.create_date}
+            update_at={review.update_at}
             commentImages={review.comments_images}
           />
         ))}

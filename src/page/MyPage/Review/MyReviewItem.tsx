@@ -4,19 +4,21 @@ import DetailRating from '../../Detail/DetailRating';
 
 interface MyReviewItemProps {
   className?: string;
+  id: string;
   reviewText: string;
   placeName: string;
   ratingPoint: number;
-  createDate: string;
+  update_at: string;
   commentImages: string[];
 }
 
 const MyReviewItem: React.FC<MyReviewItemProps> = ({
   className,
+  id,
   reviewText,
   placeName,
   ratingPoint,
-  createDate,
+  update_at,
   commentImages,
 }) => {
   const borderClass = classNames({
@@ -28,7 +30,7 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
 
   return (
     <div>
-      <div className={borderClass}>
+      <div className={borderClass} id={id}>
         <div className='imgWrap h-[50px] w-[50px] overflow-hidden rounded-[10px] bg-background'>
           {commentImages === null ? (
             <div></div>
@@ -44,7 +46,7 @@ const MyReviewItem: React.FC<MyReviewItemProps> = ({
       </div>
       <div className='mb-[15px] flex'>
         <DetailRating initialRating={ratingPoint} />
-        <span className='ml-[8px] text-[12px] text-caption'>{createDate}</span>
+        <span className='ml-[8px] text-[12px] text-caption'>{update_at}</span>
       </div>
       <p className='pb-[15px] text-[12px]'>{truncatedText}</p>
     </div>

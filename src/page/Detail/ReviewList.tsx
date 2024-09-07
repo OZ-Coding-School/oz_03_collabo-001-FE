@@ -13,25 +13,32 @@ interface Images {
   url: string;
 }
 
-interface user {
+interface User {
+  profile_image: string;
   nickname: string;
 }
 
 interface ReviewData {
+  user: User;
+  id: number;
   content: string;
-  images: Images[];
   rating: number;
-  date: string;
-  user: user;
+  images: Images[];
+  updated_at: string;
 }
 
 const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
   const { isOpen, openThirdModal, closeModal } = useModalWithURL(`TestModal`);
 
-  const [reviewData, setReviewData] = useState<ReviewData[] | null>(null);
+  const [reviewData, setReviewData] = useState<ReviewData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fecthReviews = async () => {
+      setIsLoading(true);
+      setError(null);
+
       try {
         const response = await axios.get(
           `https://api.dogandbaby.co.kr/places/${placeId}/comments/`
@@ -40,14 +47,22 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
         setReviewData(response.data);
       } catch (error) {
         console.log('리뷰 데이터를 불러오는데 실패했습니다 :', error);
+
+        setError('후기를 가져오는데 실패했습니다.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fecthReviews();
   }, [placeId]);
 
-  const reviewItemCount = 3;
-  const reviewItems = Array.from({ length: reviewItemCount });
+  const maxReviewCount = 3;
+
+  function formatDate(date: string) {
+    const newDate = new Date(date);
+    return newDate.toISOString().slice(0, 10).replace(/-/g, '.');
+  }
 
   return (
     <div className='col pb-[20px]'>
@@ -57,46 +72,52 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
         </p>
       </div>
 
-      {reviewCount <= 0 ? (
-        <NoReview />
+      {isLoading ? (
+        <div className='text-center'>리뷰 데이터를 불러오고 있습니다...</div>
+      ) : error ? (
+        <div className='text-red-500 text-center'>{error}</div>
       ) : (
         <>
-          {reviewData &&
-            reviewItems.map((_, index) => {
-              return (
+          {reviewData && (
+            <div>
+              {reviewData.slice(0, maxReviewCount).map((data, index) => (
                 <ReviewListItem
-                  key={index}
+                  key={data.id}
+                  id={data.id}
                   className={index === 2 ? 'noBorder' : ''}
-                  reviewText={reviewData[index].content}
-                  images={reviewData[index].images}
-                  rating={reviewData[index].rating}
-                  nickname={reviewData[index].user.nickname}
+                  reviewText={data.content}
+                  nickname={data.user.nickname}
+                  profile_img={data.user.profile_image}
+                  rating={data.rating}
+                  updateDate={formatDate(data.updated_at)}
+                  images={data.images}
                 />
-              );
-            })}
+              ))}
+            </div>
+          )}
 
-          {reviewCount > 3 ? (
+          {reviewCount > maxReviewCount && (
             <button
               className='h-[35px] w-full rounded-[5px] border-2 border-border text-center text-[14px]'
               onClick={() => {
                 openThirdModal();
               }}
             >
-              후기 {reviewCount}개 모두보기
+              후기 {reviewCount}개 모두 보기
             </button>
-          ) : null}
+          )}
+
+          {reviewCount === 0 && (
+            <div className='py-4 text-[14px] text-caption'>
+              작성된 후기가 없습니다.
+            </div>
+          )}
           {isOpen && (
             <MoreReviewModal reviewData={reviewData} closeModal={closeModal} />
           )}
         </>
       )}
     </div>
-  );
-};
-
-const NoReview = () => {
-  return (
-    <div className='py-4 text-[14px] text-caption'>작성한 후기가 없습니다.</div>
   );
 };
 

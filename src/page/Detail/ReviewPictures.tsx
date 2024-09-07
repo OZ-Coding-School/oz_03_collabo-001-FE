@@ -36,7 +36,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
       } catch (error) {
         console.error('전체 후기 이미지를 불러오는데 실패했습니다.:', error);
 
-        setError('후기 이미지를 불러오는데 실패했습니다.');
+        setError('전체 후기 이미지를 불러오는데 실패했습니다.');
         setIsLoading(false);
       }
     };
@@ -50,7 +50,7 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
 
   if (isLoading) {
     return (
-      <div className='py-4 text-center text-[14px] text-caption'>
+      <div className='bg-white py-4 text-center text-[14px] text-caption'>
         로딩 중...
       </div>
     );
@@ -58,7 +58,9 @@ const ReviewPictures: React.FC<ReviewPicturesProps> = ({ placeId }) => {
 
   if (error) {
     return (
-      <div className='py-4 text-center text-[14px] text-caption'>{error}</div>
+      <div className='bg-white py-4 text-center text-[14px] text-caption'>
+        {error}
+      </div>
     );
   }
 

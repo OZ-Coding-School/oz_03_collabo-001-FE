@@ -10,15 +10,18 @@ interface Images {
   url: string;
 }
 
-interface user {
+interface User {
+  profile_image: string;
   nickname: string;
 }
 
 interface ReviewData {
+  user: User;
+  id: number;
   content: string;
-  images: Images[];
   rating: number;
-  user: user;
+  images: Images[];
+  updated_at: string;
 }
 
 interface MoreReviewModalProps {
@@ -40,6 +43,12 @@ const MoreReviewModal: React.FC<MoreReviewModalProps> = ({
   const scrollbarRef = useRef<Scrollbars>(null);
 
   const modalRoot = document.getElementById('modal-root');
+
+  function formatDate(date: string) {
+    const newDate = new Date(date);
+    return newDate.toISOString().slice(0, 10).replace(/-/g, '.');
+  }
+
   if (!modalRoot) return null;
   return ReactDOM.createPortal(
     <div className='fixed z-50 h-[100vh] w-[400px] overflow-x-hidden bg-white'>
@@ -58,19 +67,22 @@ const MoreReviewModal: React.FC<MoreReviewModalProps> = ({
               <button onClick={closeModal} className='mr-[8px] font-extrabold'>
                 <GoChevronLeft className='text-[24px] opacity-[70%]' />
               </button>
-              <p className='py-[18px] font-semibold'>후기 더보기</p>
+              <p className='py-[18px] font-semibold'>후기 모두 보기</p>
             </div>
             <div>
               {reviewData &&
                 reviewData.map((item: ReviewData, i: number) => {
                   return (
                     <ReviewListItem
-                      key={i}
+                      key={item.id}
+                      id={item.id}
                       className={i === reviewData.length - 1 ? 'noBorder' : ''}
                       reviewText={item.content}
                       images={item.images}
                       rating={item.rating}
                       nickname={item.user.nickname}
+                      profile_img={item.user.profile_image}
+                      updateDate={formatDate(item.updated_at)}
                     />
                   );
                 })}

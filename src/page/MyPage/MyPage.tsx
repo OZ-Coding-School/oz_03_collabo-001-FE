@@ -42,13 +42,13 @@ interface RecentViewHistory {
 }
 
 interface RecentComment {
-  id: number;
+  id: string;
   place_image: string;
   place_name: string;
   rating_point: number;
-  create_date: string;
   content: string;
   comments_images: string[];
+  update_at: string;
 }
 
 interface Banner {

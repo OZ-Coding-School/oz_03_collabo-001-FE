@@ -6,11 +6,11 @@ interface MyReviewPlaceProps {
 }
 
 interface Comment {
-  id: number;
+  id: string;
   place_image: string;
   place_name: string;
   rating_point: number;
-  create_date: string;
+  update_at: string;
   content: string;
   comments_images: string[];
 }
@@ -24,11 +24,12 @@ const MyReviewPlace: React.FC<MyReviewPlaceProps> = ({ reviews }) => {
           reviews.map((review, index) => (
             <MyReviewItem
               key={review.id}
+              id={review.id}
               className={index === 0 ? 'first' : ''}
               reviewText={review.content}
               placeName={review.place_name}
               ratingPoint={review.rating_point}
-              createDate={review.create_date}
+              update_at={review.update_at}
               commentImages={review.comments_images}
             />
           ))

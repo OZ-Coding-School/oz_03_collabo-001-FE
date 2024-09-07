@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 
 interface DetailContentProps {
   onExpandChange: (expanded: boolean) => void;
-  contentImgs: string[];
+  contentImgs: string[] | [];
 }
 
 const DetailContent: React.FC<DetailContentProps> = ({
@@ -52,11 +52,7 @@ const DetailContent: React.FC<DetailContentProps> = ({
 
   return (
     <>
-      {contentImgs.length === 0 ? (
-        <div className='col p-[30px] text-center text-[14px] text-caption'>
-          상세내용이 없습니다.
-        </div>
-      ) : (
+      {contentImgs.length > 0 ? (
         <>
           <ImgWrap>
             {contentImgs.map((item, i) => {
@@ -80,6 +76,10 @@ const DetailContent: React.FC<DetailContentProps> = ({
             </button>
           )}
         </>
+      ) : (
+        <div className='col p-[30px] text-center text-[14px] text-caption'>
+          상세내용이 없습니다.
+        </div>
       )}
     </>
   );
