@@ -88,7 +88,11 @@ const ReviewList: React.FC<ReviewListProps> = ({ placeId, reviewCount }) => {
                 <ReviewListItem
                   key={data.id}
                   id={data.id}
-                  className={index === 2 ? 'noBorder' : ''}
+                  className={
+                    index === reviewData.length - 1 || index === 2
+                      ? 'noBorder'
+                      : ''
+                  }
                   reviewText={data.content}
                   nickname={data.user.nickname}
                   profile_img={data.user.profile_image}

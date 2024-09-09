@@ -88,7 +88,9 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
     <div className='flex h-[90px] flex-col justify-center gap-1 border-b-[0.5px] border-t-[0.5px] border-border bg-white px-[12px] text-[#808080]'>
       <div className='flex h-[15px] items-center'>
         <img src={sharp} alt='#아이콘' className='mr-[5px] h-[15px] w-[15px]' />
-        <span className='text-[13px]'>{tags}</span>
+        <span className='max-w-[350px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
+          {tags}
+        </span>
       </div>
       <div className='flex h-[15px] items-center justify-between'>
         <div className='flex items-center'>
@@ -97,7 +99,9 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
             alt='태그아이콘'
             className='mr-[5px] h-[15px] w-[15px]'
           />
-          <span className='text-[13px]'>{price}</span>
+          <span className='max-w-[260px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
+            {price}
+          </span>
         </div>
         <button
           onClick={handleLinkPlace}
@@ -113,7 +117,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
             alt='맵마크아이콘'
             className='mr-[5px] h-[15px] w-[15px]'
           />
-          <div className='overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
+          <div className='max-w-[260px] overflow-hidden text-ellipsis whitespace-nowrap text-[13px]'>
             {address}
           </div>
         </div>
