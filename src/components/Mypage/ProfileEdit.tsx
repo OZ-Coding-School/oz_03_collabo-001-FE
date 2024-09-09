@@ -27,7 +27,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
       if (profile_image.length > 1000000) {
         toast.error('프로필 용량 문제로 기본 이미지로 대체됩니다.', {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -60,7 +60,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
           if (imgDataUrl.length > 1000000) {
             toast.error('이미지 용량이 큽니다. 다른 이미지를 등록해주세요.', {
               position: 'top-center',
-              autoClose: 5000,
+              autoClose: 3000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -111,7 +111,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
       if (response.status === 200) {
         toast.success('이미지 변경 완료!', {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -125,7 +125,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
       console.error('업로드 실패', error);
       toast.error('이미지 용량이 너무 큽니다.', {
         position: 'top-center',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

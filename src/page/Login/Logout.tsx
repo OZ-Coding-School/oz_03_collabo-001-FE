@@ -25,7 +25,7 @@ const Logout = () => {
       console.error('로그아웃 실패:', error);
       toast.error('로그아웃 실패', {
         position: 'top-center',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

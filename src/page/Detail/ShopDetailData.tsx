@@ -24,7 +24,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
     if (link === null) {
       toast.error('해당 장소의 링크가 없습니다.', {
         position: 'top-center',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -42,7 +42,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
     if (address === null) {
       toast.error('해당 장소의 주소가 없습니다.', {
         position: 'top-center',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -61,7 +61,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
       await navigator.clipboard.writeText(address);
       toast.success('주소 복사에 성공했습니다.', {
         position: 'top-center',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -73,7 +73,7 @@ const ShopDetailData: React.FC<ShopDetailDataProps> = ({
       console.error('복사 실패:', err);
       toast.error('주소 복사에 실패했습니다.', {
         position: 'top-center',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

@@ -25,9 +25,10 @@ const FilterDistance: React.FC<FilterDistanceProps> = ({
         onDistanceFilterChange(null, null, false);
       } else {
         if (latitude && longitude) {
+          toast.dismiss();
           toast.info('위치 정보를 가져오는 중 입니다.', {
             position: 'top-center',
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -37,9 +38,10 @@ const FilterDistance: React.FC<FilterDistanceProps> = ({
           });
           onDistanceFilterChange(latitude, longitude, true);
         } else {
+          toast.dismiss();
           toast.info('위치 정보를 가져오는 중 입니다.', {
             position: 'top-center',
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

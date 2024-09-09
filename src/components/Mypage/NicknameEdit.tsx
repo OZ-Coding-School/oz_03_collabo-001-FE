@@ -40,7 +40,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         } else if (response.status === 212) {
           toast.error('중복된 닉네임 입니다!', {
             position: 'top-center',
-            autoClose: 5000,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -53,7 +53,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         console.error('서버에 닉네임 변경 실패:', error);
         toast.error('닉네임 변경 실패!', {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -93,7 +93,7 @@ const NicknameEdit: React.FC<NicknameEditProps> = ({ nickname }) => {
         console.error('서버에 닉네임 저장 실패:', error);
         toast.error('닉네임 변경 실패!', {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

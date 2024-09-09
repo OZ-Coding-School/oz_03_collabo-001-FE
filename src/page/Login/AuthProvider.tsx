@@ -69,7 +69,7 @@ const AuthProvider = () => {
 
         toast.error(`${state} 로그인 실패`, {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

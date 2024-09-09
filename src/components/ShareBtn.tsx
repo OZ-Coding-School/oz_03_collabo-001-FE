@@ -14,7 +14,7 @@ const ShareBtn: React.FC = () => {
         console.log('공유 실패 :', error);
         toast.error('링크 공유에 실패했습니다.', {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -28,7 +28,7 @@ const ShareBtn: React.FC = () => {
         await navigator.clipboard.writeText(window.location.href);
         toast.success('링크 복사에 성공했습니다.', {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -40,7 +40,7 @@ const ShareBtn: React.FC = () => {
         console.error('링크 복사 실패:', error);
         toast.error('링크 공유에 실패했습니다.', {
           position: 'top-center',
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
