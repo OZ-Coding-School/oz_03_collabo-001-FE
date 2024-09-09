@@ -111,7 +111,7 @@ const RecentList: React.FC<PlaceListProps> = ({ tapRegions }) => {
           {error}
         </div>
       )}
-      <div className='gap-[10px] py-2'>
+      <div className='gap-[10px] px-4 py-2'>
         {places.map((place: PlaceData) => (
           <PlaceItem
             key={place.id}
