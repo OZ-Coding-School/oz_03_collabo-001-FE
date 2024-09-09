@@ -53,10 +53,10 @@ const RegionTab: React.FC<TabProps> = ({
   useEffect(() => {
     let tabs: string[] = [];
 
-    if (tapRegions) {
-      tabs = ['전체', ...tapRegions.map((item) => item.region)];
-    } else if (tapSubcategories) {
+    if (tapSubcategories) {
       tabs = ['전체', ...tapSubcategories.map((item) => item.subcategory)];
+    } else if (tapRegions) {
+      tabs = ['전체', ...tapRegions.map((item) => item.region)];
     }
 
     setStrTabs(tabs);

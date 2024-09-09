@@ -39,16 +39,14 @@ const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
         renderThumbVertical={renderThumbVertical}
         autoHide
       >
-        <div>
-          <div className='col'>
-            <div className='colTitle flex h-[72px] items-center'>
-              <button onClick={closeModal} className='mr-[8px] font-extrabold'>
-                <GoChevronLeft className='text-[24px] opacity-[70%]' />
-              </button>
-              <p className='py-[18px] font-semibold'>{title}</p>
-            </div>
-            <BookmarkList tapRegions={tapRegions} />
+        <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
+          <div className='colTitle flex h-[72px] items-center'>
+            <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+              <GoChevronLeft className='text-[24px] opacity-[70%]' />
+            </button>
+            <p className='py-[18px] font-semibold'>{title}</p>
           </div>
+          <BookmarkList tapRegions={tapRegions} />
         </div>
         <ScrollToTopBtn scrollbarRef={scrollbarRef} />
       </Scrollbars>
