@@ -20,23 +20,33 @@ const FilterDistance: React.FC<FilterDistanceProps> = ({
   const { getLocation, latitude, longitude } = useGeolocation();
 
   const handleCheckboxChange = useCallback(() => {
-    toast.info('위치 정보를 가져오는 중 입니다.', {
-      position: 'top-center',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
     setIsChecked((prev) => {
       if (prev) {
         onDistanceFilterChange(null, null, false);
       } else {
         if (latitude && longitude) {
+          toast.info('위치 정보를 가져오는 중 입니다.', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
           onDistanceFilterChange(latitude, longitude, true);
         } else {
+          toast.info('위치 정보를 가져오는 중 입니다.', {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
           getLocation();
         }
       }
