@@ -78,15 +78,6 @@ const RegionTab: React.FC<TabProps> = ({
 
     if (selectedTab === '전체') {
       setFilteredPlaces(placesToFilter);
-    } else if (tapRegions) {
-      const selectedRegionId = tapRegions.find(
-        (region) => region.region === selectedTab
-      )?.id;
-      setFilteredPlaces(
-        placesToFilter.filter(
-          (place) => place.place_region === selectedRegionId
-        )
-      );
     } else if (tapSubcategories) {
       const selectedSubcategoryId = tapSubcategories.find(
         (subcategory) => subcategory.subcategory === selectedTab
@@ -94,6 +85,15 @@ const RegionTab: React.FC<TabProps> = ({
       setFilteredPlaces(
         placesToFilter.filter(
           (place) => place.place_subcategory === selectedSubcategoryId
+        )
+      );
+    } else if (tapRegions) {
+      const selectedRegionId = tapRegions.find(
+        (region) => region.region === selectedTab
+      )?.id;
+      setFilteredPlaces(
+        placesToFilter.filter(
+          (place) => place.place_region === selectedRegionId
         )
       );
     }
