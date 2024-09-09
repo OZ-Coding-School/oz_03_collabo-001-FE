@@ -32,7 +32,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
 
   return (
     <>
-      <div className='flex items-center justify-between border-b border-border bg-white py-[10px] pl-[10px] pr-[15px]'>
+      <div className='flex items-center gap-4 border-b border-border bg-white py-[10px] pl-[10px] pr-[15px]'>
         <button onClick={openSubModal}>
           <div className='h-[70px] w-[120px]'>
             <img
@@ -43,16 +43,14 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </div>
         </button>
 
-        <ul className='flex w-[220px] flex-col gap-1 py-[8px]'>
-          <li className='relative flex justify-between truncate text-nowrap text-[14px] font-semibold'>
-            <p className='w-[200px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
-            <div className='absolute right-0 top-0'>
-              <BookmarkButton placeId={placeId} />
-            </div>
+        <ul className='flex w-[240px] flex-col gap-1 py-[8px]'>
+          <li className='flex justify-between text-[14px] font-semibold'>
+            <p className='w-[205px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
+            <BookmarkButton placeId={placeId} />
           </li>
           <li className='flex items-center justify-start gap-1'>
             <img src={Location} alt='' aria-hidden />
-            <span className='truncate text-nowrap text-[12px] font-medium text-caption'>
+            <span className='w-[220px] truncate text-nowrap text-[12px] font-medium text-caption breakPoint:w-full'>
               {address}
             </span>
           </li>
