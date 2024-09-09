@@ -43,7 +43,13 @@ const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
           bannerImgs.map((item, i) => {
             return (
               <SwiperSlide key={i}>
-                <Link to={`item.url_link`}>
+                <Link
+                  to='#'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open(item.url_link, '_blank', 'noopener,noreferrer');
+                  }}
+                >
                   <img
                     id={item.id}
                     src={item.image}
