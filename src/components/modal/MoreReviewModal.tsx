@@ -68,7 +68,7 @@ const MoreReviewModal: React.FC<MoreReviewModalProps> = ({
             </button>
             <p className='py-[18px] font-semibold'>후기 모두 보기</p>
           </div>
-          <div className='h-[100vh] py-2'>
+          <div className='h-[100vh] px-5 py-2'>
             {reviewData &&
               reviewData.map((item: ReviewData, i: number) => {
                 return (
