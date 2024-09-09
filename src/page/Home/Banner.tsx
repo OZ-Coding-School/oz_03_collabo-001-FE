@@ -46,6 +46,10 @@ const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
                 <Link
                   to='#'
                   onClick={(e) => {
+                    if (!item.url_link) {
+                      e.preventDefault();
+                      return;
+                    }
                     e.preventDefault();
                     window.open(item.url_link, '_blank', 'noopener,noreferrer');
                   }}

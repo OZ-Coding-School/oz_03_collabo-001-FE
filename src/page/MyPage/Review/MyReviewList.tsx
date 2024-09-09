@@ -66,7 +66,7 @@ const MyReviewList: React.FC = () => {
           {error}
         </div>
       )}
-      <div className='gap-[10px] py-2'>
+      <div className='gap-[10px] py-2 pl-5 pr-[25px]'>
         {reviews.map((review: ReviewData, index) => (
           <MyReviewItem
             key={review.id}
