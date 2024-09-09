@@ -24,7 +24,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
     if (savedImg) {
       setUserImg(savedImg);
     } else if (profile_image) {
-      if (profile_image.length > 5000000) {
+      if (profile_image.length > 1000000) {
         toast.error('프로필 용량 문제로 기본 이미지로 대체됩니다.', {
           position: 'top-center',
           autoClose: 5000,
@@ -57,7 +57,7 @@ const ProfilePhotoEdit: React.FC<ProfilePhotoEditProps> = ({
         if (reader.readyState === 2) {
           const imgDataUrl = reader.result as string;
 
-          if (imgDataUrl.length > 5000000) {
+          if (imgDataUrl.length > 1000000) {
             toast.error('이미지 용량이 큽니다. 다른 이미지를 등록해주세요.', {
               position: 'top-center',
               autoClose: 5000,
