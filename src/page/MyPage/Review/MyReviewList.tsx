@@ -60,7 +60,7 @@ const MyReviewList: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div className='h-[100vh]'>
       {error && !isLoading && !reviews.length && (
         <div className='bg-white py-4 text-center text-[14px] text-caption'>
           {error}
@@ -86,7 +86,7 @@ const MyReviewList: React.FC = () => {
           데이터 가져오는 중...
         </div>
       )}
-    </>
+    </div>
   );
 };
 

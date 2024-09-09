@@ -32,26 +32,24 @@ const RecePlaceModal: React.FC<RecePlaceModalProps> = ({
   if (!modalRoot) return null;
 
   return ReactDOM.createPortal(
-    <div className='flex h-[100vh] items-start justify-center overflow-x-hidden bg-white'>
+    <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
       <Scrollbars
         style={{
-          width: '100%',
+          width: '400px',
           height: '100%',
         }}
         ref={scrollbarRef}
         renderThumbVertical={renderThumbVertical}
         autoHide
       >
-        <div>
-          <div className='col'>
-            <div className='colTitle flex h-[72px] items-center'>
-              <button onClick={closeModal} className='mr-[8px] font-extrabold'>
-                <GoChevronLeft className='text-[24px] opacity-[70%]' />
-              </button>
-              <p className='py-[18px] font-semibold'>{title}</p>
-            </div>
-            <RecentList tapRegions={tapRegions} />
+        <div className='flex flex-col bg-white'>
+          <div className='flex h-[72px] items-center px-2 py-3'>
+            <button onClick={closeModal} className='mr-[8px] font-extrabold'>
+              <GoChevronLeft className='text-[24px] opacity-[70%]' />
+            </button>
+            <p className='py-[18px] font-semibold'>{title}</p>
           </div>
+          <RecentList tapRegions={tapRegions} />
         </div>
         <ScrollToTopBtn scrollbarRef={scrollbarRef} />
       </Scrollbars>
