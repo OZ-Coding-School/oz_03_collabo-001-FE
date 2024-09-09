@@ -4,15 +4,96 @@
 
 /*reset*/
 
+#root {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#modal-root {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 50;
+  width: 400px;
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
+}
+
 :root,
 html,
 body {
   max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
   background-color: #f2f2f2;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body:has(footer) {
+  padding-bottom: 46px;
+}
+body:has(.BackwardsHeader) {
+  padding-top: 48px;
 }
 
 html {
   font-size: 16px;
+}
+
+* {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+body {
+  color: #000000;
+  height: 100vh;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  background-color: transparent;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+button {
+  padding: 0;
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+address {
+  font-style: normal;
+}
+
+/* custom scroll */
+#root::-webkit-scrollbar {
+  display: none;
 }
