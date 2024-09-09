@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 interface Image {
+  id: string;
   image: string;
   url_link?: string;
 }

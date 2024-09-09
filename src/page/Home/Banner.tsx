@@ -6,9 +6,12 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 interface PlaceBannerImg {
+  id?: string;
   image: string;
+  url_link?: string;
 }
 
 interface BannerProps {
@@ -40,11 +43,14 @@ const Banner: React.FC<BannerProps> = ({ bannerImgs }) => {
           bannerImgs.map((item, i) => {
             return (
               <SwiperSlide key={i}>
-                <img
-                  src={item.image}
-                  alt={`banner ${i}`}
-                  className='h-full w-full object-cover'
-                />
+                <Link to={`item.url_link`}>
+                  <img
+                    id={item.id}
+                    src={item.image}
+                    alt={`banner ${i}`}
+                    className='h-full w-full object-cover'
+                  />
+                </Link>
               </SwiperSlide>
             );
           })
