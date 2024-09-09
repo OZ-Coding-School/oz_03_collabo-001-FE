@@ -32,7 +32,7 @@ const BookMarkModal: React.FC<BookMarkModalProps> = ({ title, closeModal }) => {
     <div className='h-100vh fixed inset-0 z-50 flex items-start justify-center bg-background'>
       <Scrollbars
         style={{
-          //   width: '100%',
+          width: '400px',
           height: '100%',
         }}
         ref={scrollbarRef}
