@@ -43,7 +43,10 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </div>
         </button>
 
-        <ul className='flex w-[240px] flex-col gap-1 py-[8px]'>
+        <ul
+          className='flex flex-col gap-1 py-[8px]'
+          style={{ width: 'calc(100% - 136px)' }}
+        >
           <li className='flex justify-between text-[14px] font-semibold'>
             <p className='w-[205px] truncate text-nowrap'>{`[${locationName}] ${name}`}</p>
             <BookmarkButton placeId={placeId} />

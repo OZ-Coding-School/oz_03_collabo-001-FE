@@ -159,8 +159,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ selectPlace, tapRegions }) => {
         </div>
       )}
       {hasMore && <div ref={observerElem} className='h-1' />}
-
-      {/* <ScrollToTopButton scrollContainerRef={scrollContainerRef} /> */}
     </div>
   );
 };
