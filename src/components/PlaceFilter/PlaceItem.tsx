@@ -50,7 +50,7 @@ const PlaceItem: React.FC<PlaceItem> = ({
           </li>
           <li className='flex items-center justify-start gap-1'>
             <img src={Location} alt='' aria-hidden />
-            <span className='w-[220px] truncate text-nowrap text-[12px] font-medium text-caption breakPoint:w-[250px]'>
+            <span className='w-[210px] truncate text-nowrap text-[12px] font-medium text-caption breakPoint:w-[227px]'>
               {address}
             </span>
           </li>
